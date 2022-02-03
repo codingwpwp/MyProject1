@@ -1,0 +1,53 @@
+/*<nav>*/
+nav{
+	height: 21px;
+}
+#nav{
+	width: 900px;
+	margin: 0px auto;
+	background-color:inherit;
+}
+#nav ul{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	list-style: none;
+}
+.menu{
+	display: inline-block;
+	position: relative;
+	margin: 0px 90px 0px;
+}
+.menu ul{
+	display: none;
+	width: inherit;
+	padding-left: 0px;
+	position: absolute;
+	background-color: #FAFAFA;
+}
+.menu:hover > ul{
+	z-index: 100;
+	display: block;
+	border-radius: 4px;
+	background-color: white;
+	text-align: center;
+	padding: 5px 0px;
+}
+#menu2 > ul{
+	right: 25px;
+}
+.menu ul li{
+	padding: 3px 10px;
+}
+.menu a{
+	text-decoration: none;
+	color: #3c2e2e;
+	font-weight: bold;
+	transition: all 0.15s;
+}
+.menu a:hover{
+	color: gray;
+}
+.menu > ul > li a:hover{
+	text-decoration: underline;
+	color: gray;
+}

@@ -1,0 +1,58 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+}
+#joinWrap h2{
+	font-size: 1.7em;
+	text-align: center;
+}
+
+/* 회원가입 */
+#joinWrap{
+	background: white;
+	margin: 20px auto;
+	border: 1px solid black;
+	border-radius: 3px;
+	padding: 10px 20px;
+	width: 194px;
+}
+#join div{
+	margin: 5px 3px;
+}
+#join span{
+	color: red;
+}
+#join span.checkspan{
+	font-size: 11px;
+}
+#join button{
+	float: right;
+	background: gray;
+	border: 1px solid gray;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+}
+#join input:not(input[type='radio']){
+	width: 180px;
+	margin: 5px 0px;
+	height: 21px;
+	font-size: 11px;
+}
+#join input:not(input[type='radio']):focus{
+	background-color: #dfeef3;
+}
+#join div:last-child input:nth-child(1){
+	width: 90px;
+	height: 35px;
+	background: #333333;
+	border: 0px;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+}
+#join div:last-child button{
+	position: relative;
+	top: 10px;
+}

@@ -1,0 +1,147 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid #FAFAFA;
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+}
+#mainWrap a{
+	text-decoration: none;
+	color: black;
+}
+#mainWrap a:hover{
+	text-decoration: underline;
+}
+#mainWrap h2{
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+#mainWrap h2 ~ span{
+	padding-left: 10px;
+	font-weight: bold;
+}
+#mainWrap #notice{
+	color: green;
+}
+#mainWrap #submenu{
+	display: inline;
+	float: right;
+}
+#submenu button{
+	margin-left: 10px;
+	width: 55px;
+	height: 28px;
+	border: 0px;
+	border-radius: 3px;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+}
+#submenu button:nth-of-type(4){
+	background-color: #1a1818;
+}
+
+/*글 상세조회*/
+/* 글제목 */
+#gulTitle{
+	background-color: white;
+	margin-top: 20px;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	min-height: 65px;
+	padding: 0px 10px;
+}
+#gulTitle div{
+	display: inline-block;
+}
+#gulTitle div:nth-of-type(2n){
+	float: right;
+}
+#gulTitle div:nth-of-type(1){
+	padding-top: 8px;
+	font-weight: 900;
+	font-size: 20px;
+}
+#gulTitle div:nth-of-type(2){
+	padding-top: 8px;
+	font-size: small;
+}
+#gulTitle div:nth-of-type(3){
+	font-size: small;
+}
+#gulTitle div:nth-of-type(4){
+	padding-top: 3px;
+	font-size: small;
+}
+#gulTitle span{
+	font-size: 22px;
+}
+#gulTitle input{
+	background-color: white;
+	border: 1px solid;
+	border-radius: 3px;
+	width: 340px;
+	height: 25px;
+	position: relative;
+	bottom: 1px;
+	margin-left: 13px;
+}
+#gul{
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	background-color: white;
+	margin: 20px 0px;
+	padding: 10px;
+	min-height: 279px;
+}
+
+/* 커뮤신청할때 */
+div#commuform div{
+	margin: 10px 0px;
+}
+#commuform span{
+	font-size: 22px;
+	font-weight: bold;
+}
+#commuform div:nth-of-type(1) > input[type='text']{
+	width: 145px;
+	margin-left: 4px;
+	position: relative;
+	bottom: 2px;
+}
+#commuform div:nth-child(2){
+}
+#commuform div > textarea{
+	width: 200px;
+	height: 50px;
+	margin-left: 23px;
+	resize: none;
+}
+#commuform div:nth-of-type(3){
+	display: inline-flex;
+}
+#commuform div:nth-of-type(3) > #commumalhead{
+	margin-left: 26px;
+}
+#commuform div:nth-of-type(3) > #commumalhead > input{
+	margin-bottom: 5px;
+	border: 1px solid gray;
+	border-radius: 3px;
+	width: 55px;
+	text-align: center;
+}
+#commuform div:nth-of-type(3) > #commumalhead > input:nth-child(1){
+	background-color: gray;
+	color: white;
+}
+#commuform div:nth-of-type(3) > #commumalhead img{
+	cursor: pointer;
+}

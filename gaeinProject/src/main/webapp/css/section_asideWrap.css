@@ -1,0 +1,104 @@
+/*<section>_asideWrap*/
+#asideWrap{
+	width: 280px;
+	height: 510px;
+	border: 1px solid #FAFAFA;
+	display: inline-block;
+	float: right;
+}
+#memberdiv{
+	background-color: lightgray;
+	width: 270px;
+	height: 140px;
+	margin: 4px;
+	border-radius: 5px;
+}
+#memberlogin{
+	height: 90px;
+	padding-left: 16px;
+	position: relative;
+	padding-top: 5px;
+}
+#id, #pw{
+	width: 156px;
+    height: 27px;
+    margin: 7px 0px 7px 0px;
+    border: 1px solid;
+	border-radius: 2px;
+}
+#id:focus, #pw:focus{
+	background-color: lightcyan;
+	font-weight: bold;
+}
+#login{
+	background-color: #79CF9F;
+	border: 1px solid #072c14;
+	border-radius: 3px;
+	display: inline-block;
+    height: 76px;
+    width: 75px;
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    cursor: pointer;
+}
+#login:active{
+	background-color: lightgreen;
+}
+#memberdiv > a{
+	margin-left: 13px;
+	position: relative;
+	top: 10px;
+	left: 10px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 13px;
+	color: blue;
+}
+#memberdiv > a:hover{
+	text-decoration: underline;
+}
+#memberNickname{
+	margin: 0px 0px 5px 10px;
+	padding-top: 10px;
+	font-weight: bold;
+	font-size: 30px;
+}
+#memberPosition{
+	margin: 5px 0px 10px 10px;
+	font-size: 20px;
+	min-height: 25px;
+}
+#memberPosition a{
+	text-decoration: none;
+	color: #0e0d0d;
+	font-size: 17px;
+}
+#memberPosition a:hover{
+	text-decoration: underline;
+}
+#memberdiv > .button{
+	height: 40px;
+	width: 100px;
+	margin: 0px 10px 0px 12px;
+	cursor: pointer;
+}
+#masterlogout{
+	margin: 3px 7%;
+    width: 86%;
+    height: 40px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+	
+}
+#ad{
+	border: 1px solid;
+	height: 340px;
+	width: 268px;
+	margin: 0px 4px;
+}
+#ad img{
+	width: 100%;
+	height: 100%;
+}

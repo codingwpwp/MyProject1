@@ -1,0 +1,101 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid #FAFAFA;
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+}
+#mainWrap h2{
+	display: inline-block;
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+
+/*메인페이지의 각 <table>*/
+#mainWrap .table{
+	display: inline-block;
+	border: 5px solid #d0e1a3;
+	border-radius: 5px;
+	height: 180px;
+	width: 235px;
+	text-align: center;
+}
+#tables{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+#tableone, #tabletwo{
+	margin-bottom: 30px;
+}
+.table span{
+	display: block;
+	background-color: #d0e1a3;
+	font-weight: bold;
+	color: #282525;
+}
+.table table{
+	border-collapse: collapse;
+	width: 220px;
+	margin: 0px auto;
+}
+thead th{
+	border-bottom: 2px solid black;
+	padding: 2px 0px 3px;
+	font-size: 15px;
+}
+tbody td{
+	border-bottom: 1px solid #726b69;
+}
+tbody .col1{
+	text-align: left;
+	font-size: 14px;
+}
+#tableone table .col1, #tabletwo table .col1{
+	width: 70%;
+}
+#tablethree table .col1, #tablefour table .col1{
+	width: 65%;
+}
+#tablethree table th:not(#tablethree table th:nth-child(1)), #tablefour table th:not(#tablefour table th:nth-child(1)){
+	font-size: 11px;
+}
+#tableone tbody .col2, #tabletwo tbody .col2, #tablethree tbody .col2, #tablethree tbody .col3, #tablefour tbody .col2, #tablefour tbody .col3{
+	font-size: 11px;
+}
+.table table tbody .col1{
+	padding: 3px 0px 3px 15px;
+}
+.table:hover{
+	background-color: white;
+}
+
+/* 테이블 안의 글 */
+.table a{
+	text-decoration: none;
+	color: #333333;
+}
+.table a:hover{
+	text-decoration: underline;
+}
+#tableone table tbody td{
+	font-weight: bold;
+}
+#tablethree table tr:nth-child(1) .col1 a, #tablefour table tr:nth-child(1) .col1 a, #tablethree table tbody tr:nth-child(1) .col2, #tablefour table tbody tr:nth-child(1) .col3{
+	font-weight: bold;
+	color: red;
+}
+#tablethree tr:nth-child(2) .col1 a, #tablefour tr:nth-child(2) .col1 a, #tablethree table tbody tr:nth-child(2) .col2, #tablefour table tbody tr:nth-child(2) .col3{
+	font-weight: bold;
+}
+#tablethree table tbody .col2, #tablefour table tbody .col3{
+	font-weight: bold;
+}

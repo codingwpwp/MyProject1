@@ -1,0 +1,164 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid #FAFAFA;
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+}
+#mainWrap a{
+	text-decoration: none;
+	color: black;
+}
+#mainWrap a:hover{
+	text-decoration: underline;
+}
+#mainWrap h2{
+	display: inline-block;
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+#mainWrap h2 + span{
+	float: right;
+	position: relative;
+	top: 15px;
+	font-weight: bold;
+}
+#malhead{
+	display: inline-block;
+	margin-left: 10px;
+}
+#malhead span{
+	color: #0c7200;
+	font-size: small;
+	font-weight: bold;
+}
+#malhead a{
+	font-size: small;
+}
+#search{
+	float: right;
+	position: relative;
+	right: 6px;
+}
+#search select{
+	font-size: 14px;
+	height: 30px;
+}
+#search input[type='text']{
+	font-size: 14px;
+	height: 24px;
+	width: 130px;
+}
+#search input[type='submit']{
+	height: 30px;
+	border: 0px;
+	border-radius: 3px;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+}
+
+/*게시판*/
+.board{
+	margin: 27px 0px;
+}
+#jauboard{
+	border-collapse: collapse;
+	margin: 10px auto;
+	width: 98%;
+}
+#jauboard thead tr{
+	background-color: lightgray;
+}
+#jauboard thead tr th{
+	padding: 5px 0px;
+	font-size: 15px;
+}
+#jauboard tbody tr{
+	border-bottom: 1px solid lightgray;
+}
+#jauboard .col1{
+	width: 6%;
+	text-align: center;
+	padding: 8px 0px;
+	font-size: small;
+	font-weight: bold;
+}
+#jauboard .col2{
+	width: 12%;
+	text-align: center;
+	font-size: 12px;
+}
+#jauboard .col3{
+	width: 56%;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 14px;
+}
+#jauboard .col4{
+	width: 10%;
+	text-align: center;
+	font-size: 14px;
+}
+#jauboard .col5{
+	width: 13%;
+	text-align: center;
+	font-size: 11px;
+}
+#jauboard .col6{
+	width: 5%;
+	text-align: center;
+	font-size: 11px;
+}
+/*게시반 밑 부분*/
+#tableBottom{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: baseline;
+	width: 100%;
+}
+#tableBottom #button{
+	width: 50px;
+}
+#tableBottom button{
+	background: dimgray;
+	border: 0px;
+	border-radius: 3px;
+	height: 25px;
+	width: 50px;
+	cursor: pointer;
+	color: white;
+}
+#tableBottom #commu{
+	width: 75px;
+    color: white;
+}
+#tableBottom #commu button{
+	width: 100%;
+    font-size: 10px;
+}
+#tableBottom > #paging{
+	display: inline-block;
+}
+#tableBottom > #paging div{
+	width: 25px;
+	line-height: 25px;
+	border-radius: 5px;
+	display: inline-block;
+	text-align: center;
+	margin: 5px 8px;
+	background-color: #ebedec;
+	cursor: pointer;
+}
+#tableBottom > #paging div:hover{
+	background-color: skyblue;
+}

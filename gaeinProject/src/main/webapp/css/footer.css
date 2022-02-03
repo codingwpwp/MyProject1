@@ -1,0 +1,13 @@
+/*<footer>*/
+footer{
+	height: 70px;
+}
+#footer{
+	width: 900px;
+	background-color:inherit;
+	margin: 0px auto;
+	text-align: center;
+	padding: 24px 0px;
+	font-size: 10px;
+	font-weight: bold;
+}
