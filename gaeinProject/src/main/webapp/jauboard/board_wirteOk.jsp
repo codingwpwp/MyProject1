@@ -9,7 +9,7 @@
 	request.setCharacterEncoding("UTF-8");
 	int bidx = 0;
 	int midx = loginUser.getMidx();
-	String writesort = request.getParameter("malhead");
+	String writesort = request.getParameter("writesort");
 	String subject = request.getParameter("subject");
 	String nickname = loginUser.getNickname();
 	String content = "";

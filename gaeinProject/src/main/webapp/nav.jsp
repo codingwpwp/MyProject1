@@ -4,12 +4,12 @@
 	<div id="nav">
 		<ul>
 			<li class="menu 1" id="menu1" style="width: 80px; font-weight: bold;">
-			<a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=all">자유게시판</a><br>
+			<a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?wirtesort=all">자유게시판</a><br>
 				<ul>
-					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=notice">공지</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=normal">일반</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=qna">질문</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=commuapply">커뮤신청</a></li>
+					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?wirtesort=notice">공지</a></li>
+					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?wirtesort=normal">일반</a></li>
+					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?wirtesort=qna">질문</a></li>
+					<li><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?wirtesort=commuapply">커뮤신청</a></li>
 				</ul>
 			</li>
 			<li class="menu 2" id="menu2" style="font-weight: bold; width: 100px;">

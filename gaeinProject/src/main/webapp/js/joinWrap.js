@@ -5,7 +5,7 @@ var checkednickname = "";
 
 function idcheckFn(){
 	var span = $("input:eq(0)").parent().children("span.checkspan");
-	var idreg = /^[a-z]+[a-z0-9]{7,19}/g;
+	var idreg = /^[a-z0-9]{8,20}$/g;
 	
 	if($("input[name='id']").val() == ""){
 		span.text(" *필수");
@@ -41,7 +41,7 @@ function idcheckFn2(obj){
 
 function nicknamecheckFn(){
 	var span = $("input:eq(4)").parent().children("span.checkspan");
-	var nicknamereg = /^[가-힣]{2,10}/g;
+	var nicknamereg = /^[가-힣0-9]{2,6}$/g;
 	
 	if($("input[name='nickname']").val() == ""){
 		span.text(" *필수");
@@ -86,13 +86,13 @@ function joincheck() {
 		var check;
 
 		if(id == "id"){
-			check = /^[a-z]+[a-z0-9]{7,19}/g;
+			check = /^[a-z0-9]{8,20}$/g;
 		}else if(id == 'pw' || id == 'pwre'){
 			check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
 		}else if(id == 'name'){
 			check = /^[가-힣]{2,5}/g;
 		}else if(id == 'nickname'){
-			check = /^[가-힣]{2,10}/g;
+			check = /^[가-힣0-9]{2,6}$/g;
 		}
 
 		var value = input[i].value;

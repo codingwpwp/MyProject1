@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% Member loginUser = (Member)session.getAttribute("loginUser"); %>
+<%
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	
+	request.setCharacterEncoding("UTF-8");
+	String writesort = request.getParameter("writesort");
+	if(writesort == null){
+		writesort = "all";
+	}
+	
+	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	
+	String searchType = request.getParameter("searchType");
+	if(searchType == null){
+		searchType = "";
+	}
+	
+	String searchValue = request.getParameter("searchValue");
+	if(searchValue == null){
+		searchValue = "";
+	}
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,25 +47,25 @@
 			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_wirteOk.jsp" onsubmit = "return gulWrite()">
 			<%if(loginUser.getPosition().equals("운영자")){%>
 				<label>
-					<input type="radio" name="malhead" value="notice" checked onchange="changeGul(this)">공지
+					<input type="radio" name="writesort" value="notice" checked onchange="changeGul(this)">공지
 				</label>
 			<%}%>
 			<%if(!loginUser.getPosition().equals("운영자")){%>
 				<label>
-					<input type="radio" name="malhead" value="normal" checked onchange="changeGul(this)">일반
+					<input type="radio" name="writesort" value="normal" checked onchange="changeGul(this)">일반
 				</label>
 				<label>
-					<input type="radio" name="malhead" value="qna" onchange="changeGul(this)">질문
+					<input type="radio" name="writesort" value="qna" onchange="changeGul(this)">질문
 				</label>
 			<%}%>
 			<%if(loginUser.getPosition().equals("일반")){%>
 				<label>
-					<input type="radio" name="malhead" value="commuapply" onchange="changeGul(this)">커뮤신청
+					<input type="radio" name="writesort" value="commuapply" onchange="changeGul(this)">커뮤신청
 				</label>
 			<%}%>
 				<div id="submenu">
 					<button type="submit">완료</button>
-					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/boardList.jsp'">취소</button>
+					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/boardList.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
 				</div>
 				<div id="gulTitle">
 					<div style="margin-top:10px">

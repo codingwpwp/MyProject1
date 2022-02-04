@@ -5,6 +5,7 @@ public class List {
 	private String category;
 	private String subject;
 	private String nickname;
+	private String position;
 	private String writeday;
 	private int hit;
 	private int thumb;
@@ -33,6 +34,12 @@ public class List {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
 	public String getWriteday() {
 		return writeday;
 	}
@@ -51,5 +58,4 @@ public class List {
 	public void setThumb(int thumb) {
 		this.thumb = thumb;
 	}
-	
 }

@@ -5,9 +5,9 @@ import java.sql.*;
 import boardWeb.util.*;
 import boardWeb.vo.*;
 
-public class jau_ListMalhead {
+public class ListFilter {
 	
-	public ArrayList<List> jList = new ArrayList<>();
+	public ArrayList<List> gulList = new ArrayList<>();
 	public PagingUtil paging;
 	int cnt;
 	
@@ -15,25 +15,26 @@ public class jau_ListMalhead {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	ResultSet rs2 = null;
 	
-	public jau_ListMalhead(String boardname, String malhead, int nowPage, String searchType, String searchValue){
+	public ListFilter(String boardname, String writesort, int nowPage, String searchType, String searchValue){
 		
-		if(malhead.equals("notice")){
-			malhead = "공지";
-		}else if(malhead.equals("normal")){
-			malhead = "일반";
-		}else if(malhead.equals("qna")){
-			malhead = "질문";
-		}else if(malhead.equals("commuapply")){
-			malhead = "커뮤신청";
+		if(writesort.equals("notice")){
+			writesort = "공지";
+		}else if(writesort.equals("normal")){
+			writesort = "일반";
+		}else if(writesort.equals("qna")){
+			writesort = "질문";
+		}else if(writesort.equals("commuapply")){
+			writesort = "커뮤신청";
 		}
 		
 		try{
 			conn = DBManager.getConnection();
 			
 			String sql = "SELECT * FROM " + boardname + " WHERE delyn = 'N' ";
-			if(malhead != null && !malhead.equals("all")) {
-				sql +=  "AND writesort = '" + malhead + "' ";;
+			if(writesort != null && !writesort.equals("all")) {
+				sql +=  "AND writesort = '" + writesort + "' ";;
 			}
 			if(!searchValue.equals("") && !searchValue.equals("null")){
 				if(searchType.equals("subject")){
@@ -54,13 +55,13 @@ public class jau_ListMalhead {
 			
 			psmt = null;
 			rs = null;
-			paging = new PagingUtil(cnt, nowPage, 2);
+			paging = new PagingUtil(cnt, nowPage, 10);
 			
 			sql = "SELECT b.* FROM ";
 			sql += "(SELECT ROWNUM r, a.* FROM ";
-			sql += "(SELECT bidx, writesort, subject, nickname, hit, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM jauboard WHERE delyn = 'N' ";
-			if(malhead != null && !malhead.equals("all")) {
-				sql +=  "AND writesort = '" + malhead + "' ";;
+			sql += "(SELECT bidx, midx, writesort, subject, hit, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM jauboard WHERE delyn = 'N' ";
+			if(writesort != null && !writesort.equals("all")) {
+				sql +=  "AND writesort = '" + writesort + "' ";;
 			}
 			if(!searchValue.equals("") && !searchValue.equals("null")){
 				if(searchType.equals("subject")){
@@ -83,17 +84,26 @@ public class jau_ListMalhead {
 				jauList.setBidx(rs.getInt("bidx"));
 				jauList.setCategory(rs.getString("writesort"));
 				jauList.setSubject(rs.getString("subject"));
-				jauList.setNickname(rs.getString("nickname"));
+				
+				psmt = null;
+				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
+				psmt = conn.prepareStatement(sql);
+				rs2 = psmt.executeQuery();
+				if(rs2.next()) {
+					jauList.setNickname(rs2.getString("nickname"));
+					jauList.setPosition(rs2.getString("position"));
+				}
+				
 				jauList.setWriteday(rs.getString("writeday"));
 				jauList.setHit(rs.getInt("hit"));
 				
-				jList.add(jauList);
+				gulList.add(jauList);
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBManager.close(conn, psmt, rs);
+			DBManager.close(conn, psmt, rs, rs2);
 		}
 		
 	}

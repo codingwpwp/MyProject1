@@ -39,14 +39,14 @@
 				<div id="name">
 					<span>*</span>이름
 					<span class="checkspan"></span><br>
-					<input type="text" class="impor" name="name" id="name" placeholder="2 ~ 5자리의 한글이름을 입력하세요">
+					<input type="text" class="impor" name="name" id="name" placeholder="2 ~ 5자리의 한글">
 				</div>
 				<div id="membernickname">
 					<span style="color: #2980b9; font-size: small;">닉네임은 본인을 대표합니다</span><br>
 					<span>*</span>닉네임
 					<span class="checkspan"></span>
 					<button type="button" onclick="nicknamecheckFn()"><span>*</span>중복확인</button><br>
-					<input type="text" class="impor" name="nickname" id="nickname" placeholder="2 ~ 10자리의 한글이름을 입력하세요" onblur="nicknamecheckFn2(this)">
+					<input type="text" class="impor" name="nickname" id="nickname" placeholder="2 ~ 6자리의 한글 또는 숫자" onblur="nicknamecheckFn2(this)">
 				</div>
 				
 				<div id="membergender">
