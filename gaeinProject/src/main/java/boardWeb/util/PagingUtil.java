@@ -10,7 +10,7 @@ public class PagingUtil {
 	private int lastPage;
 	private int start;
 	private int end;
-	private int cntPage=10;
+	private int cntPage=6;
 	
 	public PagingUtil(int total, int nowPage, int perPage) {
 		setNowPage(nowPage);
@@ -29,7 +29,6 @@ public class PagingUtil {
 		setStart(start);
 		
 		int end1 = start + perPage - 1;
-		System.out.println(end1);
 		if (end1 > getTotal()) {
 			setEnd(getTotal());
 		} else {

@@ -34,7 +34,7 @@
 				<input type="submit" value="검색">
 			</form>
 			<div class="board">
-				<table id="jauboard">
+				<table id="jauboard" class="boardlist">
 					<thead>
 						<tr>
 							<th>번호</th>

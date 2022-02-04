@@ -102,7 +102,9 @@ section{
 	padding: 10px;
 	min-height: 279px;
 }
-
+#gulSubject:focus, input[type='text']:focus, textarea:focus{
+	background-color: #e8f0fe;
+}
 /* 커뮤신청할때 */
 div#commuform div{
 	margin: 10px 0px;
@@ -116,8 +118,6 @@ div#commuform div{
 	margin-left: 4px;
 	position: relative;
 	bottom: 2px;
-}
-#commuform div:nth-child(2){
 }
 #commuform div > textarea{
 	width: 200px;

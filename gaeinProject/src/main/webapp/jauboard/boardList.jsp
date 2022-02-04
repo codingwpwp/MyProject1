@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% Member loginUser = (Member)session.getAttribute("loginUser"); %>
+<%@ page import="boardWeb.vo.*" %>
+<%	Member loginUser = (Member)session.getAttribute("loginUser");
+
+	request.setCharacterEncoding("UTF-8");
+	String malhead = request.getParameter("malhead");
+	String nowPage = request.getParameter("nowPage");
+	String searchType = request.getParameter("searchType");
+	if(searchType == null){
+		searchType = "";
+	}
+	String searchValue = request.getParameter("searchValue");
+	if(searchValue == null){
+		searchValue = "";
+	}
+	int realnowPage = 1;
+	if(nowPage != null) realnowPage = Integer.parseInt(nowPage);
+	jau_ListMalhead list = new jau_ListMalhead("jauboard", malhead, realnowPage, searchType, searchValue);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,19 +39,21 @@
 			<h2>자유게시판</h2>
 			<span>자유게시판입니다. <span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span></span><br>
 			<div id="malhead">
-				<span>전체</span>|<a href="#">공지</a>|<a href="#">일반</a>|<a href="#">질문</a>|<a href="#">커뮤신청</a>
+			<%if(malhead.equals("all")){%><span>전체</span>|<%}else{%><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=all">전체</a>|<%} %><%if(malhead != null && malhead.equals("notice")){%><span>공지</span>|<%}else{%><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=notice">공지</a>|<%} %><%if(malhead != null && malhead.equals("normal")){%><span>일반</span>|<%}else{%><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=normal">일반</a>|<%} %><%if(malhead != null && malhead.equals("qna")){%><span>질문</span>|<%}else{%><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=qna">질문</a>|<%} %><%if(malhead != null && malhead.equals("commuapply")){%><span>커뮤신청</span><%}else{%><a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=commuapply">커뮤신청</a><%}%>
 			</div>
-			<form id="search">
+			<form id="search" action="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=<%=malhead%>&nowPage=1&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+				<input type="hidden" name="malhead" value="<%=malhead%>">
+				<input type="hidden" name="nowPage" value="1">
 				<select name="searchType">
-					<option value="subject" selected>제목</option>
-					<option value="writer">작성자</option>
-					<option value="content">내용</option>
+					<option value="subject" <%if(searchType != null && searchType.equals("subject")) out.print("selected"); %>>제목</option>
+					<option value="writer" <%if(searchType != null && searchType.equals("writer")) out.print("selected"); %>>작성자</option>
+					<option value="content" <%if(searchType != null && searchType.equals("content")) out.print("selected"); %>>내용</option>
 				</select>
-				<input type="text" name="searchValue" placeholder="내용을 입력하세요">
+				<input type="text" name="searchValue" placeholder="11자 이내로 입력하세요" maxlength="10" <%if(searchValue != null && !searchValue.equals("") && !searchValue.equals("null")) out.print("value='" + searchValue + "'");%>>
 				<input type="submit" value="검색">
 			</form>
 			<div class="board">
-				<table id="jauboard">
+				<table id="jauboard" class="boardlist">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -46,86 +65,18 @@
 						</tr>
 					</thead>
 					<tbody>
+					<%
+					for(List j : list.jList){
+					%>
 						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지아나어라</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
+							<td class="col1"><%=j.getBidx() %></td>
+							<td class="col2"><%=j.getCategory() %></td>
+							<td class="col3"><a href="#"><%=j.getSubject() %></a></td>
+							<td class="col4"><%=j.getNickname() %></td>
+							<td class="col5"><%=j.getWriteday() %></td>
+							<td class="col6"><%=j.getHit() %></td>
 						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">커뮤신청</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
-						<tr>
-							<td class="col1">10</td>
-							<td class="col2">공지</td>
-							<td class="col3"><a href="#">공지사항맨이다</a></td>
-							<td class="col4">운영자</td>
-							<td class="col5">2022-01-01</td>
-							<td class="col6">999999</td>
-						</tr>
+					<%} %>
 					</tbody>
 				</table>
 				<div id="tableBottom">
@@ -135,14 +86,19 @@
 				<%} %>
 					</div>
 					<div id="paging">
-						<div style="visibility: hidden;">&lt;</div>
-						<div>1</div>
-						<div>2</div>
-						<div>3</div>
-						<div>4</div>
-						<div>5</div>
-						<div>6</div>
-						<div>&gt;</div>
+						<div<%if(list.paging.getStartPage() == 1) {%>
+							style="visibility: hidden;"
+						<%}%>>&lt;</div>
+						<%for(int i = list.paging.getStartPage(); i <= list.paging.getEndPage(); i++){%>
+						<%if(i == list.paging.getNowPage()){%>
+							<div id="nowPage" style="cursor:default; background-color: deepskyblue;"><%=i %></div>
+						<%}else{%>
+						<a href="<%=request.getContextPath()%>/jauboard/boardList.jsp?malhead=<%=malhead%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
+						<%}
+				  		}%>
+						<div<%if(list.paging.getEndPage() == list.paging.getLastPage()){%>
+							style="visibility: hidden;"
+						<%} %>>&gt;</div>
 					</div>
 					<div id="commu">
 						

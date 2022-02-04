@@ -54,7 +54,7 @@ function changeGul(obj) {
 		}
 		$('#commuform').hide();
 		commumalheadSwitch = 2;
-		$("input[name='commumlaheadCnt']").val(commumalheadSwitch);
+		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 		commuSwitch = 0;
 	}
 }
@@ -64,7 +64,7 @@ function commumalPlus() {
 		++commumalheadSwitch;
 		html = "<input type='text' name='commumalhead" + commumalheadSwitch + "' placeholder='4자이내' maxlength='4'><br>";
 		$("#commumalhead").append(html);
-		$("input[name='commumlaheadCnt']").val(commumalheadSwitch);
+		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 	}else if(commumalheadSwitch >= 5){
 		alert('추가할 수 있는 말머리의 갯수는 최대 3개입니다.');
 	}
@@ -75,7 +75,7 @@ function commumalMinus() {
 		$("input[name='commumalhead" + commumalheadSwitch + "']").next().remove();
 		$("input[name='commumalhead" + commumalheadSwitch + "']").remove();
 		--commumalheadSwitch;
-		$("input[name='commumlaheadCnt']").val(commumalheadSwitch);
+		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 	}else if(commumalheadSwitch == 2){
 		alert('최소 2개이상의 말머리는 있어야 합니다.');
 	}

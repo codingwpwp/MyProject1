@@ -8,7 +8,7 @@ $(document).ready(function(){
 		$(this).parent().parent().css("backgroundColor","inherit");
 	});
 
-	var board_section_mainWrap_aTags = $("#board").find("a");
+	var board_section_mainWrap_aTags = $(".boardlist").find("a");
 	board_section_mainWrap_aTags.mouseover(function () {
 		$(this).parent().parent().css("backgroundColor","#e9e9e9");
 	});

@@ -23,19 +23,21 @@
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
 			<h2>자유게시판 - 등록</h2>
-			<form method="post" action="#" onsubmit = "return gulWrite()">
+			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_wirteOk.jsp" onsubmit = "return gulWrite()">
 			<%if(loginUser.getPosition().equals("운영자")){%>
 				<label>
-					<input type="radio" name="malhead" value="notice" onchange="changeGul(this)">공지
+					<input type="radio" name="malhead" value="notice" checked onchange="changeGul(this)">공지
 				</label>
 			<%}%>
+			<%if(!loginUser.getPosition().equals("운영자")){%>
 				<label>
 					<input type="radio" name="malhead" value="normal" checked onchange="changeGul(this)">일반
 				</label>
 				<label>
 					<input type="radio" name="malhead" value="qna" onchange="changeGul(this)">질문
 				</label>
-			<%if(!loginUser.getPosition().equals("운영자")){%>
+			<%}%>
+			<%if(loginUser.getPosition().equals("일반")){%>
 				<label>
 					<input type="radio" name="malhead" value="commuapply" onchange="changeGul(this)">커뮤신청
 				</label>
@@ -53,7 +55,7 @@
 				<div id="gul">
 					<textarea id="summernote" name="editordata"></textarea>
 					<div id="commuform">
-						<span style="color:red; font-size:small;">*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 지워집니다.</span>
+						<span style="color:red; font-size:small;">*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.</span>
 						<div>
 							<span>커뮤이름 : </span>
 							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^가-힇]/g,'');">&nbsp;
@@ -67,7 +69,7 @@
 						<div>
 							<div><span>말머리 : </span></div>
 							<div id="commumalhead">
-								<input type="text" name="commuNotice" value="공지" readonly>
+								<input type="text" name="commumalhead1" value="공지" readonly>
 								<span style="color: red; font-size: small;">*필수</span>
 								<br>
 								<input type="text" name="commumalhead2" placeholder="4자이내" maxlength="4">
@@ -81,7 +83,7 @@
 							<textarea name="commuReason" maxlength="100"
 							placeholder="성심성의것 작성해주시기 바랍니다."></textarea>
 						</div>
-						<input type="hidden" name="commumlaheadCnt" value="2">
+						<input type="hidden" name="commumalheadCnt" value="2">
 					</div>
 				</div>
 			</form>
