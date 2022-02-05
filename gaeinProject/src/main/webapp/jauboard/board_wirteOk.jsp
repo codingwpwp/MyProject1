@@ -29,37 +29,36 @@
 		writesort = "커뮤신청";
 	}
 	
-	if(!writesort.equals("commuapply")){
+	if(!writesort.equals("커뮤신청")){
 		content = request.getParameter("editordata");
 	} else {
-		content = "커뮤신청";
 		commuTitle = request.getParameter("commuTitle");
 		commuIntroduce = request.getParameter("commuIntroduce");
-		commuReason = request.getParameter("commuReason");
+		content += commuTitle + " - " + commuIntroduce;
 		for(int i = 0; i < commumalhead.length; i++){
 			commumalhead[i] = request.getParameter("commumalhead" + (i + 1));
+			content += " - " + commumalhead[i];
 		}
+		commuReason = request.getParameter("commuReason");
+		content += " - " + commuReason;
 	}
-
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
 	try{
 		conn = DBManager.getConnection();
-		String sql = "INSERT INTO jauboard(bidx, midx, writesort, subject, nickname, content) "
-					+"VALUES (b_jau_bidx_seq.nextval,?,?,?,?,?)";
+		String sql = "INSERT INTO jauboard(bidx, midx, writesort, subject, content) "
+					+"VALUES (b_jau_bidx_seq.nextval,?,?,?,?)";
 		
 		psmt = conn.prepareStatement(sql);
 		psmt.setInt(1, midx);
 		psmt.setString(2, writesort);
 		psmt.setString(3, subject);
-		psmt.setString(4, nickname);
-		psmt.setString(5, content);
+		psmt.setString(4, content);
 		psmt.executeUpdate();
 		
-		
-		if(writesort.equals("commuapply")){
+		if(writesort.equals("커뮤신청")){
 			psmt = null;
 			sql = "SELECT max(bidx) as bidx FROM jauboard";
 			psmt = conn.prepareStatement(sql);
@@ -71,7 +70,7 @@
 			psmt = null;
 			sql = "INSERT INTO jauboard_commuapply(bidx, midx, commutitle, listintroduce, ";
 			for(int i = 0; i < commumalhead.length; i++){
-				sql += "malhead" + (i + 1) + ", ";
+				sql += "writesort" + (i + 1) + ", ";
 			}
 			sql += "commuReason, writesortcnt) ";
 			sql += "VALUES (" + bidx + ", " + midx + ", '" + commuTitle + "', '" + commuIntroduce + "', '";
@@ -84,7 +83,7 @@
 		}
 		
 		
-		response.sendRedirect(request.getContextPath() + "/jauboard/boardList.jsp");
+		response.sendRedirect(request.getContextPath() + "/jauboard/board_list.jsp");
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{

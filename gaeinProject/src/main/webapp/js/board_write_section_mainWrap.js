@@ -5,7 +5,6 @@ $(document).ready(function(){
 			['fontsize', ['fontsize']],
 			['style', ['bold', 'italic', 'underline','strikethrough']],
 			['color', ['color']],
-			['table', ['table']],
 			['insert',['picture']]
 		],
 		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'sans-serif', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
@@ -24,19 +23,22 @@ var html = "";
 
 function changeGul(obj) {
 	if($(obj).val() == 'commuapply'){
+		
 		$('#summernote').summernote('reset');
 		$('#summernote').summernote('destroy');
-		$('#commuform').show();
+		$('#summernote').text(html);
 		$('#summernote').hide();
+		$('#commuform').show();
 		commuSwitch = 1;
+		
 	} else if(commuSwitch == 1){
+		
 		$('#summernote').summernote({
 			toolbar: [
 				['fontname', ['fontname']],
 				['fontsize', ['fontsize']],
 				['style', ['bold', 'italic', 'underline','strikethrough']],
 				['color', ['color']],
-				['table', ['table']],
 				['insert',['picture']]
 			],
 			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'sans-serif', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
@@ -47,7 +49,7 @@ function changeGul(obj) {
 		});
 		$('#summernote').summernote('reset');
 		$('#commuform').find("textarea").val("");
-		$('#commuform').find("input").not("input[name='commuNotice']").val("");
+		$('#commuform').find("input").not("input[name='commumalhead1']").val("");
 		for(var i = 3; i <= commumalheadSwitch; i++){
 			$("input[name='commumalhead" + i + "']").next().remove();
 			$("input[name='commumalhead" + i + "']").remove();
@@ -56,6 +58,7 @@ function changeGul(obj) {
 		commumalheadSwitch = 2;
 		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 		commuSwitch = 0;
+		
 	}
 }
 
@@ -92,15 +95,15 @@ function gulWrite() {
 		flag = false;
 	}else{
 
-		if($("input[name='malhead']:checked").val() != 'commuapply'){	// 커뮤신청이 아닌경우
+		if($("input[name='writesort']:checked").val() != 'commuapply'){	// 커뮤신청이 아닌경우
 			var gulData = $('#summernote').summernote('code');
-			if(gulData == "<p><br></p>"){	// 글이 비어있을 때
+			if(gulData == "<p><br></p>" || gulData == ""){	// 글이 비어있을 때
 				alert('내용을 작성하고 완료하세요');
 				flag = false;
 			}else{	// 글이 안 비어있을 때
 				flag = true;
 			}
-		}else if($("input[name='malhead']:checked").val() == 'commuapply'){	// 커뮤신청인 경우
+		}else{	// 커뮤신청인 경우
 			var reg2 = /^[가-힇]{2,4}(커뮤)$/;
 
 			for(var i = 2; i <= commumalheadSwitch; i++){
@@ -123,5 +126,6 @@ function gulWrite() {
 		}
 
 	}
+	
 	return flag;
 }

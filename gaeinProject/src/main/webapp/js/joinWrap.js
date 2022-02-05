@@ -18,13 +18,13 @@ function idcheckFn(){
 			data : "id=" + $("input[name='id']").val(),
 			success : function(data){
 				var result = data.trim();
-				if(result != "checkOk"){
+				if(result != "ok"){
 					span.text(" *중복");
 					idcheckSw = 0;
 				}else{
 					span.text(" *사용가능");
 					idcheckSw = 1;
-					checkedid = result;
+					checkedid = $("input[name='id']").val();
 				}
 			}
 		});	
@@ -41,7 +41,7 @@ function idcheckFn2(obj){
 
 function nicknamecheckFn(){
 	var span = $("input:eq(4)").parent().children("span.checkspan");
-	var nicknamereg = /^[가-힣0-9]{2,6}$/g;
+	var nicknamereg = /^[0-9가-힣]{2,6}$/g;
 	
 	if($("input[name='nickname']").val() == ""){
 		span.text(" *필수");
@@ -51,16 +51,16 @@ function nicknamecheckFn(){
 		$.ajax({
 			url : "nicknamecheck.jsp",
 			type : "post",
-			data : "id=" + $("input[name='nickname']").val(),
+			data : "nickname=" + $("input[name='nickname']").val(),
 			success : function(data){
 				var result = data.trim();
-				if(result != "checkOk"){
+				if(result != "ok"){
 					span.text(" *중복");
 					nicknamecheckSw = 0;
 				}else{
 					span.text(" *사용가능");
 					nicknamecheckSw = 1;
-					checkednickname = result;
+					checkednickname = $("input[name='nickname']").val();
 				}
 			}
 		});	
@@ -92,7 +92,7 @@ function joincheck() {
 		}else if(id == 'name'){
 			check = /^[가-힣]{2,5}/g;
 		}else if(id == 'nickname'){
-			check = /^[가-힣0-9]{2,6}$/g;
+			check = /^[0-9가-힣]{2,6}$/g;
 		}
 
 		var value = input[i].value;

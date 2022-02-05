@@ -8,7 +8,7 @@
 	<title>개인프로젝트</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/header.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/nav.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/commujang_section_mainWrap.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/commuJang_section_mainWrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/section_asideWrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/footer.css">
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>

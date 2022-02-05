@@ -14,14 +14,14 @@
 	try{
 		conn = DBManager.getConnection();
 		
-		String sql = " SELECT nickname from assamember where nickname=?";
+		String sql = " SELECT nickname FROM assamember WHERE nickname = ?";
 		psmt = conn.prepareStatement(sql);
 		psmt.setString(1, nickname);
 		rs = psmt.executeQuery();
 		if(rs.next()){
 			out.print(rs.getString("nickname"));
 		} else {
-			out.print("checkOk");
+			out.print("ok");
 		}
 		
 	}catch(Exception e){

@@ -12,7 +12,8 @@ body{
 }
 .site{
 	background-color: #79CF9F;
-	width: 100%;
+	width: 900px;
+	margin: 0px auto;
 }
 
 /*<header>*/

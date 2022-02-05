@@ -1,9 +1,11 @@
 package boardWeb.vo;
 
-public class List {
+public class Gul {
 	private int bidx;
-	private String category;
+	private int midx;
+	private String writesort;
 	private String subject;
+	private String content;
 	private String nickname;
 	private String position;
 	private String writeday;
@@ -16,17 +18,29 @@ public class List {
 	public void setBidx(int bidx) {
 		this.bidx = bidx;
 	}
-	public String getCategory() {
-		return category;
+	public int getMidx() {
+		return midx;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setMidx(int midx) {
+		this.midx = midx;
+	}
+	public String getWritesort() {
+		return writesort;
+	}
+	public void setWritesort(String writesort) {
+		this.writesort = writesort;
 	}
 	public String getSubject() {
 		return subject;
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getNickname() {
 		return nickname;
@@ -58,4 +72,5 @@ public class List {
 	public void setThumb(int thumb) {
 		this.thumb = thumb;
 	}
+	
 }

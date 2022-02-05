@@ -65,12 +65,12 @@
 			<%}%>
 				<div id="submenu">
 					<button type="submit">완료</button>
-					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/boardList.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
+					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
 				</div>
 				<div id="gulTitle">
 					<div style="margin-top:10px">
 						<span>제목</span>
-						<input type="text" id="gulSubject" name="subject" maxlength="25">
+						<input type="text" id="gulSubject" name="subject" maxlength="25" placeholder="25자이내로 적으세요">
 					</div>
 				</div>
 				<div id="gul">
@@ -79,7 +79,7 @@
 						<span style="color:red; font-size:small;">*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.</span>
 						<div>
 							<span>커뮤이름 : </span>
-							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^가-힇]/g,'');">&nbsp;
+							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');">&nbsp;
 							ex) ○○커뮤
 						</div>
 						<div>

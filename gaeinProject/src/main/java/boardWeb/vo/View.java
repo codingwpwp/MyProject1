@@ -9,7 +9,6 @@ public class View {
 	private int hit;
 	private String writeday;
 	
-	
 	public int getMidx() {
 		return midx;
 	}
