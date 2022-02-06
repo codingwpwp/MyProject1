@@ -7,7 +7,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	if(request.getParameter("ridx") == null){	// 댓글을 등록
-		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 
 		String rcontent = request.getParameter("rcontent");
