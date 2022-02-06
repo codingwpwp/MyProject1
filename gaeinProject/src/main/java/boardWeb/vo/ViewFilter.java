@@ -9,11 +9,11 @@ import boardWeb.util.DBManager;
 
 public class ViewFilter {
 	
-	int visitSwitch = 0;
+	public int replycnt;
 	String sql;
-	String listtable;
 	String sqlCommuapply;
-	
+	String listtable;
+
 	public Commuapply commuapply = new Commuapply();
 	public Gul gulView = new Gul();
 	public ArrayList<Reply> replyList = new ArrayList<>();
@@ -37,9 +37,6 @@ public class ViewFilter {
 			}
 			psmt = null;
 			rs = null;
-			
-			
-			
 			
 			
 			// 호출된 테이블의 게시글을 호출하는 과정
@@ -102,14 +99,13 @@ public class ViewFilter {
 			rsMidxOrCommuApply = null;
 			
 			// 해당 게시글의 댓글들을 호출하는 과정
-			sql = "SELECT lidx, bidx, midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM boardreply WHERE lidx = " + lidx + " AND bidx = " + bidx;
+			sql = "SELECT ridx, midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM boardreply WHERE lidx = " + lidx + " AND bidx = " + bidx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()){
 				Reply reply = new Reply();
 				
-				reply.setLidx(rs.getInt("lidx"));
-				reply.setBidx(rs.getInt("bidx"));
+				reply.setRidx(rs.getInt("ridx"));
 				reply.setMidx(rs.getInt("midx"));
 				reply.setRcontent(rs.getString("rcontent"));
 				reply.setRdate(rs.getString("rdate"));
@@ -124,7 +120,12 @@ public class ViewFilter {
 				}
 				
 				replyList.add(reply);
+				replycnt++;
 			}
+			
+			psmt = null;
+			rs = null;
+			rsMidxOrCommuApply = null;
 			
 		}catch(Exception e){
 			e.printStackTrace();

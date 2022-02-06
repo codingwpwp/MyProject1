@@ -60,7 +60,7 @@
 		
 		if(writesort.equals("커뮤신청")){
 			psmt = null;
-			sql = "SELECT max(bidx) as bidx FROM jauboard";
+			sql = "SELECT max(bidx) AS bidx FROM jauboard";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){

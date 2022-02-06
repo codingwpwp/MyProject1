@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="boardWeb.util.*"%>
+<%@ page import="boardWeb.vo.*"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	if(loginUser == null) response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -11,13 +14,52 @@
 	String searchType = request.getParameter("searchType");
 	String searchValue = request.getParameter("searchValue");
 	
-	String cookieNumber = 1 + "-" + bidx;	//쿠키
+	// 쿠키 관리
+	int visitSwitch = 0;
+	String cookiesql = "";
+	String cookieName = "";
+	if(loginUser != null){
+		cookieName = 1 + "-" + bidx + "-" +  loginUser.getMidx();	// 게시판번호(lidx) - 게시글번호 - 회원번호(midx)
+	}
+	Connection conn = null;
+	PreparedStatement psmt = null;
 	
-	ViewFilter view = new ViewFilter(1, bidx);
+	try{
+		conn = DBManager.getConnection();
+		Cookie[] cookies = request.getCookies();
+		
+		if(loginUser != null){
+			
+			if(cookies != null){
+				for(Cookie cook : cookies){
+					if(cook.getName().equals(cookieName) && cook.getValue().equals("viewed")){
+						visitSwitch = 1;
+						break;
+					}
+				}
+			}
+			
+			if(visitSwitch == 0){
+				cookiesql = "UPDATE jauboard SET hit = hit + 1 WHERE bidx = " + bidx;
+				psmt = conn.prepareStatement(cookiesql);
+				int result = psmt.executeUpdate();
+				if(result == 1){
+					Cookie cookie = new Cookie(cookieName, "viewed");
+					cookie.setMaxAge(60 * 60 * 24);
+					response.addCookie(cookie);
+					psmt = null;
+				}
+			}
+			
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally{
+		DBManager.close(conn, psmt);
+	}
 	
-	
-	
-	
+	// 게시글 상세조회 + 댓글조회
+	ViewFilter view = new ViewFilter(1, bidx);	// 첫번째 매개값의 의미는 lidx가 1인 자유게시판을 의미한다.
 %>
 <!DOCTYPE html>
 <html>
@@ -77,42 +119,50 @@
 				<div><h3> 사유 : <%=view.commuapply.getCommuReason() %></h3></div>
 				<%}%>
 			</div>
-			<%if(!view.gulView.getWritesort().equals("공지")){%>
+			<%if(loginUser != null && !view.gulView.getWritesort().equals("공지")){%>
 			<div id="replyBoard">
-				<h3>댓글(2)</h3>
-				<div id="reply">
-					<div id="replyEdit">
-						<img src="<%=request.getContextPath()%>/image/pencil.png">
-						<img src="<%=request.getContextPath()%>/image/x.png">
+				<h3>댓글(<span id="replycnt"><%=view.replycnt %></span>)</h3>
+				<div id="replylist">
+				<%for(Reply r : view.replyList){%>
+					<div class="reply">
+						<input type="hidden" value="<%=r.getRidx()%>">
+						<input type="hidden" value="<%=r.getMidx()%>">
+						<div class="replyEdit">
+							<%if(loginUser.getMidx() == r.getMidx()){%>
+							<img src="<%=request.getContextPath()%>/image/pencil.png" onclick="modifyReply(this)">
+							<%}if((loginUser.getMidx() == r.getMidx()) || loginUser.getPosition().equals("운영자")){ %>
+							<img src="<%=request.getContextPath()%>/image/x.png" onclick="deleteReply(this)">
+							<%} %>
+						</div>
+						<div class="replyContent">
+							<div><%if(r.getPosition().equals("운영자")){%>
+								<img src="<%=request.getContextPath()%>/image/smilefrog.jpg">
+							<%}%><span<%if(r.getPosition().equals("운영자")){%>
+								style="position:relative; bottom: 7px; color:red; font-weight: bold;"
+							<%}else if(!r.getPosition().equals("일반")){%>
+								style="color: blue;"
+							<%}%>><%=r.getNickname()%></span></div>
+							<div><%=r.getRcontent()%></div>
+						</div>
+						<div class="replyDate">
+							<%=r.getRdate()%>
+						</div>
 					</div>
-					<div id="replyContent">
-						<div>테스터</div>
-						<div>댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.</div>
-					</div>
-					<div id="replyDate">
-						2022-01-01 &nbsp;15:23
-					</div>
-				</div>
-
-				<div id="reply">
-					<div id="replyEdit">
-						<img src="<%=request.getContextPath()%>/image/pencil.png">
-						<img src="<%=request.getContextPath()%>/image/x.png">
-					</div>
-					<div id="replyContent">
-						<div>테스터</div>
-						<div>댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.</div>
-					</div>
-					<div id="replyDate">
-						2022-01-01 &nbsp;15:23
-					</div>
+				<%} %>
 				</div>
 				<div id="replyWrite">
-					<textarea placeholder="댓글을 입력하세요"></textarea><br>
-					<button>등록</button>
-				</div><%} %>
+					<form name="replyWrite">
+						<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
+						<input type="hidden" name="lidx" value="1">
+						<input type="hidden" name="bidx" value="<%=bidx%>">
+						<textarea name="rcontent" placeholder="댓글을 입력하세요" maxlength="110"></textarea><br>
+						<button type="button" onclick="insertReply()">등록</button>
+					</form>
+				</div>
+			<%} %>
 			</div>
 		</div>
+		<script src ="<%=request.getContextPath()%>/js/board_view_reply.js"></script>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>

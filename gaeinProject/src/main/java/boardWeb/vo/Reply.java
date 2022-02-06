@@ -1,8 +1,6 @@
 package boardWeb.vo;
 
 public class Reply {
-	private int lidx;
-	private int bidx;
 	private int ridx;
 	private int midx;
 	private String rcontent;
@@ -10,18 +8,6 @@ public class Reply {
 	private String nickname;
 	private String position;
 	
-	public int getLidx() {
-		return lidx;
-	}
-	public void setLidx(int lidx) {
-		this.lidx = lidx;
-	}
-	public int getBidx() {
-		return bidx;
-	}
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
-	}
 	public int getRidx() {
 		return ridx;
 	}

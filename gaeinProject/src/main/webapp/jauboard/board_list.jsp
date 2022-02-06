@@ -25,7 +25,7 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 	int realnowPage = 1;
 	if(nowPage != null) realnowPage = Integer.parseInt(nowPage);
 	
-	ListFilter list = new ListFilter("jauboard", writesort, realnowPage, searchType, searchValue);
+	ListFilter list = new ListFilter(1, writesort, realnowPage, searchType, searchValue);
 %>
 <!DOCTYPE html>
 <html>
@@ -88,26 +88,26 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 					</thead>
 					<tbody>
 					<%
-					for(Gul j : list.gulList){
+					for(Gul g : list.gulList){
 					%><tr>
-						<td class="col1"><%=j.getBidx()%></td>
-						<td class="col2"><%=j.getWritesort()%></td>
-						<td class="col3"><a href="<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=j.getBidx()%>&writesort=<%=writesort %>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
-							<%if(j.getSubject().length() > 18){
-								%><%=j.getSubject().substring(0, 18)%>...
-							<%}else{%><%=j.getSubject()%><%}%></a>
+						<td class="col1"><%=g.getBidx()%></td>
+						<td class="col2"><%=g.getWritesort()%></td>
+						<td class="col3"><a href="<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=g.getBidx()%>&writesort=<%=writesort %>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+							<%if(g.getSubject().length() > 18){
+								%><%=g.getSubject().substring(0, 18)%>...
+							<%}else{%><%=g.getSubject()%><%}%></a>
 						</td>
 						<td class="col4"
-						<%if(j.getPosition().equals("운영자")){%>
+						<%if(g.getPosition().equals("운영자")){%>
 							style="font-weight:bold; color: red;"
-						<%}else if(!j.getPosition().equals("일반")){%>
+						<%}else if(!g.getPosition().equals("일반")){%>
 							style="color: blue;"
-						<%}%>><%if(j.getPosition().equals("운영자")){
+						<%}%>><%if(g.getPosition().equals("운영자")){
 						%><img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px;"><%
 						}else{%><span>
-						<%}%><%=j.getNickname()%></span></td>
-						<td class="col5"><%=j.getWriteday()%></td>
-						<td class="col6"><%=j.getHit()%></td>
+						<%}%><%=g.getNickname()%></span></td>
+						<td class="col5"><%=g.getWriteday()%></td>
+						<td class="col6"><%=g.getHit()%></td>
 					</tr>
 					<%} %>
 					</tbody>

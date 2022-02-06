@@ -9,6 +9,8 @@ public class ListFilter {
 	public ArrayList<Gul> gulList = new ArrayList<>();
 	public PagingUtil paging;
 	
+	String listtable;
+	
 	String sql;
 	int cnt;
 	
@@ -20,22 +22,35 @@ public class ListFilter {
 	ResultSet rs = null;
 	ResultSet rsMidx = null;
 	
-	public ListFilter(String boardname, String writesort, int nowPage, String searchType, String searchValue){
+	public ListFilter(int lidx, String writesort, int nowPage, String searchType, String searchValue){
 		
-		if(writesort.equals("notice")){
-			writesort = "공지";
-		}else if(writesort.equals("normal")){
-			writesort = "일반";
-		}else if(writesort.equals("qna")){
-			writesort = "질문";
-		}else if(writesort.equals("commuapply")){
-			writesort = "커뮤신청";
+		if(lidx == 1 || lidx == 2) {
+			if(writesort.equals("notice")){
+				writesort = "공지";
+			}else if(writesort.equals("normal")){
+				writesort = "일반";
+			}else if(writesort.equals("qna")){
+				writesort = "질문";
+			}else if(writesort.equals("commuapply")){
+				writesort = "커뮤신청";
+			}
 		}
 		
 		try{
 			conn = DBManager.getConnection();
-			// 게시글의 갯수를 호출하는 과정
-			sql = "SELECT * FROM " + boardname + " WHERE delyn = 'N' ";
+			
+			// lidx를 이용하여 boardlist의 listtable을 호출하는 과정
+			sql = "SELECT listtable FROM boardlist WHERE lidx = " + lidx;
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()){
+				listtable = rs.getString("listtable");
+			}
+			psmt = null;
+			rs = null;
+			
+			// 해당 게시판의 게시글의 갯수를 호출하는 과정
+			sql = "SELECT * FROM " + listtable + " WHERE delyn = 'N' ";
 			if(!writesort.equals("all")){
 				sql +=  "AND writesort = '" + writesort + "' ";;
 			}
@@ -79,12 +94,12 @@ public class ListFilter {
 			
 			psmt = null;
 			rs = null;
-			
+			// 해당 게시판의 페이징처리
 			paging = new PagingUtil(cnt, nowPage, 10);
-			
+			// 해당 게시판의 페이지에 맞는 게시글을 출력
 			sql = "SELECT b.* FROM ";
 			sql += "(SELECT ROWNUM r, a.* FROM ";
-			sql += "(SELECT bidx, midx, writesort, subject, hit, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM " + boardname + " WHERE delyn = 'N' ";
+			sql += "(SELECT bidx, midx, writesort, subject, hit, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM " + listtable + " WHERE delyn = 'N' ";
 			if(writesort != null && !writesort.equals("all")) {
 				sql +=  "AND writesort = '" + writesort + "' ";;
 			}

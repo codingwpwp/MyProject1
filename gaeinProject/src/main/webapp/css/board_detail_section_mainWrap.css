@@ -112,41 +112,52 @@ section{
 	text-align: center;
 }
 /* 댓글 */
-#reply{
+.reply{
 	margin-bottom: 15px;
 	border: 1px solid lightgray;
 	border-radius: 3px;
 	background-color: lightgray;
 	min-height: 50px;
 }
-#reply #replyEdit{
+.reply .replyEdit{
 	text-align: right;
 	height: 21px;
 }
-#reply img{
+.reply img{
 	width: 12px;
 	height: 12px;
 	margin: 3px 5px 5px 0px;
 	cursor: pointer;
 }
-#reply #replyContent{
+.reply .replyContent{
 	display: flex;
 	align-items: center;
 }
-#reply #replyContent div{
+.reply .replyContent div{
 	display: inline-block;
 }
-#replyContent div:nth-of-type(1){
+.replyContent div:nth-of-type(1){
 	padding-left: 10px;
     width: 95px;
     font-size: 13px;
 }
-#replyContent div:nth-of-type(2){
+.replyContent div:nth-of-type(2){
 	width: 450px;
 	font-size: 14px;
 }
-#replyDate{
-	margin: 8px 5px 0px 0px;
+.replyContent div:nth-of-type(2) textarea{
+	width: 440px;
+	height: 35px;
+	resize: none;
+}
+.replyContent img{
+	width: 28px;
+	height: 27px;
+	margin : 0px;
+	cursor: default;
+}
+.reply .replyDate{
+	margin: 0px 5px 0px 0px;
 	text-align: right;
 	font-size: small;
 }
