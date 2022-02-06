@@ -69,7 +69,7 @@ function commumalPlus() {
 		$("#commumalhead").append(html);
 		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 	}else if(commumalheadSwitch >= 5){
-		alert('추가할 수 있는 말머리의 갯수는 최대 3개입니다.');
+		alert('추가할 수 있는 말머리의 갯수는 최대 3개입니다');
 	}
 }
 
@@ -80,7 +80,7 @@ function commumalMinus() {
 		--commumalheadSwitch;
 		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 	}else if(commumalheadSwitch == 2){
-		alert('최소 2개이상의 말머리는 있어야 합니다.');
+		alert('최소 2개이상의 말머리는 있어야 합니다');
 	}
 }
 

@@ -8,14 +8,11 @@
 	if(writesort == null){
 		writesort = "all";
 	}
-	
 	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-	
 	String searchType = request.getParameter("searchType");
 	if(searchType == null){
 		searchType = "";
 	}
-	
 	String searchValue = request.getParameter("searchValue");
 	if(searchValue == null){
 		searchValue = "";

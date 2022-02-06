@@ -78,12 +78,12 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
-			<h2>자유게시판</h2>
+			<h2>자유게시판 - 조회</h2>
 			<span><%=view.gulView.getWritesort()%></span>
 			<div id="submenu">
 				<button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">목록</button>
 				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx())){
-				%><button>수정</button><%}%>
+				%><button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_modify.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>&bidx=<%=bidx%>'">수정</button><%}%>
 				<%if(loginUser != null && ((loginUser.getMidx() == view.gulView.getMidx()) || (loginUser.getMidx() == 0))){
 				%><button>삭제</button><%}%>
 				<%if(loginUser != null && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0){

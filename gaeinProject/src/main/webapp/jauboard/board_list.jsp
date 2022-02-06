@@ -92,7 +92,7 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 					%><tr>
 						<td class="col1"><%=g.getBidx()%></td>
 						<td class="col2"><%=g.getWritesort()%></td>
-						<td class="col3"><a href="<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=g.getBidx()%>&writesort=<%=writesort %>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+						<td class="col3"><a href="<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=g.getBidx()%>&writesort=<%=writesort%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
 							<%if(g.getSubject().length() > 18){
 								%><%=g.getSubject().substring(0, 18)%>...
 							<%}else{%><%=g.getSubject()%><%}%></a>
