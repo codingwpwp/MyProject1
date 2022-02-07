@@ -1,6 +1,7 @@
 package boardWeb.vo;
 
 public class Gul {
+	private int num;
 	private int bidx;
 	private int midx;
 	private String writesort;
@@ -12,6 +13,12 @@ public class Gul {
 	private int hit;
 	private int thumb;
 	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getBidx() {
 		return bidx;
 	}

@@ -73,7 +73,10 @@
 				<div id="gul">
 					<textarea id="summernote" name="editordata"></textarea>
 					<div id="commuform">
-						<span style="color:red; font-size:small;">*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.</span>
+						<span style="color:red; font-size:small;">
+							*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.<br>
+							*등록한 이후 다른 카테고리로 변경 할 수 없고, 운영자가 허가한 이후 수정, 삭제를 할 수 없습니다.
+						</span>
 						<div>
 							<span>커뮤이름 : </span>
 							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');">&nbsp;

@@ -7,18 +7,28 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
 	request.setCharacterEncoding("UTF-8");
-	int bidx = 0;
-	int midx = loginUser.getMidx();
-	String writesort = request.getParameter("writesort");
+	int bidx = Integer.parseInt(request.getParameter("bidx"));
+	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	String searchType = request.getParameter("searchType");
+	if(searchType == null){
+		searchType = "";
+	}
+	String searchValue = request.getParameter("searchValue");
+	if(searchValue == null){
+		searchValue = "";
+	}
+	String writesort2 = request.getParameter("writesort2");
+	
 	String subject = request.getParameter("subject");
 	String nickname = loginUser.getNickname();
 	String content = "";
 	String commuTitle = "";
 	String commuIntroduce = "";
 	String commuReason = "";
-	int commumalheadCnt = Integer.parseInt(request.getParameter("commumalheadCnt"));
-	String commumalhead[] = new String[commumalheadCnt];
-	
+	int commumalheadCnt = 0;
+	String commumalhead[] = null;
+			
+	String writesort = request.getParameter("writesort");
 	if(writesort.equals("notice")){
 		writesort = "공지";
 	}else if(writesort.equals("normal")){
@@ -32,6 +42,8 @@
 	if(!writesort.equals("커뮤신청")){
 		content = request.getParameter("editordata");
 	} else {
+		commumalheadCnt = Integer.parseInt(request.getParameter("commumalheadCnt"));
+		commumalhead = new String[commumalheadCnt];
 		commuTitle = request.getParameter("commuTitle");
 		commuIntroduce = request.getParameter("commuIntroduce");
 		content += commuTitle + " - " + commuIntroduce;
@@ -44,49 +56,35 @@
 	}
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
 	
 	try{
 		conn = DBManager.getConnection();
-		String sql = "INSERT INTO jauboard(bidx, midx, writesort, subject, content) "
-					+"VALUES (b_jau_bidx_seq.nextval,?,?,?,?)";
-		
+		String sql = "UPDATE jauboard set writesort=?,subject=?,content=? WHERE bidx = " + bidx;
 		psmt = conn.prepareStatement(sql);
-		psmt.setInt(1, midx);
-		psmt.setString(2, writesort);
-		psmt.setString(3, subject);
-		psmt.setString(4, content);
+		psmt.setString(1, writesort);
+		psmt.setString(2, subject);
+		psmt.setString(3, content);
 		psmt.executeUpdate();
 		
 		if(writesort.equals("커뮤신청")){
-			psmt = null;
-			sql = "SELECT max(bidx) AS bidx FROM jauboard";
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			if(rs.next()){
-				bidx = rs.getInt("bidx");
-			}
-			
-			psmt = null;
-			sql = "INSERT INTO jauboard_commuapply(bidx, midx, commutitle, listintroduce, ";
+			psmt = null;	
+			sql = "UPDATE jauboard_commuapply set commutitle=?,LISTINTRODUCE=?,WRITESORTCNT=?,COMMUREASON=?";
 			for(int i = 0; i < commumalhead.length; i++){
-				sql += "writesort" + (i + 1) + ", ";
+				sql += ",writesort" + (i + 1) + "='" + commumalhead[i] + "'";
 			}
-			sql += "commuReason, writesortcnt) ";
-			sql += "VALUES (" + bidx + ", " + midx + ", '" + commuTitle + "', '" + commuIntroduce + "', '";
-			for(int i = 0; i < commumalhead.length; i++){
-				sql += commumalhead[i] + "', '";
-			}
-			sql += commuReason + "', '" + commumalhead.length + "')";
+			sql += " WHERE bidx = " + bidx;
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1,commuTitle);
+			psmt.setString(2,commuIntroduce);
+			psmt.setInt(3,commumalhead.length);
+			psmt.setString(4,commuReason);
 			psmt.executeUpdate();
 		}
 		
-		
-		response.sendRedirect(request.getContextPath() + "/jauboard/board_list.jsp");
+		response.sendRedirect(request.getContextPath() + "/jauboard/board_view.jsp?bidx=" + bidx + "&writesort=" + writesort2 + "&nowPage=" + nowPage + "&searchType=" + searchType + "&searchValue" + searchValue);
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{
-		DBManager.close(conn, psmt, rs);
+		DBManager.close(conn, psmt);
 	}
 %>

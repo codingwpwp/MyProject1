@@ -7,6 +7,7 @@ public class Reply {
 	private String rdate;
 	private String nickname;
 	private String position;
+	private String modifyyn;
 	
 	public int getRidx() {
 		return ridx;
@@ -43,5 +44,11 @@ public class Reply {
 	}
 	public void setPosition(String position) {
 		this.position = position;
+	}
+	public String getModifyyn() {
+		return modifyyn;
+	}
+	public void setModifyyn(String modifyyn) {
+		this.modifyyn = modifyyn;
 	}
 }

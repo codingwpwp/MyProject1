@@ -76,7 +76,7 @@ public class ViewFilter {
 							commuapply.setWritesort5(rsMidxOrCommuApply.getString("WRITESORT5"));
 						}
 						commuapply.setCommuReason(rsMidxOrCommuApply.getString("COMMUREASON"));
-
+						commuapply.setOkyn(rsMidxOrCommuApply.getString("OKYN"));
 					}
 					
 					rsMidxOrCommuApply = null;
@@ -99,7 +99,7 @@ public class ViewFilter {
 			rsMidxOrCommuApply = null;
 			
 			// 해당 게시글의 댓글들을 호출하는 과정
-			sql = "SELECT ridx, midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM boardreply WHERE lidx = " + lidx + " AND bidx = " + bidx;
+			sql = "SELECT ridx, midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate, modifyyn FROM boardreply WHERE lidx = " + lidx + " AND bidx = " + bidx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()){
@@ -109,7 +109,7 @@ public class ViewFilter {
 				reply.setMidx(rs.getInt("midx"));
 				reply.setRcontent(rs.getString("rcontent"));
 				reply.setRdate(rs.getString("rdate"));
-				
+				reply.setModifyyn(rs.getString("modifyyn"));
 				psmt = null;
 				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
 				psmt = conn.prepareStatement(sql);
@@ -131,6 +131,29 @@ public class ViewFilter {
 			e.printStackTrace();
 		}finally{
 			DBManager.close(conn, psmt, rs, rsMidxOrCommuApply);
+		}
+	}
+	
+	
+	public ViewFilter(int lidx, int bidx, String delete) {
+		conn = DBManager.getConnection();
+		try {
+			sql = "SELECT listtable FROM boardlist WHERE lidx = " + lidx;
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()){
+				listtable = rs.getString("listtable");
+			}
+			psmt = null;
+			rs = null;
+			
+			sql = "UPDATE " + listtable + " set delyn='Y' WHERE bidx=" + bidx;
+			psmt = conn.prepareStatement(sql);
+			psmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBManager.close(conn, psmt, rs);
 		}
 	}
 }

@@ -42,7 +42,8 @@
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
 			<h2>자유게시판 - 수정</h2>
-			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_modifyOk.jsp" onsubmit = "return gulWrite()">
+			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_modifyOk.jsp" onsubmit = "return gulModify()">
+				<input type="hidden" name="bidx" value="<%=bidx%>">
 			<%if(view.gulView.getWritesort().equals("공지")){%>
 				<label>
 					<input type="radio" name="writesort" value="notice" checked>공지
@@ -79,8 +80,7 @@
 						<div>
 							<span>커뮤이름 : </span>
 							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤"
-							onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');"
-							value="<%=view.commuapply.getCommuTitle()%>">&nbsp;
+							onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');" value="<%=view.commuapply.getCommuTitle()%>">&nbsp;
 							ex) ○○커뮤
 						</div>
 						<div>
@@ -113,6 +113,10 @@
 						<input type="hidden" name="commumalheadCnt" value="<%=view.commuapply.getWritesortcnt()%>">
 					</div><%}%>
 				</div>
+				<input type="hidden" name="writesort2" value="<%=writesort%>">
+				<input type="hidden" name="nowPage" value="<%=nowPage%>">
+				<input type="hidden" name="searchType" value="<%=searchType%>">
+				<input type="hidden" name="searchValue" value="<%=searchValue%>">
 			</form>
 		</div>
 		<%@include file="/section_asideWrap.jsp" %>

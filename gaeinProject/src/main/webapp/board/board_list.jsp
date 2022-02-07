@@ -5,27 +5,22 @@
 Member loginUser = (Member)session.getAttribute("loginUser");
 
 	request.setCharacterEncoding("UTF-8");
-	String writesort = request.getParameter("writesort");
-	if(writesort == null){
-		writesort = "all";
-	}
 	
-	String nowPage = request.getParameter("nowPage");
+	int lidx = Integer.parseInt(request.getParameter("lidx"));	// 게시판 번호
 	
-	String searchType = request.getParameter("searchType");
-	if(searchType == null){
-		searchType = "";
-	}
+	int writesortnum =  Integer.parseInt(request.getParameter("writesortnum"));		// 카테고리 또는 말머리
 	
-	String searchValue = request.getParameter("searchValue");
-	if(searchValue == null){
-		searchValue = "";
-	}
+	String searchType = request.getParameter("searchType");		// 검색 종류
+	if(searchType == null) searchType = "";
 	
+	String searchValue = request.getParameter("searchValue");	// 검색 값
+	if(searchValue == null) searchValue = "";
+	
+	String nowPage = request.getParameter("nowPage");			// 페이지
 	int realnowPage = 1;
 	if(nowPage != null) realnowPage = Integer.parseInt(nowPage);
 	
-	ListFilter list = new ListFilter(1, writesort, realnowPage, searchType, searchValue);
+	ListFilter list = new ListFilter(lidx, writesortnum, realnowPage, searchType, searchValue);
 %>
 <!DOCTYPE html>
 <html>
@@ -46,25 +41,36 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
 			<h2>자유게시판</h2>
-			<span>자유게시판입니다. <span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span></span><br>
+			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span></span><br><%}%>
 			<div id="malhead">
-			<%if(writesort.equals("all")){%><span>전체</span>|<%
-			}else{%><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=all">전체</a>|<%}
-			
-			if(writesort != null && writesort.equals("notice")){%><span>공지</span>|<%
-			}else{%><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=notice">공지</a>|<%}
-			
-			if(writesort != null && writesort.equals("normal")){%><span>일반</span>|<%
-			}else{%><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=normal">일반</a>|<%}
-			
-			if(writesort != null && writesort.equals("qna")){%><span>질문</span>|<%
-			}else{%><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=qna">질문</a>|<%}
-			
-			if(writesort != null && writesort.equals("commuapply")){%><span>커뮤신청</span><%
-			}else{%><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=commuapply">커뮤신청</a><%}%>
+			<%if(writesortnum == 0){
+				%><span>전체</span>|<%
+			}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0&nowPage=1">전체</a>|<%}
+			if(writesortnum == 1){
+				%><span><%=list.writesort1%></span>|<%
+			}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=1&nowPage=1"><%=list.writesort1%></a>|<%}
+			if(writesortnum == 2){
+				%><span><%=list.writesort2%></span>|<%
+			}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=2&nowPage=1"><%=list.writesort2%></a>|<%}
+			if(list.writesort3 != null){
+				if(writesortnum == 3){
+				%><span><%=list.writesort3%></span>|
+				<%}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=3&nowPage=1"><%=list.writesort3%></a>|<%}
+			}
+			if(list.writesort4 != null){
+				if(writesortnum == 4){
+				%><span><%=list.writesort4%></span>|
+				<%}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=4&nowPage=1"><%=list.writesort4%></a>|<%}
+			}
+			if(list.writesort5 != null){
+				if(writesortnum == 5){
+				%><span><%=list.writesort5%></span>
+				<%}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=5&nowPage=1"><%=list.writesort5%></a><%}
+			}%>
 			</div>
-			<form id="search" action="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort<%=writesort%>&nowPage=1&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
-				<input type="hidden" name="writesort" value="<%=writesort%>">
+			<form id="search" action="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+				<input type="hidden" name="lidx" value="<%=lidx%>">
+				<input type="hidden" name="writesortnum" value="<%=writesortnum%>">
 				<input type="hidden" name="nowPage" value="1">
 				<select name="searchType">
 					<option value="subject" <%if(searchType != null && searchType.equals("subject")) out.print("selected"); %>>제목</option>
@@ -83,18 +89,19 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 							<th>제목</th>
 							<th>닉네임</th>
 							<th>작성일</th>
-							<th>조회</th>
+							<th>조회</th><%if(lidx != 1 && lidx != 2){
+						  %><th>추천</th><%}%>
 						</tr>
 					</thead>
 					<tbody>
 					<%
 					for(Gul g : list.gulList){
 					%><tr>
-						<td class="col1"><%=g.getBidx()%></td>
+						<td class="col1"><%=g.getNum()%></td>
 						<td class="col2"><%=g.getWritesort()%></td>
-						<td class="col3"><a href="<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=g.getBidx()%>&writesort=<%=writesort%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
-							<%if(g.getSubject().length() > 18){
-								%><%=g.getSubject().substring(0, 18)%>...
+						<td class="col3"><a href="<%=request.getContextPath()%>/board/board_view.jsp?bidx=<%=g.getBidx()%>&writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+							<%if(g.getSubject().length() > 17){
+								%><%=g.getSubject().substring(0, 17)%>...
 							<%}else{%><%=g.getSubject()%><%}%></a>
 						</td>
 						<td class="col4"
@@ -107,15 +114,16 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 						}else{%><span>
 						<%}%><%=g.getNickname()%></span></td>
 						<td class="col5"><%=g.getWriteday()%></td>
-						<td class="col6"><%=g.getHit()%></td>
+						<td class="col6"><%=g.getHit()%></td><%if(lidx != 1 && lidx != 2){
+					  %><td class="col7"><%=g.getThumb()%></td><%}%>
 					</tr>
-					<%} %>
+					<%}%>
 					</tbody>
 				</table>
 				<div id="tableBottom">
 					<div id="button">
 				<%if(loginUser != null){%>
-					<button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_write.jsp?writesort=<%=writesort%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">등록</button>
+					<button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_write.jsp?writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">등록</button>
 				<%} %>
 					</div>
 					<div id="paging">
@@ -126,7 +134,7 @@ Member loginUser = (Member)session.getAttribute("loginUser");
 						<%if(i == list.paging.getNowPage()){%>
 							<div id="nowPage" style="cursor:default; background-color: deepskyblue;"><%=i %></div>
 						<%}else{%>
-						<a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=<%=writesort%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
+						<a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesortnum=<%=writesortnum%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
 						<%}
 				  		}%>
 						<div<%if(list.paging.getEndPage() == list.paging.getLastPage()){%>

@@ -11,6 +11,7 @@ public class Commuapply {
 	private String writesort4;
 	private String writesort5;
 	private String commuReason;
+	private String okyn;
 	public int getBidx() {
 		return bidx;
 	}
@@ -70,5 +71,11 @@ public class Commuapply {
 	}
 	public void setCommuReason(String commuReason) {
 		this.commuReason = commuReason;
+	}
+	public String getOkyn() {
+		return okyn;
+	}
+	public void setOkyn(String okyn) {
+		this.okyn = okyn;
 	}
 }

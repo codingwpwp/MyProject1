@@ -47,7 +47,6 @@
 					Cookie cookie = new Cookie(cookieName, "viewed");
 					cookie.setMaxAge(60 * 60 * 24);
 					response.addCookie(cookie);
-					psmt = null;
 				}
 			}
 			
@@ -59,7 +58,7 @@
 	}
 	
 	// 게시글 상세조회 + 댓글조회
-	ViewFilter view = new ViewFilter(1, bidx);	// 첫번째 매개값의 의미는 lidx가 1인 자유게시판을 의미한다.
+	ViewFilter view = new ViewFilter(1, bidx);	// 첫번째 매개값은 lidx가 1인 자유게시판을 의미한다.
 %>
 <!DOCTYPE html>
 <html>
@@ -83,11 +82,11 @@
 			<div id="submenu">
 				<button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">목록</button>
 				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx())){
-				%><button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_modify.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>&bidx=<%=bidx%>'">수정</button><%}%>
+				%><button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_modify.jsp?bidx=<%=bidx%>&writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">수정</button><%}%>
 				<%if(loginUser != null && ((loginUser.getMidx() == view.gulView.getMidx()) || (loginUser.getMidx() == 0))){
-				%><button>삭제</button><%}%>
-				<%if(loginUser != null && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0){
-				%><button>허가</button><%}%>
+				%><button onclick="location.href='<%=request.getContextPath()%>/jauboard/board_delete.jsp?bidx=<%=bidx%>&writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}%>
+				<%if(loginUser != null && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn().equals("N")){
+				%><button  onclick="location.href='<%=request.getContextPath()%>/jauboard/board_commuApply.jsp?bidx=<%=bidx%>&writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">허가</button><%}%>
 			</div>
 			<div id="gulTitle">
 				<div><%=view.gulView.getSubject()%></div>
@@ -145,7 +144,7 @@
 							<div><%=r.getRcontent()%></div>
 						</div>
 						<div class="replyDate">
-							<%=r.getRdate()%>
+							<%=r.getRdate()%><%if(r.getModifyyn().equals("Y")){%> (수정됨)<%}%>
 						</div>
 					</div>
 				<%} %>

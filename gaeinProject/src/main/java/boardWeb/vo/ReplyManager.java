@@ -3,12 +3,12 @@ package boardWeb.vo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import boardWeb.util.DBManager;
 
 public class ReplyManager {
 	public Reply reply = new Reply();
 	String sql;
+	
 	
 	Connection conn = null;
 	PreparedStatement psmt = null;
@@ -67,16 +67,18 @@ public class ReplyManager {
 	
 	public ReplyManager(int ridx, String rcontent) {	// 댓글 수정
 		try {
+			
 			conn = DBManager.getConnection();
-			sql = "UPDATE boardreply SET rcontent = ? WHERE ridx = ?" ;
+			sql = "UPDATE boardreply SET rcontent=?,MODIFYYN='Y' WHERE ridx = ?" ;
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rcontent);
 			psmt.setInt(2, ridx);
 			psmt.executeUpdate();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBManager.close(conn, psmt);
+			DBManager.close(conn, psmt, rs);
 		}
 	}
 	

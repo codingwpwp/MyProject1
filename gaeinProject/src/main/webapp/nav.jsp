@@ -4,7 +4,7 @@
 	<div id="nav">
 		<ul>
 			<li class="menu 1" id="menu1" style="width: 80px; font-weight: bold;">
-			<a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?wirtesort=all">자유게시판</a><br>
+			<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=0">자유게시판</a><br>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=notice">공지</a></li>
 					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=normal">일반</a></li>

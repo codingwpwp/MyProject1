@@ -9,65 +9,73 @@ public class ListFilter {
 	public ArrayList<Gul> gulList = new ArrayList<>();
 	public PagingUtil paging;
 	
-	String listtable;
+	public int listmastermidx;
+	public String listintroduce;
+	public int writesortcnt;
+	public String writesort1;
+	public String writesort2;
+	public String writesort3;
+	public String writesort4;
+	public String writesort5;
+	
+	String writersql;	// 검색 종류 : 작성자 일때
+	public ArrayList<Integer> midxs = new ArrayList<>();	// '작성자'에 대한 값들(MIDX)을 배열화
+	
+	int cnt;	// 글 갯수
 	
 	String sql;
-	int cnt;
-	
-	String writersql;
-	public ArrayList<Integer> midxs = new ArrayList<>();
-	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	ResultSet rsMidx = null;
 	
-	public ListFilter(int lidx, String writesort, int nowPage, String searchType, String searchValue){
-		
-		if(lidx == 1 || lidx == 2) {
-			if(writesort.equals("notice")){
-				writesort = "공지";
-			}else if(writesort.equals("normal")){
-				writesort = "일반";
-			}else if(writesort.equals("qna")){
-				writesort = "질문";
-			}else if(writesort.equals("commuapply")){
-				writesort = "커뮤신청";
-			}
-		}
+	public ListFilter(int lidx, int writesortnum, int nowPage, String searchType, String searchValue){
 		
 		try{
 			conn = DBManager.getConnection();
 			
-			// lidx를 이용하여 boardlist의 listtable을 호출하는 과정
-			sql = "SELECT listtable FROM boardlist WHERE lidx = " + lidx;
+			// LIDX로 게시판의 기본 정보를 호출하는 과정
+			sql = "SELECT * FROM assaboardlist WHERE lidx = " + lidx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			if(rs.next()){
-				listtable = rs.getString("listtable");
+			if(rs.next()) {
+				
+				listmastermidx = rs.getInt("LISTMASTERMIDX");
+				listintroduce = rs.getString("LISTINTRODUCE");
+				writesortcnt = rs.getInt("WRITESORTCNT");
+				writesort1 = rs.getString("WRITESORT1");
+				writesort2 = rs.getString("WRITESORT2");
+				if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
+				if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
+				if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
+				
 			}
 			psmt = null;
-			rs = null;
 			
-			// 해당 게시판의 게시글의 갯수를 호출하는 과정
-			sql = "SELECT * FROM " + listtable + " WHERE delyn = 'N' ";
-			if(!writesort.equals("all")){
-				sql +=  "AND writesort = '" + writesort + "' ";;
+			// 게시판의 글 갯수를 구하는 과정 ( (카테고리(말머리)) || (검색종류 && 검색값) )
+			sql = "SELECT * FROM ASSABOARD WHERE lidx = " + lidx + " ";
+			
+			switch(writesortnum) {
+			case 1 : sql += "AND writesort = " + writesort1 + " "; break;
+			case 2 : sql += "AND writesort = " + writesort2 + " "; break;
+			case 3 : sql += "AND writesort = " + writesort3 + " "; break;
+			case 4 : sql += "AND writesort = " + writesort4 + " "; break;
+			case 5 : sql += "AND writesort = " + writesort5 + " ";
 			}
 			
-			if(!searchValue.equals("") && !searchValue.equals("null")){
+			if(searchValue != null && !searchValue.equals("") && !searchValue.equals("null")){
 				
 				if(searchType.equals("subject")){
 					sql += "AND subject LIKE '%" + searchValue + "%' ";
-					
 				}else if(searchType.equals("nickname")){
+					
 					writersql = "SELECT midx FROM assamember WHERE nickname LIKE '%" + searchValue + "%'";
 					psmt = conn.prepareStatement(writersql);
 					rs = psmt.executeQuery();
-					
 					while(rs.next()){
 						midxs.add(rs.getInt("midx"));
 					}
+					psmt = null;
 					
 					if(midxs.size() == 0){
 						sql += "AND midx = -1 ";
@@ -80,33 +88,41 @@ public class ListFilter {
 						}
 						sql += "midx = " + midxs.get(midxs.size() - 1) + ") ";
 					}
+					
 				}else if(searchType.equals("content")){
 					sql += "AND content LIKE '%" + searchValue +  "%' ";
 				}
 			}
+			
 			sql += "ORDER BY bidx DESC";
-			//System.out.println(sql);
+			System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			while(rs.next()) {
-				cnt++;
+			while(rs.next()) cnt++;
+			psmt = null;
+			
+			// 게시판의 페이징처리
+			paging = new PagingUtil(cnt, nowPage, 7);
+			
+			// 글을 출력하는 과정 ( (카테고리(말머리)) || (검색종류 && 검색값) )
+			sql = "SELECT b.* FROM ";
+			sql += " (SELECT ROWNUM r, a.* FROM ";
+			sql += "  (SELECT bidx, midx, writesort, subject, hit, thumb, TO_CHAR(writeday, 'YYYY-MM-DD')";
+			sql += "   AS writeday FROM assaboard WHERE lidx = " + lidx + " AND delyn = 'N' ";
+			
+			switch(writesortnum) {
+			case 1 : sql += "AND writesort = " + writesort1 + " "; break;
+			case 2 : sql += "AND writesort = " + writesort2 + " "; break;
+			case 3 : sql += "AND writesort = " + writesort3 + " "; break;
+			case 4 : sql += "AND writesort = " + writesort4 + " "; break;
+			case 5 : sql += "AND writesort = " + writesort5 + " ";
 			}
 			
-			psmt = null;
-			rs = null;
-			// 해당 게시판의 페이징처리
-			paging = new PagingUtil(cnt, nowPage, 10);
-			// 해당 게시판의 페이지에 맞는 게시글을 출력
-			sql = "SELECT b.* FROM ";
-			sql += "(SELECT ROWNUM r, a.* FROM ";
-			sql += "(SELECT bidx, midx, writesort, subject, hit, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM " + listtable + " WHERE delyn = 'N' ";
-			if(writesort != null && !writesort.equals("all")) {
-				sql +=  "AND writesort = '" + writesort + "' ";;
-			}
-			if(!searchValue.equals("") && !searchValue.equals("null")){
+			if(searchValue != null && !searchValue.equals("") && !searchValue.equals("null")){
 				if(searchType.equals("subject")){
 					sql += "AND subject LIKE '%" + searchValue + "%' ";
-				}else if(searchType.equals("writer")){
+				}else if(searchType.equals("nickname")){
+					
 					if(midxs.size() == 0){
 						sql += "AND midx = -1 ";
 					}else if(midxs.size() == 1){
@@ -116,22 +132,27 @@ public class ListFilter {
 						for(int i = 0; i < midxs.size() - 1; i++) {
 							sql += "midx = " + midxs.get(i) + " OR ";
 						}
-						sql += "midx = " + midxs.get(midxs.size() - 1) + ") ";
+							sql += "midx = " + midxs.get(midxs.size() - 1);
+						sql += ") ";
 					}
+					
 				}else if(searchType.equals("content")){
 					sql += "AND content LIKE '%" + searchValue +  "%' ";
 				}
 			}
-			sql += "ORDER BY bidx DESC)a )b WHERE r BETWEEN " + paging.getStart() + " AND " + paging.getEnd();
-			
+			sql += "   ORDER BY bidx DESC)a ";
+			sql += " )b WHERE r BETWEEN " + paging.getStart() + " AND " + paging.getEnd();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+			
 			while(rs.next()) {
 				Gul jauList = new Gul();
 				
+				jauList.setNum(cnt);
 				jauList.setBidx(rs.getInt("bidx"));
 				jauList.setWritesort(rs.getString("writesort"));
 				jauList.setSubject(rs.getString("subject"));
+				
 				
 				psmt = null;
 				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
@@ -142,10 +163,12 @@ public class ListFilter {
 					jauList.setPosition(rsMidx.getString("position"));
 				}
 				
+				
 				jauList.setWriteday(rs.getString("writeday"));
 				jauList.setHit(rs.getInt("hit"));
 				
 				gulList.add(jauList);
+				cnt--;
 			}
 			
 		}catch(Exception e){

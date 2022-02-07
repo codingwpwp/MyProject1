@@ -90,10 +90,14 @@ function modifyReply(obj){
 				url : "board_reply_manager.jsp",
 				type : "post",
 				data : "ridx=" + $(obj).parent().prev().prev().val() + "&rcontent=" + rcontent,
-				success : function(){
+				success : function(data){
 					$(obj).parent().next().find("textarea").remove();
 					$(obj).parent().next().find("div:eq(1)").text(rcontent);
 					$(obj).attr("src", "/gaeinProject/image/pencil.png");
+					var replyDate = $(obj).parent().next().next().text();
+					if(replyDate.trim().length < 22){
+						$(obj).parent().next().next().text(replyDate.trim() + " (수정됨)");
+					};
 				}
 			});
 		}else{

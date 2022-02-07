@@ -122,10 +122,8 @@ function gulWrite() {
 					break;
 				}
 			}
-			
 		}
 
 	}
-	
 	return flag;
 }

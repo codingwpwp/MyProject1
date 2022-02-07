@@ -47,13 +47,13 @@ function commumalMinus() {
 	}
 }
 
-function gulWrite() {
+function gulModify() {
 	var flag = true;
 	var reg = /^(\s+)$/;
 	var subject = document.getElementById('gulSubject');
 	var cTitle = document.getElementById('cTitle');
 
-	if(reg.test(subject.value) || subject.value == ""){
+	if(reg.test(subject.value) || subject.value == ""){	// 제목 유효성 검사
 		alert('제목을 비우지 마세요');
 		flag = false;
 	}else{
@@ -85,9 +85,8 @@ function gulWrite() {
 					break;
 				}
 			}
-			
 		}
-
+		
 	}
 	
 	return flag;
