@@ -9,8 +9,10 @@ public class ListFilter {
 	public ArrayList<Gul> gulList = new ArrayList<>();
 	public PagingUtil paging;
 	
-	public int listmastermidx;
+	
 	public String listintroduce;
+	public String listtitle;
+	public int listmastermidx;
 	public int writesortcnt;
 	public String writesort1;
 	public String writesort2;
@@ -40,8 +42,9 @@ public class ListFilter {
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				
-				listmastermidx = rs.getInt("LISTMASTERMIDX");
 				listintroduce = rs.getString("LISTINTRODUCE");
+				listtitle = rs.getString("LISTTITLE");
+				listmastermidx = rs.getInt("LISTMASTERMIDX");
 				writesortcnt = rs.getInt("WRITESORTCNT");
 				writesort1 = rs.getString("WRITESORT1");
 				writesort2 = rs.getString("WRITESORT2");
@@ -56,11 +59,11 @@ public class ListFilter {
 			sql = "SELECT * FROM ASSABOARD WHERE lidx = " + lidx + " ";
 			
 			switch(writesortnum) {
-			case 1 : sql += "AND writesort = " + writesort1 + " "; break;
-			case 2 : sql += "AND writesort = " + writesort2 + " "; break;
-			case 3 : sql += "AND writesort = " + writesort3 + " "; break;
-			case 4 : sql += "AND writesort = " + writesort4 + " "; break;
-			case 5 : sql += "AND writesort = " + writesort5 + " ";
+			case 1 : sql += "AND writesort = '" + writesort1 + "' "; break;
+			case 2 : sql += "AND writesort = '" + writesort2 + "' "; break;
+			case 3 : sql += "AND writesort = '" + writesort3 + "' "; break;
+			case 4 : sql += "AND writesort = '" + writesort4 + "' "; break;
+			case 5 : sql += "AND writesort = '" + writesort5 + "' ";
 			}
 			
 			if(searchValue != null && !searchValue.equals("") && !searchValue.equals("null")){
@@ -95,7 +98,7 @@ public class ListFilter {
 			}
 			
 			sql += "ORDER BY bidx DESC";
-			System.out.println(sql);
+			//System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()) cnt++;
@@ -111,11 +114,11 @@ public class ListFilter {
 			sql += "   AS writeday FROM assaboard WHERE lidx = " + lidx + " AND delyn = 'N' ";
 			
 			switch(writesortnum) {
-			case 1 : sql += "AND writesort = " + writesort1 + " "; break;
-			case 2 : sql += "AND writesort = " + writesort2 + " "; break;
-			case 3 : sql += "AND writesort = " + writesort3 + " "; break;
-			case 4 : sql += "AND writesort = " + writesort4 + " "; break;
-			case 5 : sql += "AND writesort = " + writesort5 + " ";
+			case 1 : sql += "AND writesort = '" + writesort1 + "' "; break;
+			case 2 : sql += "AND writesort = '" + writesort2 + "' "; break;
+			case 3 : sql += "AND writesort = '" + writesort3 + "' "; break;
+			case 4 : sql += "AND writesort = '" + writesort4 + "' "; break;
+			case 5 : sql += "AND writesort = '" + writesort5 + "' ";
 			}
 			
 			if(searchValue != null && !searchValue.equals("") && !searchValue.equals("null")){

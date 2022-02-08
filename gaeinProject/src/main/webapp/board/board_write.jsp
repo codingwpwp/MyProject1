@@ -4,20 +4,19 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	request.setCharacterEncoding("UTF-8");
-	String writesort = request.getParameter("writesort");
-	if(writesort == null){
-		writesort = "all";
-	}
-	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-	String searchType = request.getParameter("searchType");
-	if(searchType == null){
-		searchType = "";
-	}
-	String searchValue = request.getParameter("searchValue");
-	if(searchValue == null){
-		searchValue = "";
-	}
 	
+	int lidx = Integer.parseInt(request.getParameter("lidx"));	// 게시판 번호
+	
+	int writesortnum =  Integer.parseInt(request.getParameter("writesortnum"));	// 카테고리 또는 말머리
+
+	String searchType = request.getParameter("searchType");						// 검색 종류
+	if(searchType == null) searchType = "";
+	String searchValue = request.getParameter("searchValue");					// 검색 값
+	if(searchValue == null) searchValue = "";
+	
+	int nowPage = Integer.parseInt(request.getParameter("nowPage"));			// 페이지
+	
+	ListFilter list = new ListFilter(lidx, writesortnum, nowPage, searchType, searchValue);
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/footer.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/summernote/summernote-lite.css">
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
-	<script src ="<%=request.getContextPath()%>/js/board_write_section_mainWrap.js"></script>
+	<script src ="<%=request.getContextPath()%>/js/board_write.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-lite.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-ko-KR.js"></script>
 </head>
@@ -40,29 +39,36 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
-			<h2>자유게시판 - 등록</h2>
-			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_wirteOk.jsp" onsubmit = "return gulWrite()">
-			<%if(loginUser.getPosition().equals("운영자")){%>
-				<label>
-					<input type="radio" name="writesort" value="notice" checked onchange="changeGul(this)">공지
+			<h2><%=list.listtitle%> - 등록</h2>
+			<form method="post" action="<%=request.getContextPath()%>/board/board_wirteOk.jsp" onsubmit = "return gulWrite()">
+			<%if(loginUser.getMidx() == list.listmastermidx){%>
+				<label> <!-- <input> 태그의 name값은 파라미터로 넘어온 WRITESORTNUM값과 전혀 연관이 없다. -->
+					<input type="radio" name="writesort" value="<%=list.writesort1%>" <%if(lidx == 1) out.print("checked");%>><%=list.writesort1%>
 				</label>
+			<%}else if(loginUser.getMidx() != 0){%>
+				<label>
+					<input type="radio" name="writesort" value="<%=list.writesort2%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%> checked><%=list.writesort2%>
+				</label>
+				<%if(list.writesort3 != null){%>
+				<label>
+					<input type="radio" name="writesort" value="<%=list.writesort3%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%>><%=list.writesort3%>
+				</label>
+				<%}%>
+				<%if(list.writesort4 != null){%>
+				<label>
+					<input type="radio" name="writesort" value="<%=list.writesort4%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%>><%=list.writesort4%>
+				</label>
+				<%}%>
+				<%if(list.writesort5 != null){%>
+				<label>
+					<input type="radio" name="writesort" value="<%=list.writesort5%>"><%=list.writesort5%>
+				</label>
+				<%}%>
 			<%}%>
-			<%if(!loginUser.getPosition().equals("운영자")){%>
-				<label>
-					<input type="radio" name="writesort" value="normal" checked onchange="changeGul(this)">일반
-				</label>
-				<label>
-					<input type="radio" name="writesort" value="qna" onchange="changeGul(this)">질문
-				</label>
-			<%}%>
-			<%if(loginUser.getPosition().equals("일반")){%>
-				<label>
-					<input type="radio" name="writesort" value="commuapply" onchange="changeGul(this)">커뮤신청
-				</label>
-			<%}%>
+				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<div id="submenu">
 					<button type="submit">완료</button>
-					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
+					<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
 				</div>
 				<div id="gulTitle">
 					<div style="margin-top:10px">
@@ -72,10 +78,11 @@
 				</div>
 				<div id="gul">
 					<textarea id="summernote" name="editordata"></textarea>
+					<%if(lidx == 1){%>
 					<div id="commuform">
 						<span style="color:red; font-size:small;">
 							*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.<br>
-							*등록한 이후 다른 카테고리로 변경 할 수 없고, 운영자가 허가한 이후 수정, 삭제를 할 수 없습니다.
+							*등록한 이후 다른 카테고리로 변경 할 수 없고, 운영자가 허가한 이후엔 수정, 삭제를 할 수 없습니다.
 						</span>
 						<div>
 							<span>커뮤이름 : </span>
@@ -91,7 +98,7 @@
 							<div><span>말머리 : </span></div>
 							<div id="commumalhead">
 								<input type="text" name="commumalhead1" value="공지" readonly>
-								<span style="color: red; font-size: small;">*필수</span>
+								<span style="color: red; font-size: small;">*말머리 2개는 필수</span>
 								<br>
 								<input type="text" name="commumalhead2" placeholder="4자이내" maxlength="4">
 								<img src="<%=request.getContextPath()%>/image/plus.png" width="10" onclick="commumalPlus()">&nbsp;
@@ -106,6 +113,7 @@
 						</div>
 						<input type="hidden" name="commumalheadCnt" value="2">
 					</div>
+					<%}%>
 				</div>
 			</form>
 		</div>

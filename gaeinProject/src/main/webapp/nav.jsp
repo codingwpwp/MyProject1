@@ -6,10 +6,10 @@
 			<li class="menu 1" id="menu1" style="width: 80px; font-weight: bold;">
 			<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=0">자유게시판</a><br>
 				<ul>
-					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=notice">공지</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=normal">일반</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=qna">질문</a></li>
-					<li><a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesort=commuapply">커뮤신청</a></li>
+					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=1">공지</a></li>
+					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=2">일반</a></li>
+					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=3">질문</a></li>
+					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=1&writesortnum=4">커뮤신청</a></li>
 				</ul>
 			</li>
 			<li class="menu 2" id="menu2" style="font-weight: bold; width: 100px;">

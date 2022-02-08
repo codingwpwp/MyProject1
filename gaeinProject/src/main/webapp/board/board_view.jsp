@@ -12,7 +12,9 @@
 	String writesort = request.getParameter("writesort");
 	String nowPage = request.getParameter("nowPage");
 	String searchType = request.getParameter("searchType");
+	if(searchType == null) searchType = "";
 	String searchValue = request.getParameter("searchValue");
+	if(searchValue == null) searchValue = "";
 	
 	// 쿠키 관리
 	int visitSwitch = 0;

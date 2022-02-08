@@ -22,7 +22,7 @@ var commuSwitch = 0;
 var html = "";
 
 function changeGul(obj) {
-	if($(obj).val() == 'commuapply'){
+	if($(obj).val() == '4'){
 		
 		$('#summernote').summernote('reset');
 		$('#summernote').summernote('destroy');
