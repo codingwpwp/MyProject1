@@ -4,20 +4,21 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	
 	request.setCharacterEncoding("UTF-8");
-	String writesort = request.getParameter("writesort");
-	if(writesort == null){
-		writesort = "all";
-	}
-	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-	int bidx = Integer.parseInt(request.getParameter("bidx"));
-	String searchType = request.getParameter("searchType");
-	if(searchType == null){
-		searchType = "";
-	}
-	String searchValue = request.getParameter("searchValue");
-	if(searchValue == null){
-		searchValue = "";
-	}
+	
+	int lidx = Integer.parseInt(request.getParameter("lidx"));	// 게시판 번호
+
+	int bidx = Integer.parseInt(request.getParameter("bidx"));	// 글 번호
+	
+	int writesortnum =  Integer.parseInt(request.getParameter("writesortnum"));	// 카테고리 넘버(글 조회할때만 사용)
+	
+	String writesort = request.getParameter("writesort");		// 카테고리
+	
+	String searchType = request.getParameter("searchType");		// 검색 종류
+	
+	String searchValue = request.getParameter("searchValue");	// 검색 값
+	
+	String nowPage = request.getParameter("nowPage");			// 페이지
+	
 	ViewFilter view = new ViewFilter(1, bidx);
 %>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/footer.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/summernote/summernote-lite.css">
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
-	<script src ="<%=request.getContextPath()%>/js/board_modify_section_mainWrap.js"></script>
+	<script src ="<%=request.getContextPath()%>/js/board_modify.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-lite.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-ko-KR.js"></script>
 </head>
@@ -41,30 +42,57 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
-			<h2>자유게시판 - 수정</h2>
-			<form method="post" action="<%=request.getContextPath()%>/jauboard/board_modifyOk.jsp" onsubmit = "return gulModify()">
+			<h2><%=view.listtitle%> - 수정</h2>
+			<form method="post" action="<%=request.getContextPath()%>/board/board_modifyOk.jsp" onsubmit = "return gulModify()">
+				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<input type="hidden" name="bidx" value="<%=bidx%>">
-			<%if(view.gulView.getWritesort().equals("공지")){%>
-				<label>
-					<input type="radio" name="writesort" value="notice" checked>공지
-				</label>
-			<%}%>
-			<%if(view.gulView.getWritesort().equals("일반") || view.gulView.getWritesort().equals("질문")){%>
-				<label>
-					<input type="radio" name="writesort" value="normal" <%if(view.gulView.getWritesort().equals("일반")){%>checked<%}%>>일반
-				</label>
-				<label>
-					<input type="radio" name="writesort" value="qna" <%if(view.gulView.getWritesort().equals("질문")){%>checked<%}%>>질문
-				</label>
-			<%}%>
-			<%if(view.gulView.getWritesort().equals("커뮤신청")){%>
-				<label>
-					<input type="radio" name="writesort" value="commuapply" checked>커뮤신청
-				</label>
+			<%if(lidx == 1 || lidx == 2){
+				if(loginUser.getMidx() == view.listmastermidx){
+				%><label>
+					<input type="radio" name="writesort" value="<%=view.writesort1%>" checked><%=view.writesort1%>
+				</label><%
+				}else{
+					if(!writesort.equals("커뮤신청")){%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort2%>"<%if(writesort.equals(view.writesort2)) out.print(" checked");%>><%=view.writesort2%>
+					</label>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort3%>"<%if(writesort.equals(view.writesort3)) out.print(" checked");%>><%=view.writesort3%>
+					</label>
+					<%}else{%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort4%>" checked><%=view.writesort4%>
+					</label>
+					<%}
+				}
+			}else{%>
+				<%if(loginUser.getMidx() == view.listmastermidx){%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort1%>" checked><%=view.writesort1%>
+					</label>
+				<%}%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort2%>"<%if(writesort.equals(view.writesort2)) out.print(" checked");%>><%=view.writesort2%>
+					</label>
+					<%if(view.writesort3 != null){%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort3%>"<%if(writesort.equals(view.writesort3)) out.print(" checked");%>><%=view.writesort3%>
+					</label>
+					<%}%>
+					<%if(view.writesort4 != null){%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort4%>"<%if(writesort.equals(view.writesort4)) out.print(" checked");%>><%=view.writesort4%>
+					</label>
+					<%}%>
+					<%if(view.writesort5 != null){%>
+					<label>
+						<input type="radio" name="writesort" value="<%=view.writesort5%>"<%if(writesort.equals(view.writesort5)) out.print(" checked");%>><%=view.writesort5%>
+					</label>
+					<%}%>
 			<%}%>
 				<div id="submenu">
 					<button type="submit">완료</button>
-					<button type="button" onclick="location.href='<%=request.getContextPath()%>/jauboard/board_view.jsp?bidx=<%=bidx%>&writesort=<%=writesort%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
+					<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
 				</div>
 				<div id="gulTitle">
 					<div style="margin-top:10px">
@@ -73,7 +101,7 @@
 					</div>
 				</div>
 				<div id="gul">
-				<%if(!view.gulView.getWritesort().equals("커뮤신청")){
+				<%if(lidx == 1 && !view.gulView.getWritesort().equals("커뮤신청")){
 					%><textarea id="summernote" name="editordata"><%=view.gulView.getContent()%></textarea><%
 				}else{
 					%><div id="commuform">
@@ -113,7 +141,7 @@
 						<input type="hidden" name="commumalheadCnt" value="<%=view.commuapply.getWritesortcnt()%>">
 					</div><%}%>
 				</div>
-				<input type="hidden" name="writesort2" value="<%=writesort%>">
+				<input type="hidden" name="writesortnum" value="<%=writesortnum%>">
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
 				<input type="hidden" name="searchType" value="<%=searchType%>">
 				<input type="hidden" name="searchValue" value="<%=searchValue%>">

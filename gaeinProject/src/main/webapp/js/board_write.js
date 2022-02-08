@@ -22,7 +22,8 @@ var commuSwitch = 0;
 var html = "";
 
 function changeGul(obj) {
-	if($(obj).val() == '4'){
+	console.log(5);
+	if($(obj).val() == "커뮤신청"){
 		
 		$('#summernote').summernote('reset');
 		$('#summernote').summernote('destroy');
@@ -95,7 +96,7 @@ function gulWrite() {
 		flag = false;
 	}else{
 
-		if($("input[name='writesort']:checked").val() != 'commuapply'){	// 커뮤신청이 아닌경우
+		if($("input[name='writesort']:checked").val() != '커뮤신청'){	// 커뮤신청이 아닌경우
 			var gulData = $('#summernote').summernote('code');
 			if(gulData == "<p><br></p>" || gulData == ""){	// 글이 비어있을 때
 				alert('내용을 작성하고 완료하세요');

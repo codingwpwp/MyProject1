@@ -23,7 +23,8 @@ public class ListFilter {
 	String writersql;	// 검색 종류 : 작성자 일때
 	public ArrayList<Integer> midxs = new ArrayList<>();	// '작성자'에 대한 값들(MIDX)을 배열화
 	
-	int cnt;	// 글 갯수
+	public int cnt;	// 글 갯수
+	int end;	// 해당 페이지 마지막 글
 	
 	String sql;
 	Connection conn = null;
@@ -56,7 +57,7 @@ public class ListFilter {
 			psmt = null;
 			
 			// 게시판의 글 갯수를 구하는 과정 ( (카테고리(말머리)) || (검색종류 && 검색값) )
-			sql = "SELECT * FROM ASSABOARD WHERE lidx = " + lidx + " ";
+			sql = "SELECT * FROM ASSABOARD WHERE delyn = 'N' and lidx = " + lidx + " ";
 			
 			switch(writesortnum) {
 			case 1 : sql += "AND writesort = '" + writesort1 + "' "; break;
@@ -105,7 +106,10 @@ public class ListFilter {
 			psmt = null;
 			
 			// 게시판의 페이징처리
-			paging = new PagingUtil(cnt, nowPage, 7);
+			paging = new PagingUtil(cnt, nowPage, 8);
+			
+			// 해당 페이지의 마지막 글
+			end = paging.getEnd();
 			
 			// 글을 출력하는 과정 ( (카테고리(말머리)) || (검색종류 && 검색값) )
 			sql = "SELECT b.* FROM ";
@@ -151,7 +155,7 @@ public class ListFilter {
 			while(rs.next()) {
 				Gul jauList = new Gul();
 				
-				jauList.setNum(cnt);
+				jauList.setNum(end);
 				jauList.setBidx(rs.getInt("bidx"));
 				jauList.setWritesort(rs.getString("writesort"));
 				jauList.setSubject(rs.getString("subject"));
@@ -171,7 +175,7 @@ public class ListFilter {
 				jauList.setHit(rs.getInt("hit"));
 				
 				gulList.add(jauList);
-				cnt--;
+				end--;
 			}
 			
 		}catch(Exception e){

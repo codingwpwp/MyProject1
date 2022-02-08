@@ -39,9 +39,21 @@
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
+	<script>
+		<%if(lidx == 2 && loginUser != null){%>
+			var position = "<%=loginUser.getPosition()%>";
+			if(position == "일반"){
+				alert('커뮤장이상만 이용할 수 있습니다');
+				location.href="/gaeinProject/index.jsp";
+			}
+		<%}else if(lidx == 2 && loginUser == null){%>
+			alert('로그인 후 이용 가능합니다');
+			location.href="/gaeinProject/index.jsp";
+		<%}%>
+	</script>
 		<div id="mainWrap">
-			<h2><%=list.listtitle%></h2>
-			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span></span><br><%}%>
+			<h2><%=list.listtitle%>(<%=list.cnt%>개)</h2>
+			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
 				%><span>전체</span>|<%
@@ -50,17 +62,17 @@
 				%><span><%=list.writesort1%></span>|<%
 			}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=1"><%=list.writesort1%></a>|<%}
 			if(writesortnum == 2){
-				%><span><%=list.writesort2%></span>|<%
+				%><span><%=list.writesort2%></span><%if(list.writesort3 != null){%>|<%}
 			}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=2"><%=list.writesort2%></a><%if(list.writesort3 != null){%>|<%}}
 			if(list.writesort3 != null){
 				if(writesortnum == 3){
-				%><span><%=list.writesort3%></span>|
-				<%}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=3"><%=list.writesort3%></a><%if(list.writesort4 != null){%>|<%}}
+				%><span><%=list.writesort3%></span><%if(list.writesort4 != null){%>|<%}
+				}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=3"><%=list.writesort3%></a><%if(list.writesort4 != null){%>|<%}}
 			}
 			if(list.writesort4 != null){
 				if(writesortnum == 4){
-				%><span><%=list.writesort4%></span>|
-				<%}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=4"><%=list.writesort4%></a><%if(list.writesort5 != null){%>|<%}}
+				%><span><%=list.writesort4%></span><%if(list.writesort5 != null){%>|<%}
+				}else{%><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=4"><%=list.writesort4%></a><%if(list.writesort5 != null){%>|<%}}
 			}
 			if(list.writesort5 != null){
 				if(writesortnum == 5){
@@ -102,15 +114,10 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 								%><%=g.getSubject().substring(0, 17)%>...<%
 							}else{%><%=g.getSubject()%><%}%></a>
 							</td>
-							<td class="col4"
+							<td class="col4"<%if(g.getPosition().equals("운영자")){%> id="admintd"<%}%>>
 								<%if(g.getPosition().equals("운영자")){%>
-									style="font-weight:bold; color: red;"
-								<%}else if(!g.getPosition().equals("일반")){%>
-									style="color: blue;"
-								<%}%>>
-								<%if(g.getPosition().equals("운영자")){%>
-								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px;">
-								<%}else{%><span><%}%><%=g.getNickname()%></span>
+								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px;"><%
+								} if(!g.getPosition().equals("일반") && !g.getPosition().equals("운영자")){%><span id="commujangspan"><%}else if(g.getPosition().equals("일반")){%><span><%}%><%=g.getNickname()%></span>
 							</td>
 							<td class="col5"><%=g.getWriteday()%></td>
 							<td class="col6"><%=g.getHit()%></td>

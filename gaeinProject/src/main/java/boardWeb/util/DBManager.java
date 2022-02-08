@@ -3,7 +3,7 @@ package boardWeb.util;
 import java.sql.*;
 
 public class DBManager {
-	public static String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	public static String url = "jdbc:oracle:thin:@localhost:1522:xe";
 	public static String user = "system";
 	public static String pass = "1234";
 
@@ -26,19 +26,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void close(Connection conn, PreparedStatement psmt, Statement smt, ResultSet rs) {
-		try {
-			if (conn != null) conn.close();
-			if (psmt != null) psmt.close();
-			if (smt != null) smt.close();
-			if (rs != null) rs.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	
 	public static void close(Connection conn, PreparedStatement psmt, ResultSet rs) {
 		try {

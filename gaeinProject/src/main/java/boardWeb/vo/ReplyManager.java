@@ -20,7 +20,7 @@ public class ReplyManager {
 			conn = DBManager.getConnection();
 			
 			// 댓글을 등록하는 과정
-			sql = "INSERT INTO boardreply(ridx, lidx, bidx, midx, rcontent) VALUES(b_ridx_seq.nextval,?,?,?,?)";
+			sql = "INSERT INTO ASSABOARDREPLY(ridx, lidx, bidx, midx, rcontent) VALUES(b_ridx_seq.nextval,?,?,?,?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, lidx);
 			psmt.setInt(2, bidx);
@@ -28,9 +28,9 @@ public class ReplyManager {
 			psmt.setString(4, rcontent);
 			psmt.executeUpdate();
 			
-			// DB에 추가한 댓글의 번호를 불러오는 과정
+			// DB에 추가한 RIDX를 불러오는 과정
 			psmt = null;
-			sql = "SELECT max(ridx) AS ridx FROM boardreply";
+			sql = "SELECT max(ridx) AS ridx FROM ASSABOARDREPLY";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
@@ -39,7 +39,7 @@ public class ReplyManager {
 			rs = null;
 			
 			// 올린 댓글을 조회하는 과정
-			sql = "SELECT midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM boardreply WHERE ridx = " + reply.getRidx();
+			sql = "SELECT midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM ASSABOARDREPLY WHERE ridx = " + reply.getRidx();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
@@ -69,7 +69,7 @@ public class ReplyManager {
 		try {
 			
 			conn = DBManager.getConnection();
-			sql = "UPDATE boardreply SET rcontent=?,MODIFYYN='Y' WHERE ridx = ?" ;
+			sql = "UPDATE ASSABOARDREPLY SET rcontent=?,MODIFYYN='Y' WHERE ridx = ?" ;
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, rcontent);
 			psmt.setInt(2, ridx);
@@ -85,7 +85,7 @@ public class ReplyManager {
 	public ReplyManager(int ridx) {		// 댓글 삭제
 		try {
 			conn = DBManager.getConnection();
-			sql = "UPDATE boardreply SET delyn = 'N' WHERE ridx = " + ridx;
+			sql = "UPDATE ASSABOARDREPLY SET delyn = 'Y' WHERE ridx = " + ridx;
 			psmt = conn.prepareStatement(sql);
 			psmt.executeUpdate();
 		}catch(Exception e){

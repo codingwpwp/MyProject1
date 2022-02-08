@@ -50,26 +50,22 @@
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
-	System.out.println(content);
 	// DB연결 후 쿼리 실행
 	try{
 		conn = DBManager.getConnection();
 		
 		String sql = "INSERT INTO assaboard(lidx, bidx, midx, writesort, subject, content) ";
-				sql += "VALUES (" + lidx + ", b_bidx_seq.nextval, " + midx + ", '" + writesort + "', '" + subject + "',";
-				
-				int i = 0;
-				while(i < content.length()){
-					
-				}
-				
-				
-				sql += ")";
+				sql += "VALUES (?, b_bidx_seq.nextval, ?, ?, ?, ?)";		
 		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1, lidx);
+		psmt.setInt(2, midx);
+		psmt.setString(3, writesort);
+		psmt.setString(4, subject);
+		psmt.setString(5, content);
 		psmt.executeUpdate();
 		
 		if(lidx == 1 && writesort.equals("커뮤신청")){
-			sql = "SELECT b_bidx_seq.currval FROM DUAL";
+			sql = "SELECT max(bidx) as bidx FROM assaboard";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
@@ -77,15 +73,20 @@
 			}
 			
 			sql = "INSERT INTO assaboard_commuapply (bidx, midx, commutitle, listintroduce, ";
+			
 			for(int i = 0; i < commumalhead.length; i++){
 			sql += "writesort" + (i + 1) + ", ";
 			}
+			
 			sql += "commuReason, writesortcnt) ";
 			
+			
 			sql += "VALUES (" + bidx + ", " + midx + ", '" + commuTitle + "', '" + commuIntroduce + "', '";
-			for(int i = 0; i < commumalhead.length; i++){
-				sql += commumalhead[i] + "', '";
+			
+			for(int j = 0; j < commumalhead.length; j++){
+				sql += commumalhead[j] + "', '";
 			}
+			
 			sql += commuReason + "', " + commumalhead.length + ")";
 			
 			psmt = conn.prepareStatement(sql);

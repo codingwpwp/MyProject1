@@ -5,70 +5,91 @@
 <%@ page import="boardWeb.util.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
-	int bidx = Integer.parseInt(request.getParameter("bidx"));
-	int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-	String writesort = request.getParameter("writesort");
-	String searchType = request.getParameter("searchType");
-	String searchValue = request.getParameter("searchValue");
 	
+	int lidx = Integer.parseInt(request.getParameter("lidx"));	// 게시판 번호
+	
+	int bidx = Integer.parseInt(request.getParameter("bidx"));	// 글 번호
+
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	Statement smt = null;
 	ResultSet rs = null;
-	ResultSet rs2 = null;
 	
 	int midx = 0;
+	int writesortcnt = 0;
 	String commutitle = "";
+	String listintroduce = "";
+	String writesort1 = "";
+	String writesort2 = "";
+	String writesort3 = "";
+	String writesort4 = "";
+	String writesort5 = "";
 	
 	try{
 		conn = DBManager.getConnection();
 		
-		// 커뮤신청에 있는 글을 호출하는 과정
-		String sql = "SELECT * FROM JAUBOARD_COMMUAPPLY WHERE bidx = " + bidx;
+		
+		// 커뮤신청테이블을 조회하는과정
+		String sql = "SELECT * FROM assaboard_commuapply WHERE bidx = " + bidx;
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		if(rs.next()){
 			
-			midx = rs.getInt("midx");
 			commutitle = rs.getString("COMMUTITLE");
-			
-			// boardlist에 신청한 커뮤니티를 추가하는 과정
-			psmt = null;
-			sql = "INSERT INTO boardlist(lidx, listtitle, listtable, listmastermidx, LISTINTRODUCE, writesortcnt";
-			for(int i = 0; i < rs.getInt("WRITESORTCNT"); i++){
-				sql += ", writesort" + (i + 1);
+			listintroduce = rs.getString("LISTINTRODUCE");
+			midx = rs.getInt("MIDX");
+			writesortcnt = rs.getInt("WRITESORTCNT");
+			writesort1 = rs.getString("WRITESORT1");
+			writesort2 = rs.getString("WRITESORT2");
+			if(rs.getString("WRITESORT3") != null){
+				writesort3 = rs.getString("WRITESORT3");
 			}
-			sql += ") ";
-			sql += "VALUES(b_lidx_seq.NEXTVAL, '" + commutitle + "', 'community' || b_lidx_seq.CURRVAL, " + midx + ", '" + rs.getString("LISTINTRODUCE") + "', " + rs.getInt("WRITESORTCNT");
-			for(int i = 0; i < rs.getInt("WRITESORTCNT"); i++){
-				sql += ", '" + rs.getString("writesort" + (i + 1)) + "'";
+			if(rs.getString("WRITESORT4") != null){
+				writesort4 = rs.getString("WRITESORT4");
 			}
-			sql += ")";
-			psmt = conn.prepareStatement(sql);
-			psmt.executeUpdate();
-			
-			// 테이블을 추가하는 과정
-			psmt = null;
-			sql = "CREATE TABLE " + rs.getString("commutitle") + "( ";
-			sql += "bidx NUMBER PRIMARY KEY,";
-			sql += "midx NUMBER NOT NULL,";
-			sql += "write";
-			sql += ")";
+			if(rs.getString("WRITESORT5") != null){
+				writesort5 = rs.getString("WRITESORT5");
+			}
 			
 		}
 		
+		// assaboardlist에 행을 추가하는 과정
+		sql = "INSERT INTO ASSABOARDLIST(LIDX, LISTTITLE, LISTTABLE, LISTMASTERMIDX, LISTINTRODUCE, WRITESORTCNT, WRITESORT1, WRITESORT2";
+		if(!writesort3.equals("")){
+			sql += ", WRITESORT3";
+		}
+		if(!writesort4.equals("")){
+			sql += ", WRITESORT4";
+		}
+		if(!writesort5.equals("")){
+			sql += ", WRITESORT5";
+		}
+		sql += ") VALUES(B_LIDX_SEQ.nextval, '" + commutitle + "', 'community' || (B_LIDX_SEQ.currval - 2), " + midx + ", '" + listintroduce + "', " + writesortcnt + ", '" +writesort1  + "', '" + writesort2 +"'";
+		
+		if(!writesort3.equals("")){
+			sql += ", '"+ writesort3 + "'";
+		}
+		if(!writesort4.equals("")){
+			sql += ", '"+ writesort4 + "'";
+		}
+		if(!writesort5.equals("")){
+			sql += ", '"+ writesort5 + "'";
+		}
+		sql += ")";
+		System.out.println(sql);
+		psmt = conn.prepareStatement(sql);
+		rs = psmt.executeQuery();
+		
+		// 신청한 사람을 커뮤장등급으로 승격하는 과정
+		sql = "UPDATE assamember SET position = '" + commutitle + "장'";
 		
 		
 		
-		
+	
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{
-		DBManager.close(conn, psmt, smt, rs);
-		if(rs2 != null){
-			rs2.close();
-		}
+		DBManager.close(conn, psmt, rs);
 	}
 	
-	response.sendRedirect(request.getContextPath() + "/jauboard/board_list.jsp?&writesort=" + writesort + "&nowPage=" + nowPage + "&searchType=" + searchType + "&searchValue" + searchValue);
+	response.sendRedirect(request.getContextPath() + "/board/board_list.jsp?&lidx=1&writesortnum=0");
 %>
