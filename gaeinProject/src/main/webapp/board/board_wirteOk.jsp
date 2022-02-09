@@ -20,16 +20,16 @@
 	String commuTitle = "";
 	String commuReason = "";
 	String commuIntroduce = "";
-	
-	int commumalheadCnt = Integer.parseInt(request.getParameter("commumalheadCnt"));
-	String commumalhead[] = new String[commumalheadCnt];
-	
+	int commumalheadCnt = 0;
+	String commumalhead[] = null;
 	// 내용을 담는 과정
 	if(lidx != 1 || !writesort.equals("커뮤신청")){	// 자유게시판&커뮤신청이 아닌경우
 		
 		content = request.getParameter("editordata");
 		
 	} else {
+		commumalheadCnt = Integer.parseInt(request.getParameter("commumalheadCnt"));
+		commumalhead = new String[commumalheadCnt];
 		
 		commuTitle = request.getParameter("commuTitle");
 		commuIntroduce = request.getParameter("commuIntroduce");

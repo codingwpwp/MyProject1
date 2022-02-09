@@ -131,15 +131,56 @@ section{
 }
 .reply .replyContent{
 	display: flex;
-	align-items: center;
+    align-items: center;
 }
 .reply .replyContent div{
 	display: inline-block;
 }
 .replyContent div:nth-of-type(1){
-	padding-left: 10px;
-    width: 95px;
+	width: 65px;
+	height: 27px;
     font-size: 13px;
+    margin-left: 10px;
+    padding: 2px 7px 4px 7px;
+    margin-right: 20px;
+	display: flex;
+	align-items: center;
+}
+#commujang{
+	background: #cbe792;
+	border-radius: 3px;
+	font-weight:bold;
+}
+#admintd{
+	color: #000000;
+	font-weight: bold;
+    border-radius: 5px;
+	animation-name: adminAni;
+	animation-duration: 0.33s;
+	animation-iteration-count: infinite;
+}
+@keyframes adminAni{
+	0%{background-image: linear-gradient(0deg, #58cb58, #c56363);}
+	5%{background-image: linear-gradient(18deg, #58cb58, #c56363);}
+	10%{background-image: linear-gradient(36deg, #58cb58, #c56363);}
+	15%{background-image: linear-gradient(54deg, #58cb58, #c56363);}
+	20%{background-image: linear-gradient(72deg, #58cb58, #c56363);}
+	25%{background-image: linear-gradient(90deg, #58cb58, #c56363);}
+	30%{background-image: linear-gradient(108deg, #58cb58, #c56363);}
+	35%{background-image: linear-gradient(126deg, #58cb58, #c56363);}
+	40%{background-image: linear-gradient(144deg, #58cb58, #c56363);}
+	45%{background-image: linear-gradient(162deg, #58cb58, #c56363);}
+	50%{background-image: linear-gradient(180deg, #58cb58, #c56363);}
+	55%{background-image: linear-gradient(198deg, #58cb58, #c56363);}
+	60%{background-image: linear-gradient(216deg, #58cb58, #c56363);}
+	65%{background-image: linear-gradient(234deg, #58cb58, #c56363);}
+	70%{background-image: linear-gradient(252deg, #58cb58, #c56363);}
+	75%{background-image: linear-gradient(270deg, #58cb58, #c56363);}
+	80%{background-image: linear-gradient(288deg, #58cb58, #c56363);}
+	85%{background-image: linear-gradient(306deg, #58cb58, #c56363);}
+	90%{background-image: linear-gradient(324deg, #58cb58, #c56363);}
+	95%{background-image: linear-gradient(342deg, #58cb58, #c56363);}
+	100%{background-image: linear-gradient(360deg, #58cb58, #c56363);}
 }
 .replyContent div:nth-of-type(2){
 	width: 450px;
@@ -153,8 +194,10 @@ section{
 .replyContent img{
 	width: 28px;
 	height: 27px;
-	margin : 0px;
+	margin: 0px;
 	cursor: default;
+	position: relative;
+	top: 1px;
 }
 .reply .replyDate{
 	margin: 0px 5px 0px 0px;

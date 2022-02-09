@@ -41,29 +41,34 @@
 		<div id="mainWrap">
 			<h2><%=list.listtitle%> - 등록</h2>
 			<form method="post" action="<%=request.getContextPath()%>/board/board_wirteOk.jsp" onsubmit = "return gulWrite()">
-			<%if(loginUser.getMidx() == list.listmastermidx){%>
+			<%if(loginUser.getMidx() == list.listmastermidx || loginUser.getMidx() == 0){%>
 				<label> <!-- <input> 태그의 name값은 파라미터로 넘어온 WRITESORTNUM값과 전혀 연관이 없다. -->
-					<input type="radio" name="writesort" value="<%=list.writesort1%>" <%if(lidx == 1) out.print("checked");%>><%=list.writesort1%>
+					<input type="radio" name="writesort" value="<%=list.writesort1%>" <%if(loginUser.getMidx() == list.listmastermidx) out.print("checked");%>><%=list.writesort1%>
 				</label>
-			<%}else if(loginUser.getMidx() != 0){%>
+			<%}%>
 				<label>
-					<input type="radio" name="writesort" value="<%=list.writesort2%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%> checked><%=list.writesort2%>
+					<input type="radio" name="writesort" value="<%=list.writesort2%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%> <%if(loginUser.getMidx() != list.listmastermidx) out.print("checked");%>><%=list.writesort2%>
 				</label>
-				<%if(list.writesort3 != null){%>
+			<%if(list.writesort3 != null){%>
 				<label>
 					<input type="radio" name="writesort" value="<%=list.writesort3%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%>><%=list.writesort3%>
 				</label>
-				<%}%>
-				<%if(list.writesort4 != null){%>
+			<%}%>
+			<%if(lidx == 1 && list.writesort4 != null){
+				if(loginUser.getPosition().contains("일반")){%>
 				<label>
 					<input type="radio" name="writesort" value="<%=list.writesort4%>" <%if(lidx == 1){%>onchange="changeGul(this)"<%}%>><%=list.writesort4%>
 				</label>
 				<%}%>
-				<%if(list.writesort5 != null){%>
+			<%}else if(lidx != 1 && list.writesort4 != null){%>
+				<label>
+					<input type="radio" name="writesort" value="<%=list.writesort4%>"><%=list.writesort4%>
+				</label>
+			<%}%>
+			<%if(list.writesort5 != null){%>
 				<label>
 					<input type="radio" name="writesort" value="<%=list.writesort5%>"><%=list.writesort5%>
 				</label>
-				<%}%>
 			<%}%>
 				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<div id="submenu">

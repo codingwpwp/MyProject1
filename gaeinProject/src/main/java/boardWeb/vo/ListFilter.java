@@ -106,7 +106,7 @@ public class ListFilter {
 			psmt = null;
 			
 			// 게시판의 페이징처리
-			paging = new PagingUtil(cnt, nowPage, 8);
+			paging = new PagingUtil(cnt, nowPage, 9);
 			
 			// 해당 페이지의 마지막 글
 			end = paging.getEnd();

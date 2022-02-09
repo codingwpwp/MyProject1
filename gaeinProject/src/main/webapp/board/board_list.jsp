@@ -52,7 +52,7 @@
 		<%}%>
 	</script>
 		<div id="mainWrap">
-			<h2><%=list.listtitle%>(<%=list.cnt%>개)</h2>
+			<h2><%=list.listtitle%>(<%=list.cnt%>)</h2>
 			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
@@ -135,21 +135,29 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 				<%}%>
 					</div>
 					<div id="paging">
-						<div<%if(list.paging.getStartPage() == 1){%>
-							style="visibility: hidden;"
-						<%}%>><a href="'<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getStartPage() - 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">&lt;</a>
-						</div>
+						<%if(list.paging.getStartPage() > 1){%>
+							<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getStartPage() - 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+								<div>&lt;</div>
+							</a>
+						<%}else{%>
+							<div style="visibility: hidden;"></div>
+						<%}%>
+						
 						<%for(int i = list.paging.getStartPage(); i <= list.paging.getEndPage(); i++){%>
 							<%if(i == list.paging.getNowPage()){%>
 							<div id="nowPage" style="cursor:default; background-color: deepskyblue;"><%=i %></div>
 							<%}else{%>
-							<a href="<%=request.getContextPath()%>/jauboard/board_list.jsp?writesortnum=<%=writesortnum%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
-							<%}
-				  		}%>
-						<div<%if(list.paging.getEndPage() == list.paging.getLastPage()){%>
-							style="visibility: hidden;"
-						<%}%>><a href="'<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage() + 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">&gt;</a>
-						</div>
+							<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
+							<%}%>
+				  		<%}%>
+				  		
+				  		<%if(list.paging.getEndPage() != list.paging.getLastPage()){%>
+				  			<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage() + 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+								<div>&gt;</div>
+							</a>
+						<%}else{%>
+							<div style="visibility: hidden;"></div>
+						<%}%>
 					</div>
 					<div id="commu">
 					<%if((loginUser != null) && (list.listmastermidx == loginUser.getMidx()) && lidx != 1 && lidx != 2){%>

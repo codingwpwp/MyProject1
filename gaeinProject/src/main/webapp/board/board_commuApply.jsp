@@ -75,15 +75,14 @@
 			sql += ", '"+ writesort5 + "'";
 		}
 		sql += ")";
-		System.out.println(sql);
+		//System.out.println(sql);
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		
 		// 신청한 사람을 커뮤장등급으로 승격하는 과정
-		sql = "UPDATE assamember SET position = '" + commutitle + "장'";
-		
-		
-		
+		sql = "UPDATE assamember SET POSITION = '" + commutitle + "장' WHERE midx = " + midx;
+		psmt = conn.prepareStatement(sql);
+		rs = psmt.executeQuery();
 	
 	}catch(Exception e){
 		e.printStackTrace();

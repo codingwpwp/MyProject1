@@ -46,50 +46,53 @@
 			<form method="post" action="<%=request.getContextPath()%>/board/board_modifyOk.jsp" onsubmit = "return gulModify()">
 				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<input type="hidden" name="bidx" value="<%=bidx%>">
-			<%if(lidx == 1 || lidx == 2){
-				if(loginUser.getMidx() == view.listmastermidx){
-				%><label>
-					<input type="radio" name="writesort" value="<%=view.writesort1%>" checked><%=view.writesort1%>
-				</label><%
-				}else{
-					if(!writesort.equals("커뮤신청")){%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort2%>"<%if(writesort.equals(view.writesort2)) out.print(" checked");%>><%=view.writesort2%>
-					</label>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort3%>"<%if(writesort.equals(view.writesort3)) out.print(" checked");%>><%=view.writesort3%>
-					</label>
-					<%}else{%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort4%>" checked><%=view.writesort4%>
-					</label>
-					<%}
-				}
-			}else{%>
-				<%if(loginUser.getMidx() == view.listmastermidx){%>
+				<%if(lidx == 1){
+					if(writesort.equals("공지")){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort1%>" checked><%=view.writesort1%>
+						</label>
+					<%}%>
+					<%if(!writesort.equals("커뮤신청") && !writesort.equals("공지")){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort2%>" <%if(view.writesort2.equals(writesort)) out.print("checked");%>><%=view.writesort2%>
+						</label>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort3%>" <%if(view.writesort3.equals(writesort)) out.print("checked");%>><%=view.writesort3%>
+						</label>
+					<%}%>
+					<%if(writesort.equals("커뮤신청")){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort4%>" <%if(view.writesort4.equals(writesort)){out.print("checked");}%> onchange="changeGul(this)"><%=view.writesort4%>
+						</label>
+					<%}%>
+				<%}else{
+					if(writesort.equals("공지")){%>
 					<label>
 						<input type="radio" name="writesort" value="<%=view.writesort1%>" checked><%=view.writesort1%>
 					</label>
+					<%}else{%>
+						<%if(view.writesort2 != null){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort2%>" <%if(view.writesort2.equals(writesort)){out.print("checked");}%>><%=view.writesort2%>
+						</label>
+						<%}%>
+						<%if(view.writesort3 != null){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort3%>" <%if(view.writesort3.equals(writesort)){out.print("checked");}%>><%=view.writesort3%>
+						</label>
+						<%}%>
+						<%if(view.writesort4 != null){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort4%>" <%if(view.writesort4.equals(writesort)){out.print("checked");}%>><%=view.writesort4%>
+						</label>
+						<%}%>
+						<%if(view.writesort5 != null){%>
+						<label>
+							<input type="radio" name="writesort" value="<%=view.writesort5%> <%if(view.writesort5.equals(writesort)){out.print("checked");}%>"><%=view.writesort5%>
+						</label>
+						<%}%>
+					<%}%>
 				<%}%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort2%>"<%if(writesort.equals(view.writesort2)) out.print(" checked");%>><%=view.writesort2%>
-					</label>
-					<%if(view.writesort3 != null){%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort3%>"<%if(writesort.equals(view.writesort3)) out.print(" checked");%>><%=view.writesort3%>
-					</label>
-					<%}%>
-					<%if(view.writesort4 != null){%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort4%>"<%if(writesort.equals(view.writesort4)) out.print(" checked");%>><%=view.writesort4%>
-					</label>
-					<%}%>
-					<%if(view.writesort5 != null){%>
-					<label>
-						<input type="radio" name="writesort" value="<%=view.writesort5%>"<%if(writesort.equals(view.writesort5)) out.print(" checked");%>><%=view.writesort5%>
-					</label>
-					<%}%>
-			<%}%>
 				<div id="submenu">
 					<button type="submit">완료</button>
 					<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">취소</button>
@@ -101,7 +104,7 @@
 					</div>
 				</div>
 				<div id="gul">
-				<%if(lidx == 1 && !view.gulView.getWritesort().equals("커뮤신청")){
+				<%if(lidx != 1 || !writesort.equals("커뮤신청")){
 					%><textarea id="summernote" name="editordata"><%=view.gulView.getContent()%></textarea><%
 				}else{
 					%><div id="commuform">

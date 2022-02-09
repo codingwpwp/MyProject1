@@ -149,17 +149,16 @@
 						<div class="replyEdit">
 							<%if(loginUser.getMidx() == r.getMidx()){%>
 							<img src="<%=request.getContextPath()%>/image/pencil.png" onclick="modifyReply(this)">
-							<%}if((loginUser.getMidx() == r.getMidx()) || loginUser.getPosition().equals("운영자")){ %>
+							<%}if((loginUser.getMidx() == r.getMidx()) || loginUser.getPosition().equals("운영자")){%>
 							<img src="<%=request.getContextPath()%>/image/x.png" onclick="deleteReply(this)">
 							<%}%>
 						</div>
 						<div class="replyContent">
-							<div><%if(r.getPosition().equals("운영자")){%>
+							<div<%if(r.getPosition().equals("운영자")){%> id="admintd"<%}%>>
+							<%if(r.getPosition().equals("운영자")){%>
 								<img src="<%=request.getContextPath()%>/image/smilefrog.jpg">
-							<%}%><span<%if(r.getPosition().equals("운영자")){%>
-								style="position:relative; bottom: 7px; color:red; font-weight: bold;"
-							<%}else if(!r.getPosition().equals("일반")){%>
-								style="color: blue; font-weight: bold;"
+							<%}%><span<%if(r.getPosition().contains("커뮤장")){%>
+								id="commujang"
 							<%}%>><%=r.getNickname()%></span></div>
 							<div><%=r.getRcontent()%></div>
 						</div>
