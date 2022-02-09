@@ -63,7 +63,7 @@ tbody .col1{
 	width: 70%;
 }
 #tablethree table .col1, #tablefour table .col1{
-	width: 65%;
+	width: 62%;
 }
 #tablethree table th:not(#tablethree table th:nth-child(1)), #tablefour table th:not(#tablefour table th:nth-child(1)){
 	font-size: 11px;

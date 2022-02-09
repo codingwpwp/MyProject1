@@ -72,16 +72,16 @@
 						<thead>
 							<tr>
 								<th>제목</th>
-								<th>조회수</th>
-								<th>추천수</th>
+								<th>커뮤</th>
+								<th>조회</th>
 							</tr>
 						</thead>
 						<tbody>
 						<%if(maingul.commuhitList != null){for(IndexGul ch : maingul.commuhitList){%>
 							<tr>
 								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ch.getLidx()%>&bidx=<%=ch.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ch.getSubject().length() > 11){%><%=ch.getSubject().substring(0, 11)%><%}else{%><%=ch.getSubject()%><%}%></a></td>
-								<td class="col2"><%=ch.getHit()%></td>
-								<td class="col3"><%=ch.getThumb()%></td>
+								<td class="col2"><%=ch.getCommutitle()%></td>
+								<td class="col3"><%=ch.getHit()%></td>
 							</tr>
 						<%}}%>
 						</tbody>
@@ -93,15 +93,15 @@
 						<thead>
 							<tr>
 								<th>제목</th>
-								<th>조회수</th>
-								<th>추천수</th>
+								<th>커뮤</th>
+								<th>추천</th>
 							</tr>
 						</thead>
 						<tbody>
 						<%if(maingul.commuthumbList != null){for(IndexGul ct : maingul.commuthumbList){%>
 							<tr>
 								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ct.getLidx()%>&bidx=<%=ct.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ct.getSubject().length() > 11){%><%=ct.getSubject().substring(0, 11)%><%}else{%><%=ct.getSubject()%><%}%></a></td>
-								<td class="col2"><%=ct.getHit()%></td>
+								<td class="col2"><%=ct.getCommutitle()%></td>
 								<td class="col3"><%=ct.getThumb()%></td>
 							</tr>
 						<%}}%>

@@ -52,7 +52,7 @@ public class MainGul {
 			
 			// 최신 자유게시판글을 호출하는 과정
 			if(maxbidx >= 3) {
-				sql = "SELECT ROWNUM, a.* FROM (SELECT subject, hit, bidx FROM assaboard WHERE bidx > 2 AND lidx = 1 AND NOT writesort IN('공지') ORDER BY bidx DESC)a WHERE ROWNUM < 6";
+				sql = "SELECT ROWNUM, a.* FROM (SELECT subject, hit, bidx FROM assaboard WHERE bidx > 2 AND lidx = 1 AND NOT writesort IN('공지') AND delyn='N' ORDER BY bidx DESC)a WHERE ROWNUM < 6";
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
@@ -75,7 +75,7 @@ public class MainGul {
 				
 				// 조회수 TOP5
 				psmt = null;
-				sql = "SELECT ROWNUM, a.* FROM (SELECT subject, hit, thumb, lidx, bidx FROM assaboard WHERE lidx > 2 ORDER BY hit DESC, writeday)a WHERE ROWNUM < 6";
+				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.hit, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N'ORDER BY a.hit DESC, writeday)c WHERE ROWNUM < 6";
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
@@ -84,25 +84,25 @@ public class MainGul {
 					gul.setHit(rs.getInt("hit"));
 					gul.setLidx(rs.getInt("lidx"));
 					gul.setBidx(rs.getInt("bidx"));
-					gul.setThumb(rs.getInt("thumb"));
 					gul.setSubject(rs.getString("subject"));
+					gul.setCommutitle(rs.getString("commutitle"));
 					
 					commuhitList.add(gul);
 				}
 				
 				// 추천수 TOP5
 				psmt = null;
-				sql = "SELECT ROWNUM, a.* FROM (SELECT subject, hit, thumb, lidx, bidx FROM assaboard WHERE lidx > 2 ORDER BY thumb DESC, writeday)a WHERE ROWNUM < 6";
+				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.thumb, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N'ORDER BY a.thumb DESC, writeday)c WHERE ROWNUM < 6";
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
 					IndexGul gul = new IndexGul();
 					
-					gul.setHit(rs.getInt("hit"));
 					gul.setLidx(rs.getInt("lidx"));
 					gul.setBidx(rs.getInt("bidx"));
 					gul.setThumb(rs.getInt("thumb"));
 					gul.setSubject(rs.getString("subject"));
+					gul.setCommutitle(rs.getString("commutitle"));
 					
 					commuthumbList.add(gul);
 				}

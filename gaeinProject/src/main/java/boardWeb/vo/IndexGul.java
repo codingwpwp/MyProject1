@@ -1,11 +1,18 @@
 package boardWeb.vo;
 
 public class IndexGul {
-	private String subject;
 	private int hit;
 	private int lidx;
 	private int bidx;
 	private int thumb;
+	private String subject;
+	private String commutitle;
+	public String getCommutitle() {
+		return commutitle;
+	}
+	public void setCommutitle(String commutitle) {
+		this.commutitle = commutitle;
+	}
 	public String getSubject() {
 		return subject;
 	}
