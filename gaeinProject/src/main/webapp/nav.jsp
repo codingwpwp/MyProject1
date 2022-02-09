@@ -32,10 +32,6 @@
 				<%while(rss.next()){%>
 					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=rss.getInt("lidx")%>&writesortnum=0"><%=rss.getString("listtitle")%></a></li>
 				<%}%>
-					<!-- <li><a href="#">코딩커뮤</a></li>
-					<li><a href="#">축구커뮤</a></li>
-					<li><a href="#">헬스커뮤</a></li>
-					<li><a href="#">구인커뮤</a></li> -->
 				</ul>
 			</li>
 			<li class="menu 3" id="menu3" style="width: 130px; font-weight: bold;">

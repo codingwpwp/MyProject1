@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="boardWeb.util.*"%>
+<%@ page import="boardWeb.vo.*"%>
+<%
+	MainGul maingul = new MainGul();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,14 +36,14 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%if(maingul.noticeList != null){for(IndexNotice i : maingul.noticeList){%>
 							<tr>
-								<td class="col1"><a href="#">공시사항123</a></td>
-								<td class="col2">2022-01-01</td>
+								<td class="col1">
+									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 11){%><%=i.getSubject().substring(0, 11)%><%}else{%><%=i.getSubject()%><%}%></a>
+								</td>
+								<td class="col2"><%=i.getWriteday()%></td>
 							</tr>
-							<tr>
-								<td class="col1"><a href="#">공지사항234</a></td>
-								<td class="col2">2022-01-01</td>
-							</tr>
+						<%}}%>
 						</tbody>
 					</table>
 				</div>
@@ -51,26 +57,12 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%if(maingul.jauList != null){for(IndexGul ij : maingul.jauList){%>
 							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=ij.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ij.getSubject().length() > 11){%><%=ij.getSubject().substring(0, 11)%><%}else{%><%=ij.getSubject()%><%}%></a></td>
+								<td class="col2"><%=ij.getHit()%></td>
 							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-							</tr>
+						<%}}%>
 						</tbody>
 					</table>
 				</div>
@@ -85,31 +77,13 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%if(maingul.commuhitList != null){for(IndexGul ch : maingul.commuhitList){%>
 							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ch.getLidx()%>&bidx=<%=ch.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ch.getSubject().length() > 11){%><%=ch.getSubject().substring(0, 11)%><%}else{%><%=ch.getSubject()%><%}%></a></td>
+								<td class="col2"><%=ch.getHit()%></td>
+								<td class="col3"><%=ch.getThumb()%></td>
 							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
+						<%}}%>
 						</tbody>
 					</table>
 				</div>
@@ -124,31 +98,13 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%if(maingul.commuthumbList != null){for(IndexGul ct : maingul.commuthumbList){%>
 							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ct.getLidx()%>&bidx=<%=ct.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ct.getSubject().length() > 11){%><%=ct.getSubject().substring(0, 11)%><%}else{%><%=ct.getSubject()%><%}%></a></td>
+								<td class="col2"><%=ct.getHit()%></td>
+								<td class="col3"><%=ct.getThumb()%></td>
 							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
-							<tr>
-								<td class="col1"><a href="#">자게글1</a></td>
-								<td class="col2">3252</td>
-								<td class="col3">32532</td>
-							</tr>
+						<%}}%>
 						</tbody>
 					</table>
 				</div>

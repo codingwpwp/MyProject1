@@ -17,8 +17,8 @@ function insertReply(){
 				var html = "";
 				var div = document.createElement('div');
 				$(div).addClass("reply");
-				html = "<input type='hidden' value='" + ridx + "'> ";
-				html += "<input type='hidden' value='" + midx + "'> ";
+				html = "<input type='hidden' name='ridx' value='" + ridx + "'> ";
+				html += "<input type='hidden' name='midx' value='" + midx + "'> ";
 				
 				html += "<div class='replyEdit'> ";
 					html += "<img src='/gaeinProject/image/pencil.png' onclick='modifyReply(this)'> ";
@@ -27,16 +27,18 @@ function insertReply(){
 				
 				html += "<div class='replyContent'> ";
 				
-					html += "<div>";
+					html += "<div";
+					if(position == "운영자"){
+						html += " id='admintd'";
+					}
+					html += ">";
 					if(position == "운영자"){
 						html += "<img src='/gaeinProject/image/smilefrog.jpg'>";
 					}
 					
 					html += "<span"
-					if(position == "운영자"){
-						html += " style='position: relative; bottom: 7px; color:red; font-weight: bold;'";
-					}else if(position != "일반"){
-						html += " style='color: blue;'";
+					if(position != "운영자" && position != "일반"){
+						html += " id='commujang'";
 					}
 					html += ">" + nickname + "</span> ";
 					

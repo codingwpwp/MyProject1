@@ -11,7 +11,7 @@ public class Commuapply {
 	private String writesort4;
 	private String writesort5;
 	private String commuReason;
-	private String okyn;
+	private String okyn = "";
 	public int getBidx() {
 		return bidx;
 	}

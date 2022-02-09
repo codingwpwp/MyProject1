@@ -5,7 +5,10 @@
 <%@ page import="boardWeb.vo.*"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-
+	
+	int midx = -1;
+	if(loginUser != null) midx = loginUser.getMidx();
+	
 	int nologin = 0;
 	if(loginUser == null) nologin = 1;
 	
@@ -31,7 +34,7 @@
 	String cookiesql = "";
 	String cookieName = "";
 	if(loginUser != null){
-		cookieName = lidx + "-" + bidx + "-" +  loginUser.getMidx();	// 게시판번호(lidx) - 게시글번호 - 회원번호(midx)
+		cookieName = lidx + "-" + bidx + "-" +  loginUser.getMidx();	// 게시판번호(lidx) - 게시글번호 - 회원번호(midx)로 쿠키이름만 생성
 	}
 	Connection conn = null;
 	PreparedStatement psmt = null;
@@ -71,7 +74,7 @@
 	}
 	
 	// 게시글 상세조회 + 댓글조회
-	ViewFilter view = new ViewFilter(lidx, bidx);
+	ViewFilter view = new ViewFilter(lidx, bidx, midx);
 %>
 <!DOCTYPE html>
 <html>
@@ -101,11 +104,11 @@
 			<span><%=view.gulView.getWritesort()%></span>
 			<div id="submenu">
 				<button onclick="location.href='<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">목록</button>
-				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx())){
-				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_modify.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&writesort=<%=view.gulView.getWritesort()%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">수정</button><%}%>
-				<%if(loginUser != null && ((loginUser.getMidx() == view.gulView.getMidx()) || (loginUser.getMidx() == 0))){
-				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}%>
-				<%if(loginUser != null && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn().equals("N")){
+				<%if(loginUser != null && loginUser.getMidx() == view.gulView.getMidx()){ if(!view.commuapply.getOkyn().equals("Y")){
+				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_modify.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&writesort=<%=view.gulView.getWritesort()%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">수정</button><%}}%>
+				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx() || loginUser.getMidx() == view.listmastermidx)){ if(!view.commuapply.getOkyn().equals("Y")){
+				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}}%>
+				<%if(loginUser != null && lidx == 1 && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn() != null && view.commuapply.getOkyn().equals("N")){
 				%><button onclick= "commuapplyFn();">허가</button><%}%>
 			</div>
 			<div id="gulTitle">
@@ -119,7 +122,7 @@
 					<%=view.gulView.getContent()%>
 				<%}else if(loginUser != null){%>
 				<div><h3> 커뮤이름 : <%=view.commuapply.getCommuTitle()%></h3></div>
-				<div><h3> 소개글 : <%=view.commuapply.getListIntroduce()%></h3></div>
+				<div><h3> 소개글 : <%=view.commuapply.getListIntroduce()%></h3></div>	
 				<div>
 					<div id="commuhead">
 						말머리 :
@@ -138,14 +141,21 @@
 				<div><h3> 사유 : <%=view.commuapply.getCommuReason() %></h3></div>
 				<%}%>
 			</div>
+			<%if(loginUser != null && lidx != 1 && lidx != 2){%>
+			<div id="thumb">
+				<%if(view.thumbSw == 1){%><img src="<%=request.getContextPath()%>/image/thumbOk.jpg" width="60" onclick="thumb(this)"><%
+				}else{%><img src="<%=request.getContextPath()%>/image/thumbNot.jpg" width="60" onclick="thumb(this)"><%}%><br>
+				<span><%=view.gulView.getThumb()%></span>
+			</div>
+			<%}%>
 			<%if(loginUser != null && (lidx != 1 || !view.gulView.getWritesort().equals("공지")) && (lidx != 2 || !view.gulView.getWritesort().equals("공지"))){%>
 			<div id="replyBoard">
 				<h3>댓글(<span id="replycnt"><%=view.replycnt %></span>)</h3>
 				<div id="replylist">
 				<%for(Reply r : view.replyList){%>
 					<div class="reply">
-						<input type="hidden" value="<%=r.getRidx()%>">
-						<input type="hidden" value="<%=r.getMidx()%>">
+						<input type="hidden" name="ridx" value="<%=r.getRidx()%>">
+						<input type="hidden" name="midx" value="<%=r.getMidx()%>">
 						<div class="replyEdit">
 							<%if(loginUser.getMidx() == r.getMidx()){%>
 							<img src="<%=request.getContextPath()%>/image/pencil.png" onclick="modifyReply(this)">
@@ -171,7 +181,7 @@
 				<div id="replyWrite">
 					<form name="replyWrite">
 						<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
-						<input type="hidden" name="lidx" value="1">
+						<input type="hidden" name="lidx" value="<%=lidx%>">
 						<input type="hidden" name="bidx" value="<%=bidx%>">
 						<textarea name="rcontent" placeholder="댓글을 입력하세요" maxlength="110"></textarea><br>
 						<button type="button" onclick="insertReply()">등록</button>
@@ -180,7 +190,8 @@
 			<%} %>
 			</div>
 		</div>
-		<script src ="<%=request.getContextPath()%>/js/board_view_reply.js"></script>
+		<%if(lidx != 1 && lidx != 2){%><script src ="<%=request.getContextPath()%>/js/board_view_thumb.js"></script><%}%>
+		<%if(!(lidx == 1 && view.gulView.getWritesort().equals("공지")) && !(lidx == 2 && view.gulView.getWritesort().equals("공지"))){%><script src ="<%=request.getContextPath()%>/js/board_view_reply.js"></script><%}%>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>

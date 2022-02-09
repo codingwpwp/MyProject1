@@ -111,6 +111,9 @@ section{
 	margin: 10px auto;
 	text-align: center;
 }
+#thumb img{
+	cursor: pointer;
+}
 /* 댓글 */
 .reply{
 	margin-bottom: 15px;

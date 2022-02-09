@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+
+	int midx = -1;
+	if(loginUser == null) midx = loginUser.getMidx();
 	
 	request.setCharacterEncoding("UTF-8");
 	
@@ -19,7 +22,7 @@
 	
 	String nowPage = request.getParameter("nowPage");			// 페이지
 	
-	ViewFilter view = new ViewFilter(1, bidx);
+	ViewFilter view = new ViewFilter(lidx, bidx, midx);
 %>
 <!DOCTYPE html>
 <html>

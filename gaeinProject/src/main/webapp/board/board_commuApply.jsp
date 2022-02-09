@@ -83,7 +83,11 @@
 		sql = "UPDATE assamember SET POSITION = '" + commutitle + "장' WHERE midx = " + midx;
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
-	
+		
+		sql = "UPDATE assaboard_commuapply SET OKYN = 'Y' WHERE midx = " + midx;
+		psmt = conn.prepareStatement(sql);
+		rs = psmt.executeQuery();
+		
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{

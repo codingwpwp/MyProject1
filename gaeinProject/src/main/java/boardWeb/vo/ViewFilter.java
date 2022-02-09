@@ -7,9 +7,9 @@ import boardWeb.util.DBManager;
 
 public class ViewFilter {
 	
-	public int replycnt;
 	String sql;
 	String sqlCommuapply;
+	public int replycnt;
 	public int listmastermidx;	// 게시판의 관리자(수정할 때 사용)
 	public String listtitle;	// 게시판의 한글이름
 	
@@ -20,16 +20,20 @@ public class ViewFilter {
 	public String writesort4;
 	public String writesort5;
 	
+	// 객체들
 	public Gul gulView = new Gul();
 	public Commuapply commuapply = new Commuapply();
 	public ArrayList<Reply> replyList = new ArrayList<>();
+	
+	// 추천여부
+	public int thumbSw;
 	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	ResultSet rsMidxOrCommuApply = null;
 	
-	public ViewFilter(int lidx, int bidx) {
+	public ViewFilter(int lidx, int bidx, int midx) {	// 세번째 매개값은 추천여부를 조회하기 위한 값이다.
 		
 		try {
 			conn = DBManager.getConnection();
@@ -137,6 +141,17 @@ public class ViewFilter {
 			psmt = null;
 			rs = null;
 			rsMidxOrCommuApply = null;
+			
+			if(lidx != 1 && lidx != 2){
+				
+				sql = "SELECT * FROM ASSATHUMBLIST WHERE lidx = " + lidx +" AND bidx = " + bidx + " AND midx = " + midx;
+				psmt = conn.prepareStatement(sql);
+				rs = psmt.executeQuery();
+				if(rs.next()) thumbSw = 1;
+				
+				psmt = null;
+				rs = null;
+			}
 			
 		}catch(Exception e){
 			e.printStackTrace();

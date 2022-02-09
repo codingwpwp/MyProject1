@@ -116,7 +116,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 							</td>
 							<td class="col4"<%if(g.getPosition().equals("운영자")){%> id="admintd"<%}%>>
 								<%if(g.getPosition().equals("운영자")){%>
-								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px;"><%
+								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px; font-size: 12px;"><%
 								} if(!g.getPosition().equals("일반") && !g.getPosition().equals("운영자")){%><span id="commujangspan"><%}else if(g.getPosition().equals("일반")){%><span><%}%><%=g.getNickname()%></span>
 							</td>
 							<td class="col5"><%=g.getWriteday()%></td>
