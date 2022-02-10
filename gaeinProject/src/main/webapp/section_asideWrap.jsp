@@ -19,7 +19,7 @@
 	<% } else { %>
 		<div id="memberNickname"><%=loginUserAside.getNickname()%></div>
 		<div id="memberPosition"><%=loginUserAside.getPosition()%></div>
-		<button class="button mypage">마이페이지</button>
+		<button class="button mypage" onclick="location.href='<%=request.getContextPath()%>/manager/user_manager.jsp'">마이페이지</button>
 		<button class="button logout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}%>
 	</div>

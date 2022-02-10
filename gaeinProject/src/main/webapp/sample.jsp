@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>개인프로젝트</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/image/mylogo.ico">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/header.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/nav.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/.css">

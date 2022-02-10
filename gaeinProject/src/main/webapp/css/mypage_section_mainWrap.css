@@ -1,0 +1,169 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid whitesmoke;
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+#mainWrap h2{
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+#mainWrap #mypage{
+	border: 1px solid;
+	min-height: 426px;
+	background: #e4f3e4;
+	padding: 20px;
+	border-radius: 5px;
+}
+#mypage > div{
+	margin-bottom: 20px;
+}
+#mypage button{
+	background:#ff7979;
+	border:0px;
+	border-radius: 3px;
+	padding: 2px 5px;
+	font-weight:bold;
+	font-size: small;
+	color:white;
+	cursor:pointer;
+}
+#information{
+	border-radius: 3px;
+	background-color: white;
+	padding: 10px;
+}
+#information h3{
+	margin-top: 5px;
+}
+#information button{
+	margin-left: 20px;
+}
+#information h3 #memo{
+	font-size: 10px;
+	color: red;
+}
+#information h3 > span + button + span{
+	font-size: 10px;
+	float: right;
+}
+#information input:not(#information input[type='radio']){
+	width: 158px;
+	height: 20px;
+	border:1px solid black;
+	border-radius: 3px;
+}
+#information .nomodify{
+	background:darkgray;
+	color: black;
+}
+#information table .col1{
+    padding: 10px 3px;
+    font-weight: bold;
+}
+#information table #row1 .col4 input{
+	font-size: 10px;
+}
+#information table #row1 .col3, #information table #row2 .col3, #information table #row3 .col1, #information table #row3 .col3{
+    color: #4CAF50;
+}
+#information table #row1 .col1, #information table #row2 .col1{
+    color: red;
+}
+#information table .col2{
+	width: 220px;
+	padding-left: 10px;
+}
+#information table #row2 .col4 input{
+	font-size: 11px;
+}
+#information table .col3{
+    padding: 10px 3px 10px;
+    font-weight: bold;
+	
+}
+#information table .col4{
+	padding-left: 15px;
+}
+#information table .col4 label{
+	margin-right: 30px;
+	font-weight: bold;
+}
+#gulList img{
+	margin-left: 10px;
+	cursor:pointer;
+}
+#gulList #gulgul{
+	background: white;
+	border-bottom: 1px solid;
+}
+#gulgul table{
+	width: 100%;
+    border-collapse: collapse;
+}
+#gulgul thead{
+	color: #009688;
+	background: #a9e5df;
+	border: 1px solid;
+	border-radius: 5px;
+}
+#gulgul tr, td{
+	padding: 4px 2px 4px 3px;
+}
+#gulgul tbody tr:hover{
+	background: #f2f6f7;
+}
+#gulgul tbody tr:nth-of-type(even){
+	background:#ebf1e4;
+}
+#gulgul tbody tr:nth-of-type(even):hover{
+	background: #f2f6f7;
+}
+#gulgul table .col1{
+    width: 15%;
+    text-align:center;
+}
+#gulgul table tbody .col1{
+	font-size: 13px;
+	font-weight: bold;
+}
+#gulgul table .col2{
+	width: 15%;
+	text-align:center;
+}
+#gulgul table tbody .col2{
+	font-size: 13px;
+	font-weight: bold;
+}
+#gulgul table .col3{
+	width: 55%;
+}
+#gulgul table .col3 a{
+    text-decoration: none;
+    color: black;
+}
+#gulgul table .col3 a:hover{
+	color:#8BC34A;
+	font-weight:bold;
+	text-decoration:underline;
+}
+#gulgul table tbody .col3{
+	padding-left: 10px;
+}
+#gulgul table .col4{
+	width: 15%;
+}
+#gulgul table tbody .col4{
+	font-size: 11px;
+	text-align:center;
+}

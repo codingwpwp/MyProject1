@@ -24,6 +24,7 @@
 		
 		if(rs.next()){
 			member = new Member();
+			
 			member.setMidx(rs.getInt("midx"));
 			member.setNickname(rs.getString("nickname"));
 			member.setPosition(rs.getString("position"));

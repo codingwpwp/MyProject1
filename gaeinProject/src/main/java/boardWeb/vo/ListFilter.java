@@ -23,8 +23,10 @@ public class ListFilter {
 	String writersql;	// 검색 종류 : 작성자 일때
 	public ArrayList<Integer> midxs = new ArrayList<>();	// '작성자'에 대한 값들(MIDX)을 배열화
 	
-	public int cnt;	// 글 갯수
+	public int cnt;	// 글 총 갯수
+	public int cnt2;	// 한페이지에 뿌려질 글 번호
 	int end;	// 해당 페이지 마지막 글
+	int start = 1;
 	
 	String sql;
 	Connection conn = null;
@@ -99,14 +101,18 @@ public class ListFilter {
 			}
 			
 			sql += "ORDER BY bidx DESC";
-			//System.out.println(sql);
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			while(rs.next()) cnt++;
+			while(rs.next()) {
+				cnt++;
+				cnt2++;
+			}
 			psmt = null;
 			
 			// 게시판의 페이징처리
-			paging = new PagingUtil(cnt, nowPage, 9);
+			paging = new PagingUtil(cnt, nowPage, 6);
+			
+			cnt2 = cnt - (paging.getPerPage() * (nowPage - 1));
 			
 			// 해당 페이지의 마지막 글
 			end = paging.getEnd();
@@ -155,7 +161,7 @@ public class ListFilter {
 			while(rs.next()) {
 				Gul jauList = new Gul();
 				
-				jauList.setNum(end);
+				jauList.setNum(cnt2);
 				jauList.setBidx(rs.getInt("bidx"));
 				jauList.setWritesort(rs.getString("writesort"));
 				jauList.setSubject(rs.getString("subject"));
@@ -175,7 +181,8 @@ public class ListFilter {
 				jauList.setHit(rs.getInt("hit"));
 				
 				gulList.add(jauList);
-				end--;
+				
+				cnt2--;
 			}
 			
 		}catch(Exception e){
@@ -184,6 +191,35 @@ public class ListFilter {
 			DBManager.close(conn, psmt, rs, rsMidx);
 		}
 		
+	}
+	
+	
+	
+	public ListFilter(int midx) {
+		try {
+			
+			conn = DBManager.getConnection();
+			sql = "SELECT a.lidx, RTRIM(b.listtitle, '게시판' || '커뮤') AS listtitle, a.bidx, a.writesort, a.subject, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday FROM ASSABOARD a, ASSABOARDLIST b WHERE a.lidx = b.lidx AND a.midx = " + midx + " AND a.delyn='N'";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()){
+				Gul usergulList = new Gul();
+				
+				usergulList.setLidx(rs.getInt("lidx"));
+				usergulList.setBidx(rs.getInt("bidx"));
+				usergulList.setListtitle(rs.getString("listtitle"));
+				usergulList.setWritesort(rs.getString("writesort"));
+				usergulList.setSubject(rs.getString("subject"));
+				usergulList.setWriteday(rs.getString("writeday"));
+				
+				gulList.add(usergulList);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
 	}
 	
 }

@@ -11,6 +11,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>개인프로젝트</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/image/mylogo.ico">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/header.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/nav.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main_section_mainWrap.css">
@@ -39,7 +40,7 @@
 						<%if(maingul.noticeList != null){for(IndexNotice i : maingul.noticeList){%>
 							<tr>
 								<td class="col1">
-									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 11){%><%=i.getSubject().substring(0, 11)%><%}else{%><%=i.getSubject()%><%}%></a>
+									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 9){%><%=i.getSubject().substring(0, 9)%>...<%}else{%><%=i.getSubject()%><%}%></a>
 								</td>
 								<td class="col2"><%=i.getWriteday()%></td>
 							</tr>
@@ -59,7 +60,7 @@
 						<tbody>
 						<%if(maingul.jauList != null){for(IndexGul ij : maingul.jauList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=ij.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ij.getSubject().length() > 11){%><%=ij.getSubject().substring(0, 11)%><%}else{%><%=ij.getSubject()%><%}%></a></td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=ij.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ij.getSubject().length() > 9){%><%=ij.getSubject().substring(0, 9)%>...<%}else{%><%=ij.getSubject()%><%}%></a></td>
 								<td class="col2"><%=ij.getHit()%></td>
 							</tr>
 						<%}}%>
@@ -79,7 +80,7 @@
 						<tbody>
 						<%if(maingul.commuhitList != null){for(IndexGul ch : maingul.commuhitList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ch.getLidx()%>&bidx=<%=ch.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ch.getSubject().length() > 11){%><%=ch.getSubject().substring(0, 11)%><%}else{%><%=ch.getSubject()%><%}%></a></td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ch.getLidx()%>&bidx=<%=ch.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ch.getSubject().length() > 9){%><%=ch.getSubject().substring(0, 9)%>...<%}else{%><%=ch.getSubject()%><%}%></a></td>
 								<td class="col2"><%=ch.getCommutitle()%></td>
 								<td class="col3"><%=ch.getHit()%></td>
 							</tr>
@@ -100,7 +101,7 @@
 						<tbody>
 						<%if(maingul.commuthumbList != null){for(IndexGul ct : maingul.commuthumbList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ct.getLidx()%>&bidx=<%=ct.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ct.getSubject().length() > 11){%><%=ct.getSubject().substring(0, 11)%><%}else{%><%=ct.getSubject()%><%}%></a></td>
+								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ct.getLidx()%>&bidx=<%=ct.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ct.getSubject().length() > 9){%><%=ct.getSubject().substring(0, 9)%>...<%}else{%><%=ct.getSubject()%><%}%></a></td>
 								<td class="col2"><%=ct.getCommutitle()%></td>
 								<td class="col3"><%=ct.getThumb()%></td>
 							</tr>

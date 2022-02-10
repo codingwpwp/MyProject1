@@ -2,8 +2,10 @@ package boardWeb.vo;
 
 public class Gul {
 	private int num;
+	private int lidx;
 	private int bidx;
 	private int midx;
+	private String listtitle;
 	private String writesort;
 	private String subject;
 	private String content;
@@ -19,6 +21,12 @@ public class Gul {
 	public void setNum(int num) {
 		this.num = num;
 	}
+	public int getLidx() {
+		return lidx;
+	}
+	public void setLidx(int lidx) {
+		this.lidx = lidx;
+	}
 	public int getBidx() {
 		return bidx;
 	}
@@ -30,6 +38,12 @@ public class Gul {
 	}
 	public void setMidx(int midx) {
 		this.midx = midx;
+	}
+	public String getListtitle() {
+		return listtitle;
+	}
+	public void setListtitle(String listtitle) {
+		this.listtitle = listtitle;
 	}
 	public String getWritesort() {
 		return writesort;
