@@ -93,5 +93,4 @@
 		DBManager.close(conn, psmt, rs);
 	}
 	
-	//response.sendRedirect(request.getContextPath() + "/board/board_list.jsp?&lidx=1&writesortnum=0");
 %>

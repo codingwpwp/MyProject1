@@ -2,10 +2,9 @@ $(document).ready(function(){
 	$("#delyntable").find("tbody").hide();
 });
 
-
 var titleval = "";
 function titlechange(obj){
-	var check = /^[가-힇]{2,4}(커뮤)$/;
+	var check = /^[가-힣]{2,4}(커뮤)$/;
 	if($(obj).val() == "변경하기"){
 		titleval = "" + $(obj).prev().val();
 		$(obj).val("변경완료");
@@ -15,7 +14,7 @@ function titlechange(obj){
 		if(!testcommutitle){
 			alert('~~~~커뮤로 입력하세요');
 		}else if(titleval == $("input[name='commutitle']").val()){
-			alert('원래이름과 동일합니다');
+			alert('기존이름과 동일합니다');
 		}else{
 			if(confirm('' + $(obj).prev().val() + '로 변경하시겠습니까?')){
 				
@@ -31,10 +30,9 @@ function titlechange(obj){
 							alert('변경되었습니다');
 							location.href="/gaeinProject/manager/commu_manager.jsp?lidx=" + $("input[name='lidx']").val();
 						}
-						
-						
 					}
 				});
+				
 			}
 			
 		}
@@ -100,48 +98,45 @@ function malheadchange(obj){
 	}
 }
 
-
-
-
+var allcheckSw = 0;
 function showhide(obj){
 	var src = $(obj).attr("src");
 	if(src == "/gaeinProject/image/plus2.png"){
 		$("#delyntable").find("tbody").show();
 		$(obj).attr("src", "/gaeinProject/image/minus2.png");
 		$("#delyisn").removeAttr("disabled");
+		$("#allcheck").removeAttr("disabled");
+		$("#delyntable").find("thead").css("borderBottom","2px solid");
 	}else{
+		$("input[name='list']").attr("checked", false);
 		$("#delyntable").find("tbody").hide();
 		$(obj).attr("src", "/gaeinProject/image/plus2.png");
 		$("#delyisn").attr("disabled", true);
+		$("#allcheck").attr("disabled", true);
+		$("#delyntable").find("thead").css("borderBottom", "0px");
+		allcheckSw = 0;
 	}
 }
 
 
-
-function changedelyn(){
-	
+function allcheckFn(){
+	if(allcheckSw == 0){
+		$("input[name='list']").attr("checked", true);
+		allcheckSw = 1;
+	}else{
+		$("input[name='list']").attr("checked", false);
+		allcheckSw = 0;
+	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function changedelyn(){
+	var flag = true;
+	var checkgul = $("input[name='list']").is(":checked");
+	if(checkgul){
+		alert("글이 복구되었습니다");
+	}else{
+		alert("글을 선택하고 누르세요");
+		flag = false;
+	}
+	return flag;
+}

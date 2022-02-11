@@ -89,7 +89,7 @@ tbody .col1{
 #tableone table tbody td{
 	font-weight: bold;
 }
-#tablethree table tr:nth-child(1) .col1 a, #tablefour table tr:nth-child(1) .col1 a, #tablethree table tbody tr:nth-child(1) .col2, #tablefour table tbody tr:nth-child(1) .col3{
+#tablethree table tr:nth-child(1) .col1 a, #tablefour table tr:nth-child(1) .col1 a, #tablethree table tbody tr:nth-child(1) .col3, #tablefour table tbody tr:nth-child(1) .col3{
 	font-weight: bold;
 	color: red;
 }

@@ -38,8 +38,8 @@
 		<div id="mainWrap">
 			<h2><%=list.listtitle%> 관리</h2>
 			<div id="commuManager">
-				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
+				<%if(lidx != 1 && lidx != 2){%>
 				<div id="titlechange">
 					<span>커뮤니티 이름 변경</span><br>
 					<input type="text" name="commutitle" value="<%=list.listtitle%>" disabled="disabled" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤">
@@ -85,10 +85,12 @@
 						</table>
 					</div>
 				</div>
+				<%}%>
 				<div id="delyn">
 					<span>삭제된 글 목록</span><img src="<%=request.getContextPath()%>/image/plus2.png" width="15" style="cursor: pointer;" onclick="showhide(this)">
-					<form action="#" method="post">
+					<form action="<%=request.getContextPath()%>/manager/commu_manager_delynisy.jsp" method="post" onsubmit = "return changedelyn()">
 						<div id="tableWrap">
+							<input type="hidden" name="lidx" value="<%=lidx%>">
 							<table id="delyntable">
 								<thead>
 									<tr>
@@ -96,7 +98,10 @@
 										<th class="col2">제목</th>
 										<th class="col3">닉네임</th>
 										<th class="col4">작성일</th>
-										<th class="col5"><input type="button" id="delyisn" onclick="changedelyn()" disabled="disabled" value="복구"></th>
+										<th class="col5">
+											<input type="submit" id="delyisn" disabled="disabled" value="복구" style="font-size: 10px;">
+											<input type="button" id="allcheck" disabled="disabled" value="전부" style="font-size: 10px;" onclick="allcheckFn()">
+										</th>
 									</tr>
 								</thead>
 								<tbody>

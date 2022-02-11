@@ -174,11 +174,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 	<script type="text/javascript">
 		var lidx = <%=lidx%>;
 		function goManager(){
-			if(lidx == 1 || lidx == 2){
-				location.href="";
-			}else{
-				location.href = "<%=request.getContextPath()%>/manager/commu_manager.jsp?lidx=" + lidx;
-			}
+			location.href = "<%=request.getContextPath()%>/manager/commu_manager.jsp?lidx=" + lidx;
 		}
 	</script>
 </body>

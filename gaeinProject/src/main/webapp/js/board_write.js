@@ -105,7 +105,7 @@ function gulWrite() {
 				flag = true;
 			}
 		}else{	// 커뮤신청인 경우
-			var reg2 = /^[가-힇]{2,4}(커뮤)$/;
+			var reg2 = /^[가-힣]{2,4}(커뮤)$/;
 
 			for(var i = 2; i <= commumalheadSwitch; i++){
 				var commuheadval = $("input[name='commumalhead" + commumalheadSwitch + "']").val();

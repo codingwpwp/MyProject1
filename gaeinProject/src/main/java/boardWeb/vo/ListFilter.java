@@ -243,7 +243,7 @@ public class ListFilter {
 				if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
 			}
 			
-			sql = "SELECT a.bidx, a.writesort, a.SUBJECT, b.NICKNAME, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday FROM ASSABOARD a, ASSAMEMBER b WHERE lidx = " + lidx + " AND a.midx = b.midx AND a.delyn='Y' ORDER BY writeday";
+			sql = "SELECT a.bidx, a.writesort, a.SUBJECT, b.NICKNAME, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday FROM ASSABOARD a, ASSAMEMBER b WHERE lidx = " + lidx + " AND a.midx = b.midx AND a.delyn='Y' ORDER BY writeday DESC";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			

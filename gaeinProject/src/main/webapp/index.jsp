@@ -89,7 +89,7 @@
 					</table>
 				</div>
 				<div class="table" id="tablefour">
-					<span>커뮤통합인싸글TOP5</span>
+					<span>커뮤통합추천수TOP5</span>
 					<table style="margin-top: 3px;">
 						<thead>
 							<tr>

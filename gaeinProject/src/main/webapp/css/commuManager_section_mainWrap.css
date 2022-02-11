@@ -121,9 +121,9 @@ section{
 	background:white;
 	border-radius: 10px;
 }
-#delyntable thead{
+/* #delyntable thead{
 	border-bottom:2px solid;
-}
+} */
 #delyntable td{
 	padding: 6px 0px 4px 0px;
 }

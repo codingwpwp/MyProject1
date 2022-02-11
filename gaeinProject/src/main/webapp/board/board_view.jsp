@@ -203,7 +203,7 @@
 				$.ajax({
 					url : "<%=request.getContextPath()%>/board/board_commucheck.jsp",
 					type : "post",
-					data : "commutitle=" + <%=view.commuapply.getCommuTitle()%>,
+					data : "commutitle=" + "<%=view.commuapply.getCommuTitle()%>",
 					success : function(data){
 						var result = data.trim();
 						if(result == "존재한다"){

@@ -92,7 +92,7 @@
 						</span>
 						<div>
 							<span>커뮤이름 : </span>
-							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');">&nbsp;
+							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤" onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힣]/g,'');">&nbsp;
 							ex) ○○커뮤
 						</div>
 						<div>
