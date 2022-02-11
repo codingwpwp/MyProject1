@@ -110,7 +110,7 @@
 				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx() || loginUser.getMidx() == view.listmastermidx)){ if(!view.commuapply.getOkyn().equals("Y")){
 				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}}%>
 				<%if(loginUser != null && lidx == 1 && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn() != null && view.commuapply.getOkyn().equals("N")){
-				%><button onclick= "commuapplyFn();">허가</button><%}%>
+				%><button onclick= "commuapplyFn()">허가</button><%}%>
 			</div>
 			<div id="gulTitle">
 				<div><%=view.gulView.getSubject()%></div>
@@ -199,7 +199,33 @@
 	<script type="text/javascript">
 		function commuapplyFn(){
 			if(confirm("커뮤니티 개설을 허가하시겠습니까?")){
-				location.href= "<%=request.getContextPath()%>/board/board_commuApply.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>";
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/board/board_commucheck.jsp",
+					type : "post",
+					data : "commutitle=" + <%=view.commuapply.getCommuTitle()%>,
+					success : function(data){
+						var result = data.trim();
+						if(result == "존재한다"){
+							alert('이미 존재하는 커뮤니티 입니다');
+						}else{
+							
+							$.ajax({
+								url : "<%=request.getContextPath()%>/board/board_commuapply.jsp",
+								type : "post",
+								data : "lidx=" + <%=lidx%> + "&bidx=" + <%=bidx%>,
+								success : function(){
+									alert('개설되었습니다');
+									location.href= "<%=request.getContextPath()%>/board/board_list.jsp?&lidx=1&writesortnum=0";
+								}
+							});
+							
+						}
+						
+						
+					}
+				});
+				
 			}
 		}
 	</script>

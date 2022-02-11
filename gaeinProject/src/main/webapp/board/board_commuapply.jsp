@@ -75,7 +75,6 @@
 			sql += ", '"+ writesort5 + "'";
 		}
 		sql += ")";
-		//System.out.println(sql);
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		
@@ -94,5 +93,5 @@
 		DBManager.close(conn, psmt, rs);
 	}
 	
-	response.sendRedirect(request.getContextPath() + "/board/board_list.jsp?&lidx=1&writesortnum=0");
+	//response.sendRedirect(request.getContextPath() + "/board/board_list.jsp?&lidx=1&writesortnum=0");
 %>

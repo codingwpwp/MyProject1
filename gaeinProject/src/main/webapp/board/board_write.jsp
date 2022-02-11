@@ -88,7 +88,7 @@
 					<div id="commuform">
 						<span style="color:red; font-size:small;">
 							*현재 카테고리에서 변경할 경우 기존에 입력한 내용들은 전부 지워집니다.<br>
-							*등록한 이후 다른 카테고리로 변경 할 수 없고, 운영자가 허가한 이후엔 수정, 삭제를 할 수 없습니다.
+							*등록한 이후 다른 카테고리로 변경 할 수 없고, 운영자가 허가한 이후엔 해당 글을 수정, 삭제를 할 수 없습니다.
 						</span>
 						<div>
 							<span>커뮤이름 : </span>
@@ -98,7 +98,7 @@
 						<div>
 							<span>소개글 : </span>
 							<textarea name="commuIntroduce" maxlength="30"
-							placeholder="커뮤니티의 소개글입니다. 30자 이내의 한 줄문장으로 입력하세요."></textarea>
+							placeholder="커뮤니티의 소개글입니다. 30자 이내의 한 줄문장으로 입력하세요"></textarea>
 						</div>
 						<div>
 							<div><span>말머리 : </span></div>

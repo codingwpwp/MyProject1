@@ -29,7 +29,7 @@
 			<h2>마이페이지</h2>
 			<div id="mypage">
 				<div id="information">
-					<h3>회원정보 변경 <span id="memo">(아이디와 이름은 변경할 수 없습니다)</span> <button onclick="changeInfo()">변경하기</button><span>가입날짜 : <%=loginUserManager.getJoinday()%></span></h3>
+					<h3>회원정보 변경 <span id="memo">(아이디와 이름은 변경할 수 없습니다)</span> <button onclick="changeInfo()">변경하기</button><span>가입일 : <%=loginUserManager.getJoinday()%></span></h3>
 					<table>
 						<tr id="row1">
 							<td class="col1">아이디</td>
@@ -54,6 +54,7 @@
 								<label>
 									<input type="radio" name="gender" value="F" <%if(loginUserManager.getGender() != null && loginUserManager.getGender().equals("F")){ out.print("checked"); }%>> 여
 								</label>
+								<input type="hidden" name="position" value="<%=loginUserManager.getPosition()%>">
 							</td>
 						</tr>
 					</table>
@@ -87,7 +88,7 @@
 						</table>
 					</div>
 				</div>
-				<button>탈퇴하기</button>
+				<button onclick="deleteInfo()">탈퇴하기</button>
 			</div>
 		</div>
 		<%@include file="/section_asideWrap.jsp" %>

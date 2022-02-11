@@ -118,7 +118,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 							<td class="col4"<%if(g.getPosition().equals("운영자")){%> id="admintd"<%}%>>
 								<%if(g.getPosition().equals("운영자")){%>
 								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px; font-size: 12px;"><%
-								} if(!g.getPosition().equals("일반") && !g.getPosition().equals("운영자")){%><span id="commujangspan"><%}else if(g.getPosition().equals("일반")){%><span><%}%><%=g.getNickname()%></span>
+								}if(g.getPosition().contains("커뮤장")){%><span id="commujangspan"><%}else if(g.getPosition().equals("일반")){%><span><%}%><%=g.getNickname()%></span>
 							</td>
 							<td class="col5"><%=g.getWriteday()%></td>
 							<td class="col6"><%=g.getHit()%></td>
@@ -161,8 +161,8 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 						<%}%>
 					</div>
 					<div id="commu">
-					<%if((loginUser != null) && (list.listmastermidx == loginUser.getMidx()) && lidx != 1 && lidx != 2){%>
-						<button>커뮤니티관리</button>					
+					<%if((loginUser != null) && (list.listmastermidx == loginUser.getMidx())){%>
+						<button onclick="goManager()"><%if(lidx == 1 || lidx == 2){%>게시판관리<%}else{%>커뮤니티관리<%}%></button>					
 					<%}%>	
 					</div>
 				</div>
@@ -171,5 +171,15 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>
+	<script type="text/javascript">
+		var lidx = <%=lidx%>;
+		function goManager(){
+			if(lidx == 1 || lidx == 2){
+				location.href="";
+			}else{
+				location.href = "<%=request.getContextPath()%>/manager/commu_manager.jsp?lidx=" + lidx;
+			}
+		}
+	</script>
 </body>
 </html>

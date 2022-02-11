@@ -86,7 +86,7 @@ public class Member {
 		try {
 			conn = DBManager.getConnection();
 			
-			sql = "SELECT midx,id,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday FROM assamember WHERE midx = " + midx;
+			sql = "SELECT position,midx,id,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday FROM assamember WHERE midx = " + midx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
@@ -102,6 +102,7 @@ public class Member {
 					this.setEmail(rs.getString("email"));
 				}
 				this.setJoinday(rs.getString("joinday"));
+				this.setPosition(rs.getString("position"));
 				
 			}
 		}catch(Exception e) {

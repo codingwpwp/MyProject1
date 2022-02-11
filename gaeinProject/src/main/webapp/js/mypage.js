@@ -2,6 +2,7 @@ $(document).ready(function(){
 	$("#gulgul").find("tbody").hide();
 });
 
+
 function showgul(obj){
 	if($(obj).attr("src") == "/gaeinProject/image/plus2.png"){
 		$("#gulgul").find("tbody").show();
@@ -12,8 +13,8 @@ function showgul(obj){
 	}
 }
 
+
 function changeInfo(){
-	console.log(1);
 	var changeSw = 1;
 	
 	var pwcheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
@@ -39,7 +40,7 @@ function changeInfo(){
 	
 	if(changeSw == 1){
 		$.ajax({
-			url : "nicknamecheck.jsp",
+			url : "mypage_nicknamecheck.jsp",
 			type : "post",
 			data : "nickname=" + $("input[name='nickname']").val(),
 			success : function(data){
@@ -48,17 +49,36 @@ function changeInfo(){
 					alert('현재 사용중인 닉네임입니다');
 				}else{
 					$.ajax({
-						url : "user_modify.jsp",
+						url : "mypage_modify.jsp",
 						type : "post",
 						data : "pw=" + $("input[name='pw']").val() + "&nickname=" + $("input[name='nickname']").val()
 							 + "&email=" + $("input[name='email']").val() + "&gender=" + $("input[name='gender']:checked").val(),
 						success : function(){
 							alert('변경되었습니다');
-							location.href="/gaeinProject/manager/user_manager.jsp";
+							location.href="/gaeinProject/manager/mypage.jsp";
 						}
 					});
 				}
 			}
 		});
+	}
+}
+
+
+function deleteInfo(){
+	var flag = confirm("삭제하시겠습니까?");
+	if(flag){
+		if($("input[name='position']").val().includes("커뮤장")){
+			alert('커뮤장은 탈퇴할 수 없습니다');
+		}else{
+			$.ajax({
+				url : "mypage_delete.jsp",
+				type : "post",
+				success : function(){
+					alert('삭제되었습니다');
+					location.href="/gaeinProject/index.jsp";
+				}
+			});
+		}
 	}
 }

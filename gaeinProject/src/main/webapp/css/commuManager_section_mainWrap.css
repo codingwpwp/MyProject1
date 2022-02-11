@@ -1,0 +1,184 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid rgb(250 250 250);
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+#mainWrap h2{
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+#mainWrap #commuManager{
+	border: 1px solid;
+	min-height: 426px;
+	background: #e4f3e4;
+	padding: 20px;
+	border-radius: 5px;
+}
+#commuManager div{
+	margin-bottom: 40px;
+}
+#commuManager div > span{
+	font-weight: bold;
+	font-size: 23px;
+	margin: 0px 20px 0px 0px;
+	color:#0e0d0d;
+}
+#titlechange input[type='button']:hover{
+	border: 1px solid;
+	border-radius: 3px;
+	background:white;
+}
+#titlechange input[type='button']:active{
+	border: 1px solid;
+	border-radius: 3px;
+	background: dimgray;
+}
+#titlechange input[type='text']{
+	width: 180px;
+	height: 26px;
+	font-weight: bold;
+	font-size: 15px;
+	color:#0e0d0d;
+	margin: 10px 20px 0px 0px;
+}
+#introchange textarea{
+	margin-top: 10px;
+	width: 194px;
+	height: 80px;
+	font-size: 15px;
+	resize: none;
+}
+#introchange input[type='button']{
+	margin-left: 10px;
+	width: 80px;
+	height: 32px;
+	position: relative;
+	bottom: 10px;
+}
+#titlechange input[type='button']{
+	position : relative;
+	bottom : 2px;
+	height: 32px;
+	width: 80px;
+}
+#malheadManager table{
+	margin-top: 15px;
+}
+#malheadManager table .col1{
+	font-size: 17px;
+	font-weight: bold;
+	width: 110px;
+	height: 25px;
+}
+#malheadManager table tr:first-child td.col span{
+	padding: 1px;
+	color: black;
+	border-radius: 3px;
+	background : dimgray;
+}
+#malheadManager table .col1 input{
+	height: 23px;
+	width: 93px;
+	font-size: 14px;
+	border-radius: 3px;
+	border: 1px solid black;
+}
+#malheadManager table .col2 input{
+	height: 25px;
+}
+#malheadManager table .col2 input:hover{
+	background:white;
+	border:1px solid;
+	border-radius: 3px;
+	width:43px;
+}
+#malheadManager table .col2 input:active{
+	background:dimgray;
+	border:1px solid;
+	border-radius: 3px;
+	width:43px;
+}
+#delyn #tableWrap{
+	margin-top: 15px;
+	border:1px solid green;
+	border-radius:10px;
+}
+#delyn #delyntable{
+	border: 1px  black;
+    border-collapse: collapse;
+	width: 100%;
+	background:white;
+	border-radius: 10px;
+}
+#delyntable thead{
+	border-bottom:2px solid;
+}
+#delyntable td{
+	padding: 6px 0px 4px 0px;
+}
+#delyntable tbody tr:hover{
+	background-color:#c9f1cb
+}
+#delyntable .col1{
+    width: 15%;
+}
+#delyntable tbody .col1{
+    width: 15%;
+    font-size:14px;
+    text-align:center;
+}
+#delyntable .col1{
+    width: 15%;
+}
+#delyntable tbody .col2{
+    width: 40%;
+    font-size:14px;
+    font-weight:bold;
+    padding-left:7px;
+}
+#delyntable .col2{
+    width: 40%;
+}
+#delyntable tbody .col3{
+    width: 13%;
+    font-size: 13px;
+    text-align:center;
+}
+#delyntable .col3{
+    width: 13%;
+}
+#delyntable tbody .col4{
+    width: 15%;
+    text-align: center;
+    font-size: 11px;
+}
+#delyntable .col4{
+    width: 15%;
+}
+#delyntable tbody .col5{
+    width: 24%;
+    text-align:center;
+}
+#commuManager button{
+	background: lightgray;
+	padding: 3px 5px;
+	border:0px;
+	border-radius:3px;
+}
+#commuManager button:hover{
+	background: #8BC34A;
+}
+#commuManager button:active{
+	background: #b9df8e;
+}

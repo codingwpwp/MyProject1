@@ -25,7 +25,7 @@
 		rs = psmt.executeQuery();
 		
 		if(rs.next()){
-			out.print("내거 함부로 뜯어보지마라");
+			out.print("이걸 뜯어본 당신은 행운아!");
 		}else{
 			
 			psmt = null;

@@ -40,9 +40,12 @@ nav{
 }
 .menu a{
 	text-decoration: none;
-	color: #3c2e2e;
+	color: #3c2e2e;	
 	font-weight: bold;
 	transition: all 0.15s;
+}
+#menu2 a{
+	font-size: 14px;
 }
 .menu a:hover{
 	color: gray;

@@ -12,6 +12,7 @@ public class ListFilter {
 	
 	public String listintroduce;
 	public String listtitle;
+	public String listtable;
 	public int listmastermidx;
 	public int writesortcnt;
 	public String writesort1;
@@ -214,6 +215,50 @@ public class ListFilter {
 				
 				gulList.add(usergulList);
 			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+	}
+	
+	public ListFilter(int lidx, String manager) {
+		try {
+			
+			conn = DBManager.getConnection();
+			sql = "SELECT * FROM ASSABOARDLIST a, assamember b WHERE a.LISTMASTERMIDX = b.midx AND a.lidx = " + lidx;
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()){
+				
+				listmastermidx = rs.getInt("listmastermidx");
+				listtitle = rs.getString("listtitle");
+				listintroduce = rs.getString("LISTINTRODUCE");
+				writesortcnt = rs.getInt("WRITESORTCNT");
+				writesort1 = rs.getString("WRITESORT1");
+				writesort2 = rs.getString("WRITESORT2");
+				if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
+				if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
+				if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
+			}
+			
+			sql = "SELECT a.bidx, a.writesort, a.SUBJECT, b.NICKNAME, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday FROM ASSABOARD a, ASSAMEMBER b WHERE lidx = " + lidx + " AND a.midx = b.midx AND a.delyn='Y' ORDER BY writeday";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()){
+				Gul delgulList = new Gul();
+				
+				delgulList.setBidx(rs.getInt("bidx"));
+				delgulList.setWritesort(rs.getString("writesort"));
+				delgulList.setSubject(rs.getString("subject"));
+				delgulList.setNickname(rs.getString("nickname"));
+				delgulList.setWriteday(rs.getString("writeday"));
+				
+				gulList.add(delgulList);
+			}
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
