@@ -32,8 +32,8 @@
 	font-weight: bold;
 }
 #login{
-	background-color: #9bf4ff;
-	border: 1px solid #072c14;
+	background: linear-gradient(180deg, #f9f9f9, #a4adac);
+	border: 1px solid black;
 	border-radius: 3px;
 	display: inline-block;
     height: 76px;
@@ -42,9 +42,10 @@
     bottom: 7px;
     right: 10px;
     cursor: pointer;
+    transition : all 0.3s;
 }
 #login:active{
-	background-color: lightgreen;
+	background: linear-gradient(0deg, #f9f9f9, #a4adac);
 }
 #memberdiv > a{
 	margin-left: 13px;
@@ -79,19 +80,31 @@
 	text-decoration: underline;
 }
 #memberdiv > .button{
+	background: linear-gradient(180deg, #f9f9f9, #a4adac);
+	border: 1px solid;
+	border-radius: 3px;
 	height: 40px;
 	width: 100px;
 	margin: 0px 10px 0px 12px;
 	cursor: pointer;
 }
+#memberdiv > .button:active{
+	background: linear-gradient(0deg, #f9f9f9, #a4adac);
+}
 #masterlogout{
+	background: linear-gradient(180deg, #f9f9f9, #a4adac);
+	border: 1px solid;
+	border-radius: 3px;
 	margin: 3px 7%;
     width: 86%;
     height: 40px;
     font-size: 17px;
     font-weight: bold;
     cursor: pointer;
-	
+    transition : all 0.3s;
+}
+#masterlogout:active{
+	background: linear-gradient(0deg, #f9f9f9, #a4adac);
 }
 #ad{
 	border: 1px solid;

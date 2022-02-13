@@ -16,7 +16,8 @@
 			<img src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="30"><%=loginUserAside.getNickname()%>
 		</div>
 		<div id="memberPosition">
-			&nbsp;<a href="#">회원정보 관리</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">전체커뮤니티 관리</a></div>
+			&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage.jsp">회원정보 관리</a>
+			&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage2.jsp">전체커뮤니티 관리</a></div>
 		<button id="masterlogout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}else{%>
 		<div id="memberNickname"><%if(!loginUserAside.getPosition().equals("일반")){%><span id="commujang"><%}%><%=loginUserAside.getNickname()%><%if(!loginUserAside.getPosition().equals("일반")){%></span><%}%></div>

@@ -37,6 +37,7 @@ public class Member {
 	
 	
 	private String id;
+	private String pw;
 	private String name;
 	private String email;
 	private String gender;
@@ -47,6 +48,12 @@ public class Member {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 	public String getName() {
 		return name;
@@ -86,13 +93,14 @@ public class Member {
 		try {
 			conn = DBManager.getConnection();
 			
-			sql = "SELECT position,midx,id,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday FROM assamember WHERE midx = " + midx;
+			sql = "SELECT position,midx,id,pw,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday, delyn FROM assamember WHERE midx = " + midx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
 				
 				this.setMidx(rs.getInt("midx"));
 				this.setId(rs.getString("id"));
+				this.setPw(rs.getString("pw"));
 				this.setName(rs.getString("membername"));
 				this.setNickname(rs.getString("nickname"));
 				if(rs.getString("gender") != null) {
@@ -103,14 +111,25 @@ public class Member {
 				}
 				this.setJoinday(rs.getString("joinday"));
 				this.setPosition(rs.getString("position"));
+				this.setDelyn(rs.getString("delyn"));
 				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			
+			DBManager.close(conn, psmt, rs);
 		}
 		
-		
 	}
+	
+	
+	private String delyn;
+
+	public String getDelyn() {
+		return delyn;
+	}
+	public void setDelyn(String delyn) {
+		this.delyn = delyn;
+	}
+	
 }

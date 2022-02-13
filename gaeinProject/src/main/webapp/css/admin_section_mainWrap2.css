@@ -1,0 +1,78 @@
+/*<section>_mainWrap*/
+section{
+	width: 900px;
+	margin: 0px auto;
+	background: inherit;
+}
+#mainWrap{
+	background-color: inherit;
+	border: 1px solid whitesmoke;
+	border-radius: 10px;
+	width: 600px;
+	min-height: 550px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+#mainWrap h2{
+	margin-top: 5px;
+	padding-left: 10px;
+	font-size: 1.7em;
+}
+#mainWrap #adminpage{
+	border: 1px solid;
+	min-height: 200px;
+	background: #e4f3e4;
+	padding: 20px;
+	border-radius: 5px;
+}
+#commuList #commutable{
+	float: left;
+	margin-left: 20px;
+	background: white;
+	border-bottom: 1px solid;
+	width: 45%;
+	margin: 1px auto;
+}
+#commutable table{
+	width: 100%;
+    border-collapse: collapse;
+}
+#commutable thead{
+	color: #009688;
+	background: #a9e5df;
+	border: 1px solid;
+}
+#commutable tr, td{
+	padding: 4px 2px 4px 3px;
+}
+#commutable tbody tr:hover{
+	background: #f2f6f7;
+}
+#commutable tbody tr:nth-of-type(even){
+	background:#ebf1e4;
+}
+#commutable tbody tr:nth-of-type(even):hover{
+	background: #f2f6f7;
+}
+#commutable thead{
+	font-size: 13px;
+}
+#commutable tbody{
+	text-align: center;
+	font-weight: bold;
+}
+#commutable tbody .col1{
+	width: 70%;
+}
+#commutable tbody .col1 a{
+	text-decoration: none;
+	color: black;
+}
+#commutable tbody .col1 a:hover{
+	text-decoration: underline;
+	color: green;
+}
+#commutable tbody .col2{
+	width: 30%;
+}
+

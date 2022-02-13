@@ -36,7 +36,6 @@
 			beforeWritesort = rs.getString("writesort" + num);
 		}
 		
-		
 		sql = "SELECT * FROM assaboardlist WHERE lidx = " + lidx;
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
@@ -46,7 +45,6 @@
 			if(rs.getString("writesort4") != null) writesort4 = rs.getString("writesort4");
 			if(rs.getString("writesort5") != null) writesort5 = rs.getString("writesort5");
 		}
-		
 		if(writesortval.equals(writesort2)){
 			changeSw = 0;
 			beforeWritesort = writesort2;

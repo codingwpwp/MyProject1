@@ -101,13 +101,13 @@
 			}
 		</script>
 		<div id="mainWrap">
-			<h2><%=view.listtitle%> - 조회</h2>
-			<span><%=view.gulView.getWritesort()%></span>
+			<h2><%=view.listtitle%><span style="font-size: 17px; color: gray;">(<%=view.gulView.getWritesort()%>)</span></h2>
+			<span></span>
 			<div id="submenu">
 				<button onclick="location.href='<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">목록</button>
 				<%if(loginUser != null && loginUser.getMidx() == view.gulView.getMidx()){ if(!view.commuapply.getOkyn().equals("Y")){
 				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_modify.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&writesort=<%=view.gulView.getWritesort()%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">수정</button><%}}%>
-				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx() || loginUser.getMidx() == view.listmastermidx)){ if(!view.commuapply.getOkyn().equals("Y")){
+				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx() || loginUser.getMidx() == view.listmastermidx) && (view.gulView.getMidx() != 0)){ if(!view.commuapply.getOkyn().equals("Y")){
 				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}}%>
 				<%if(loginUser != null && lidx == 1 && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn() != null && view.commuapply.getOkyn().equals("N")){
 				%><button onclick= "commuapplyFn()">허가</button><%}%>
@@ -115,7 +115,9 @@
 			<div id="gulTitle">
 				<div><%=view.gulView.getSubject()%></div>
 				<div><%=view.gulView.getWriteday()%></div><br>
-				<div><%=view.gulView.getNickname()%></div>
+				<div><span <%if(view.gulView.getPosition().equals("운영자")){
+				%>id="admin"<%}else if(view.gulView.getPosition().contains("커뮤장")){
+				%>id="commujang"<%}%>><%if(view.gulView.getPosition().equals("운영자")){%><img src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="15"><%}%><%=view.gulView.getNickname()%></span></div>
 				<div>조회 <%=view.gulView.getHit()%></div>
 			</div>
 			<div id="gul">

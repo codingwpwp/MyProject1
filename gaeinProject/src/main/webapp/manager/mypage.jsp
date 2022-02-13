@@ -54,7 +54,6 @@
 								<label>
 									<input type="radio" name="gender" value="F" <%if(loginUserManager.getGender() != null && loginUserManager.getGender().equals("F")){ out.print("checked"); }%>> 여
 								</label>
-								<input type="hidden" name="position" value="<%=loginUserManager.getPosition()%>">
 							</td>
 						</tr>
 					</table>

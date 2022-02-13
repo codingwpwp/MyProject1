@@ -68,7 +68,7 @@ function changeInfo(){
 function deleteInfo(){
 	var flag = confirm("삭제하시겠습니까?");
 	if(flag){
-		if($("input[name='position']").val().includes("커뮤장")){
+		if($("div[id='memberPosition']").text().includes("커뮤장")){
 			alert('커뮤장은 탈퇴할 수 없습니다');
 		}else{
 			$.ajax({

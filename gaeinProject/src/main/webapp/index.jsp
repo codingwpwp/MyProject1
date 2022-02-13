@@ -40,9 +40,9 @@
 						<%if(maingul.noticeList != null){for(IndexNotice i : maingul.noticeList){%>
 							<tr>
 								<td class="col1">
-									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 9){%><%=i.getSubject().substring(0, 9)%>...<%}else{%><%=i.getSubject()%><%}%></a>
+									<a class="admina" href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 9){%><%=i.getSubject().substring(0, 9)%>...<%}else{%><%=i.getSubject()%><%}%></a>
 								</td>
-								<td class="col2"><%=i.getWriteday()%></td>
+								<td class="col2" style="color: red; font-weight: bold;"><%=i.getWriteday()%></td>
 							</tr>
 						<%}}%>
 						</tbody>

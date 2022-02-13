@@ -5,9 +5,8 @@ section{
 	background: inherit;
 }
 #mainWrap{
-	background-color: inherit;
+	background-color: #FAFAFA;
 	border: 1px solid #FAFAFA;
-	border-radius: 10px;
 	width: 600px;
 	min-height: 550px;
 	display: inline-block;
@@ -22,11 +21,12 @@ section{
 /*메인페이지의 각 <table>*/
 #mainWrap .table{
 	display: inline-block;
-	border: 5px solid #d0e1a3;
+	border: 5px solid #79cf9f;
 	border-radius: 5px;
 	height: 180px;
 	width: 235px;
 	text-align: center;
+	transition: all 0.5s;
 }
 #tables{
 	display: flex;
@@ -38,7 +38,7 @@ section{
 }
 .table span{
 	display: block;
-	background-color: #d0e1a3;
+	background-color: #79cf9f;
 	font-weight: bold;
 	color: #282525;
 }
@@ -75,15 +75,23 @@ tbody .col1{
 	padding: 3px 0px 3px 15px;
 }
 .table:hover{
-	background-color: white;
+	background-color: #eaffbf;
 }
 
 /* 테이블 안의 글 */
-.table a{
+.admina{
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+}
+.table a:not(.admina){
 	text-decoration: none;
 	color: #333333;
 }
-.table a:hover{
+#tableone tbody a:hover{
+	text-decoration: underline;
+}
+.table a:not(.admina):hover{
 	text-decoration: underline;
 }
 #tableone table tbody td{

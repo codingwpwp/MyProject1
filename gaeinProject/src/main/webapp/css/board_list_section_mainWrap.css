@@ -12,11 +12,11 @@ section{
 	min-height: 550px;
 	display: inline-block;
 }
-#mainWrap a{
+#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a){
 	text-decoration: none;
 	color: black;
 }
-#mainWrap a:hover{
+#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a):hover{
 	text-decoration: underline;
 }
 #mainWrap h2{
@@ -139,7 +139,7 @@ section{
 	95%{background-image: linear-gradient(342deg, #58cb58, #c56363);}
 	100%{background-image: linear-gradient(360deg, #58cb58, #c56363);}
 }
-#jauboard #commujangspan{
+#jauboard .commujangspan{
 	background: #cbe792;
 	border-radius: 3px;
 }
@@ -160,6 +160,27 @@ section{
 	width: 5%;
 	text-align: center;
 	font-size: 11px;
+}
+#jauboard .col4 .admincol4{
+	 position: relative;
+	 bottom: 8px;
+	 font-size: 12px;
+}
+.admintr .col1, .admintr .col2, .admintr .col3 a{
+	text-decoration: none;
+	font-weight: bold;
+	color: red;
+}
+.admintr .col3 a:hover{
+	text-decoration: underline;
+}
+.commujangtr .col1, .commujangtr .col2, .commujangtr .col3 a{
+	text-decoration: none;
+	font-weight: bold;
+	color: green;
+}
+.commujangtr .col3 a:hover{
+	text-decoration: underline;
 }
 /*게시반 밑 부분*/
 #tableBottom{

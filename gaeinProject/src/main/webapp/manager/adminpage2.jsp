@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="boardWeb.vo.*" %>
+<%@ page import="boardWeb.util.*" %>
+<%
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	Connection c = null;
+	PreparedStatement p = null;
+	ResultSet r = null;
+%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>개인프로젝트</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/image/mylogo.ico">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/header.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/nav.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin_section_mainWrap2.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/section_asideWrap.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/footer.css">
+	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<%@include file="/header.jsp" %>
+	<%@include file="/nav.jsp" %>
+	
+	<section style="margin-top: 10px;">
+		<div id="mainWrap">
+			<h2>운영자페이지</h2>
+			<div id="adminpage">
+				<div id="commuList">
+					<h3>전체 커뮤니티 관리</h3>
+					<div id="commutable">
+				<%
+					try{
+						c = DBManager.getConnection();
+						String s = "SELECT listtitle, lidx, delyn FROM assaboardlist WHERE lidx > 2 AND delyn='N'";
+						p = c.prepareStatement(s);
+						r = p.executeQuery();
+				%>
+						<table>
+							<thead>
+								<tr>
+									<th class="col1">커뮤니티</th>
+									<th class="col3">삭제여부</th>
+								</tr>
+							</thead>
+							<tbody>
+							<%while(r.next()){%>
+								<tr>
+									<td class="col1"><a href="<%=request.getContextPath()%>/manager/adminpage2_commu.jsp?lidx=<%=r.getInt("lidx")%>"><%=r.getString("listtitle")%></a></td>
+									<td class="col2"><%=r.getString("delyn")%></td>
+								</tr>
+							<%}%>
+							</tbody>
+						</table>
+					<%
+						}catch(Exception e){
+							e.printStackTrace();
+						}finally{
+							DBManager.close(c, p, r);
+						}
+					%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%@include file="/section_asideWrap.jsp" %>
+	</section>
+	<%@include file="/footer.jsp" %>
+</body>
+</html>

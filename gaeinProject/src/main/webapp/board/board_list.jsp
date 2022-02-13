@@ -53,7 +53,7 @@
 		<%}%>
 	</script>
 		<div id="mainWrap">
-			<h2><%=list.listtitle%>(<%=list.cnt%>)</h2>
+			<h2><%=list.listtitle%><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)</span></h2>
 			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
@@ -107,18 +107,24 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 					</thead>
 					<tbody>
 					<%for(Gul g : list.gulList){%>
-						<tr>
+						<tr <%if(g.getWritesort().equals("공지")){ if(g.getPosition().equals("운영자")){%>class="admintr"<%}else{%>class="commujangtr"<%} }%>>
 							<td class="col1"><%=g.getNum()%></td>
 							<td class="col2"><%=g.getWritesort()%></td>
-							<td class="col3"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=g.getBidx()%>&writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+							<td class="col3">
+								<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=g.getBidx()%>&writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
 							<%if(g.getSubject().length() > 17){
 								%><%=g.getSubject().substring(0, 17)%>...<%
-							}else{%><%=g.getSubject()%><%}%></a>
+							}else{%><%=g.getSubject()%><%}%>
+								</a>
 							</td>
 							<td class="col4"<%if(g.getPosition().equals("운영자")){%> id="admintd"<%}%>>
 								<%if(g.getPosition().equals("운영자")){%>
-								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><span style="position: relative; bottom: 8px; font-size: 12px;"><%
-								}if(g.getPosition().contains("커뮤장")){%><span id="commujangspan"><%}else if(g.getPosition().equals("일반")){%><span><%}%><%=g.getNickname()%></span>
+								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><%}%>
+								<span <%
+								if(g.getPosition().equals("운영자")){%>class="admincol4"<%}
+								else if(g.getPosition().contains("커뮤장")){%>class="commujangspan"<%
+								}%>><%=g.getNickname()%>
+								</span>
 							</td>
 							<td class="col5"><%=g.getWriteday()%></td>
 							<td class="col6"><%=g.getHit()%></td>

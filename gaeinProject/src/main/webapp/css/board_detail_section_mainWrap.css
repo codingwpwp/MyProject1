@@ -102,6 +102,19 @@ section{
 	background-color: gray;
 	border-radius: 3px;
 }
+#admin{
+	padding: 2px;
+	color: black;
+	font-weight: bold;
+    border-radius: 5px;
+	animation-name: adminAni;
+	animation-duration: 0.33s;
+	animation-iteration-count: infinite;
+}
+#gulTitle img{
+	position: relative;
+	top: 2px;
+}
 
 /* 추천 */
 #thumb{
@@ -155,7 +168,7 @@ section{
 	font-weight:bold;
 }
 #admintd{
-	color: #000000;
+	color: black;
 	font-weight: bold;
     border-radius: 5px;
 	animation-name: adminAni;
