@@ -25,6 +25,13 @@
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
+	<script>
+		<%if(loginUser == null){%>
+			alert("로그인 후 이용하세요");
+			location.href="/gaeinProject/index.jsp";
+		<%}%>
+	</script>
+	<%if(loginUser != null){%>
 		<div id="mainWrap">
 			<h2>마이페이지</h2>
 			<div id="mypage">
@@ -90,6 +97,7 @@
 				<button onclick="deleteInfo()">탈퇴하기</button>
 			</div>
 		</div>
+	<%}%>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>

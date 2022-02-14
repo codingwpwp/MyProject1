@@ -30,18 +30,21 @@
 	<section style="margin-top: 10px;">
 	<script>
 		<%if(loginUser == null){%>
+			alert("로그인 후 이용하세요");
 			location.href="/gaeinProject/index.jsp";
 		<%}else if(list.listmastermidx != loginUser.getMidx()){%>
+			alert("커뮤장만 이용할수 있습니다");
 			location.href="/gaeinProject/index.jsp";
 		<%}%>
 	</script>
+	<%if(loginUser != null){%>
 		<div id="mainWrap">
 			<h2><%=list.listtitle%> 관리</h2>
 			<div id="commuManager">
 				<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
 				<%if(lidx != 1 && lidx != 2){%>
 				<div id="titlechange">
-					<span>커뮤니티 이름 변경</span><br>
+					<span id="titlecommu">커뮤니티 이름 변경</span> <span id="listday">개설일 : <%=list.listday%></span><br>
 					<input type="text" name="commutitle" value="<%=list.listtitle%>" disabled="disabled" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤">
 					<input type="button" value="변경하기" onclick="titlechange(this)">
 				</div>
@@ -121,6 +124,7 @@
 				</div>
 			</div>
 		</div>
+	<%}%>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>

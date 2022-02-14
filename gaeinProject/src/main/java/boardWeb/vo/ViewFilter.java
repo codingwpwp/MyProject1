@@ -144,7 +144,7 @@ public class ViewFilter {
 			
 			if(lidx != 1 && lidx != 2){
 				
-				sql = "SELECT * FROM ASSATHUMBLIST WHERE lidx = " + lidx +" AND bidx = " + bidx + " AND midx = " + midx;
+				sql = "SELECT * FROM ASSATHUMBLIST WHERE bidx = " + bidx + " AND midx = " + midx;
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				if(rs.next()) thumbSw = 1;

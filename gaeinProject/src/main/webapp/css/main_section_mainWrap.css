@@ -99,7 +99,7 @@ tbody .col1{
 }
 #tablethree table tr:nth-child(1) .col1 a, #tablefour table tr:nth-child(1) .col1 a, #tablethree table tbody tr:nth-child(1) .col3, #tablefour table tbody tr:nth-child(1) .col3{
 	font-weight: bold;
-	color: red;
+	color: orange;
 }
 #tablethree tr:nth-child(2) .col1 a, #tablefour tr:nth-child(2) .col1 a, #tablethree table tbody tr:nth-child(2) .col2, #tablefour table tbody tr:nth-child(2) .col3{
 	font-weight: bold;

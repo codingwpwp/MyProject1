@@ -111,6 +111,16 @@
 	height: 340px;
 	width: 268px;
 	margin: 0px 4px;
+	position: relative;
+}
+#ad #adspan{
+	position: absolute;
+	background: skyblue;
+	color: black;
+	font-size: 14px;
+	cursor: default;
+	font-weight: bold;
+	padding: 0px 3px;
 }
 #ad img{
 	width: 100%;

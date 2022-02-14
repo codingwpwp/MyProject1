@@ -10,8 +10,8 @@
 	
 	try{
 		connn = DBManager.getConnection();
-		String sql = "SELECT * FROM assaboardlist WHERE lidx > 2";
-		psmtt = connn.prepareStatement(sql);
+		String sqll = "SELECT * FROM assaboardlist WHERE lidx > 2 AND delyn='N'";
+		psmtt = connn.prepareStatement(sqll);
 		rss = psmtt.executeQuery();
 %>
 <nav class="site nav">
@@ -27,7 +27,7 @@
 				</ul>
 			</li>
 			<li class="menu 2" id="menu2" style="font-weight: bold; width: 100px;">
-			커뮤니티<br>
+				<span style="color: black; cursor: default;">커뮤니티</span><br>
 				<ul>
 				<%while(rss.next()){%>
 					<li><a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=rss.getInt("lidx")%>&writesortnum=0"><%=rss.getString("listtitle")%></a></li>

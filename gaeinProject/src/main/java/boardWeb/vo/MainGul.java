@@ -75,7 +75,7 @@ public class MainGul {
 				
 				// 조회수 TOP5
 				psmt = null;
-				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.hit, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N'ORDER BY a.hit DESC, writeday)c WHERE ROWNUM < 6";
+				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.hit, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N' AND b.delyn='N' ORDER BY a.hit DESC, writeday)c WHERE ROWNUM < 6";
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
@@ -92,7 +92,7 @@ public class MainGul {
 				
 				// 추천수 TOP5
 				psmt = null;
-				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.thumb, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N'ORDER BY a.thumb DESC, writeday)c WHERE ROWNUM < 6";
+				sql = "SELECT ROWNUM, c.* FROM (SELECT a.subject, a.thumb, a.lidx, a.bidx, RTRIM(b.LISTTITLE, '커뮤') AS commutitle FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.lidx > 2 AND a.delyn='N' AND b.delyn='N' ORDER BY a.thumb DESC, writeday)c WHERE ROWNUM < 6";
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {

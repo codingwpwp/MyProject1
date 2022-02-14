@@ -30,10 +30,13 @@
 	
 	
 	// 쿠키 관리
-	int visitSwitch = 0;
-	String cookiesql = "";
-	String cookieName = "";
-	if(loginUser != null){
+	int visitSwitch = 0;	// 게시글의 조회여부를 결정짓는 변수
+	
+	String cookiesql = "";	// 쿠키관련 쿼리문
+	
+	String cookieName = "";	// 쿠키이름
+	
+	if(loginUser != null){	// 조건문 안걸면 오류뜸
 		cookieName = lidx + "-" + bidx + "-" +  loginUser.getMidx();	// 게시판번호(lidx) - 게시글번호 - 회원번호(midx)로 쿠키이름만 생성
 	}
 	Connection conn = null;
@@ -42,27 +45,27 @@
 	try{
 		conn = DBManager.getConnection();
 		
-		Cookie[] cookies = request.getCookies();
+		Cookie[] cookies = request.getCookies();	// 쿠키들 들어있는 객체생성
 		
 		if(loginUser != null){
 			
 			if(cookies != null){
-				for(Cookie cook : cookies){
-					if(cook.getName().equals(cookieName) && cook.getValue().equals("viewed")){
-						visitSwitch = 1;
-						break;
+				for(Cookie cook : cookies){	// 쿠키객체안의 쿠키물 확인하는 반복문
+					if(cook.getName().equals(cookieName) && cook.getValue().equals("viewed")){	// 쿠키이름과 그에대한 값이 존재하는경우
+						visitSwitch = 1;	// 게시글을 조회한 이력이 있다.
+						break;	// 이건 빼도되고 안빼도 됨. 속도 높이려고 break한거.
 					}
 				}
 			}
 			
-			if(visitSwitch == 0){
-				cookiesql = "UPDATE assaboard SET hit = hit + 1 WHERE bidx = " + bidx;
+			if(visitSwitch == 0){	// 조회한 이력이 없을 경우
+				cookiesql = "UPDATE assaboard SET hit = hit + 1 WHERE bidx = " + bidx;	// 조회수 1 올려줌
 				psmt = conn.prepareStatement(cookiesql);
 				int result = psmt.executeUpdate();
 				if(result == 1){
-					Cookie cookie = new Cookie(cookieName, "viewed");
-					cookie.setMaxAge(60 * 60 * 24);
-					response.addCookie(cookie);
+					Cookie cookie = new Cookie(cookieName, "viewed");	// 쿠키 이름과 그에대한 값("viewed")을 생성
+					cookie.setMaxAge(60 * 60 * 24);	// 24시간으로 설정
+					response.addCookie(cookie);		// 생성한걸 쿠키객체에 집어 넣음
 				}
 			}
 			
@@ -184,7 +187,6 @@
 				<div id="replyWrite">
 					<form name="replyWrite">
 						<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
-						<input type="hidden" name="lidx" value="<%=lidx%>">
 						<input type="hidden" name="bidx" value="<%=bidx%>">
 						<textarea name="rcontent" placeholder="댓글을 입력하세요" maxlength="110"></textarea><br>
 						<button type="button" onclick="insertReply()">등록</button>

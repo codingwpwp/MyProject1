@@ -60,11 +60,11 @@ section{
 	text-align: center;
 }
 #usertable tbody .col1{
-	width: 10%;
+	width: 11%;
 	font-size: 11px;
 }
 #usertable tbody .col2{
-	width: 32%;
+	width: 30%;
 	font-size: 14px;
 }
 #usertable tbody .col2 a{
@@ -88,7 +88,7 @@ section{
 	font-size: 11px;
 }
 #usertable tbody .col6{
-	width: 10%;
+	width: 11%;
 	font-size: 10px;
 }
 

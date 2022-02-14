@@ -25,54 +25,70 @@ section{
 	padding: 20px;
 	border-radius: 5px;
 }
-#commuList #commutable{
-	float: left;
-	margin-left: 20px;
-	background: white;
-	border-bottom: 1px solid;
-	width: 45%;
-	margin: 1px auto;
-}
-#commutable table{
-	width: 100%;
-    border-collapse: collapse;
-}
-#commutable thead{
-	color: #009688;
-	background: #a9e5df;
+#adminpage h3 > button{
+	margin-left: 50px;
+	background: linear-gradient(180deg, #79cf9f, #009688);
 	border: 1px solid;
+	border-radius: 3px;
+	cursor: pointer;
+	height: 25px;
 }
-#commutable tr, td{
-	padding: 4px 2px 4px 3px;
+#adminpage h3 > button:active{
+	background: linear-gradient(0deg, #79cf9f, #009688);
 }
-#commutable tbody tr:hover{
-	background: #f2f6f7;
+#adminpage #commuinfo{
+	background: white;
+	width: 50%;
+	border: 1px solid #8BC34A;
+	border-radius: 3px;
 }
-#commutable tbody tr:nth-of-type(even){
-	background:#ebf1e4;
-}
-#commutable tbody tr:nth-of-type(even):hover{
-	background: #f2f6f7;
-}
-#commutable thead{
-	font-size: 13px;
-}
-#commutable tbody{
-	text-align: center;
+#commuinfo > li{
+	margin-bottom : 10px;
+	font-size: 17px;
 	font-weight: bold;
 }
-#commutable tbody .col1{
-	width: 70%;
+#commuinfo > li > span{
+	color: red;
 }
-#commutable tbody .col1 a{
-	text-decoration: none;
-	color: black;
+#commubutton button{
+	margin-left: 10px;
+	margin-right: 10px;
+	background: linear-gradient(180deg, #79cf9f, #009688);
+	border: 1px solid;
+	border-radius: 3px;
+	cursor: pointer;
+	height: 30px;
 }
-#commutable tbody .col1 a:hover{
-	text-decoration: underline;
-	color: green;
-}
-#commutable tbody .col2{
-	width: 30%;
+#commubutton button:active{
+	background: linear-gradient(0deg, #79cf9f, #009688);
 }
 
+
+/* 커뮤니티 리스트 */
+#mainWrap #adminpage2{
+	border: 1px solid;
+	width:160px;
+	margin: 3px auto;
+	min-height: 200px;
+	background: #e4f3e4;
+	padding: 20px;
+	border-radius: 5px;
+}
+#commutable{
+	border: 1px solid;
+	width: 160px;
+	background: white;
+	text-align: center;
+}
+#commutable table td{
+	padding-top: 5px;
+	font-weight: bold;
+}
+#commutable table a{
+	text-decoration: none;
+	color: #187e75;
+}
+#commutable table a:hover{
+	text-decoration: underline;
+	color: #CDDC39;
+}

@@ -4,7 +4,6 @@
 <%@ page import="boardWeb.vo.*"%>
 <%@ page import="java.sql.*" %>
 <%
-	int lidx = Integer.parseInt(request.getParameter("lidx"));
 	int bidx = Integer.parseInt(request.getParameter("bidx"));
 	int midx = Integer.parseInt(request.getParameter("midx"));
 	
@@ -17,11 +16,10 @@
 		
 		conn = DBManager.getConnection();
 		
-		sql = "SELECT * FROM ASSATHUMBLIST WHERE lidx=? AND bidx=? AND midx=?";
+		sql = "SELECT * FROM ASSATHUMBLIST WHERE bidx=? AND midx=?";
 		psmt = conn.prepareStatement(sql);
-		psmt.setInt(1, lidx);
-		psmt.setInt(2, bidx);
-		psmt.setInt(3, midx);
+		psmt.setInt(1, bidx);
+		psmt.setInt(2, midx);
 		rs = psmt.executeQuery();
 		
 		if(rs.next()){
@@ -29,18 +27,16 @@
 		}else{
 			
 			psmt = null;
-			sql = "UPDATE ASSABOARD SET THUMB = THUMB + 1 WHERE lidx=? AND bidx=?";
+			sql = "UPDATE ASSABOARD SET THUMB = THUMB + 1 WHERE bidx=?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, lidx);
-			psmt.setInt(2, bidx);
+			psmt.setInt(1, bidx);
 			psmt.executeUpdate();
 			
 			psmt = null;
-			sql = "INSERT INTO ASSATHUMBLIST VALUES(?,?,?)";
+			sql = "INSERT INTO ASSATHUMBLIST VALUES(?,?)";
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, lidx);
-			psmt.setInt(2, bidx);
-			psmt.setInt(3, midx);
+			psmt.setInt(1, bidx);
+			psmt.setInt(2, midx);
 			psmt.executeUpdate();
 			
 			out.print("ok");

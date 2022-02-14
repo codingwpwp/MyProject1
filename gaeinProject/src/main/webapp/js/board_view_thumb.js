@@ -1,12 +1,11 @@
 function thumb(obj){
-	var lidx = $("form[name='replyWrite']").find("input[name='lidx']").val();
 	var bidx = $("form[name='replyWrite']").find("input[name='bidx']").val();
 	var midx = $("form[name='replyWrite']").find("input[name='midx']").val();
 	var thumbNum = parseInt($(obj).parent().find("span").text());
 	$.ajax({
 		url : "thumb_manager.jsp",
 		type : "post",
-		data : "lidx=" + lidx + "&bidx=" + bidx + "&midx=" + midx,
+		data : "bidx=" + bidx + "&midx=" + midx,
 		success : function(data){
 			
 			var result = data.trim();

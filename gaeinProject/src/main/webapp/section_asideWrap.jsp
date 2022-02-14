@@ -26,5 +26,5 @@
 		<button class="button logout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}%>
 	</div>
-	<div id="ad"><a href="#">광고</a></div>
+	<div id="ad"><span id="adspan">AD</span><a id="ada" href="https://codingwpwp.tistory.com/" target="_blank"><img src="<%=request.getContextPath()%>/image/adminad.jpg"></a></div>
 </div>

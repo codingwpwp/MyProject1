@@ -23,6 +23,16 @@
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
+	<script>
+		<%if(loginUser == null){%>
+			alert("로그인 후 이용하세요");
+			location.href="/gaeinProject/index.jsp";
+		<%}else if(loginUser.getMidx() != 0){%>
+			alert("운영자만 이용할수 있습니다");
+			location.href="/gaeinProject/index.jsp";
+		<%}%>
+	</script>
+	<%if(loginUser != null){%>
 		<div id="mainWrap">
 			<h2>운영자페이지</h2>
 				<div id="adminpage">
@@ -56,7 +66,8 @@
 						</div>
 					</div>
 				</div>
-		</div>
+			</div>
+		<%}%>
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
 	<%@include file="/footer.jsp" %>

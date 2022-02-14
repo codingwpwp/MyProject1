@@ -28,11 +28,16 @@ section{
 #commuManager div{
 	margin-bottom: 40px;
 }
-#commuManager div > span{
+#commuManager div > #titlecommu{
 	font-weight: bold;
 	font-size: 23px;
 	margin: 0px 20px 0px 0px;
 	color:#0e0d0d;
+}
+#commuManager div > #listday{
+	color: #1c7783;
+	float: right;
+	font-size: small;
 }
 #titlechange input[type='button']:hover{
 	border: 1px solid;

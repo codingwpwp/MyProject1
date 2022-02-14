@@ -22,6 +22,7 @@ public class ListFilter {
 	public String writesort4;
 	public String writesort5;
 	public String listday;
+	public String delyn;
 	
 	String writersql;	// 검색 종류 : 작성자 일때
 	public ArrayList<Integer> midxs = new ArrayList<>();	// '작성자'에 대한 값들(MIDX)을 배열화
@@ -232,7 +233,7 @@ public class ListFilter {
 			try {
 				
 				conn = DBManager.getConnection();
-				sql = "SELECT * FROM ASSABOARDLIST a, assamember b WHERE a.LISTMASTERMIDX = b.midx AND a.lidx = " + lidx;
+				sql = "SELECT listmastermidx, listtitle, LISTINTRODUCE, WRITESORT1, WRITESORT2, WRITESORT3, WRITESORT4, WRITESORT5, TO_CHAR(listday, 'YYYY-MM-DD') as listday FROM ASSABOARDLIST a, assamember b WHERE a.LISTMASTERMIDX = b.midx AND a.lidx = " + lidx;
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				if(rs.next()){
@@ -240,12 +241,12 @@ public class ListFilter {
 					listmastermidx = rs.getInt("listmastermidx");
 					listtitle = rs.getString("listtitle");
 					listintroduce = rs.getString("LISTINTRODUCE");
-					writesortcnt = rs.getInt("WRITESORTCNT");
 					writesort1 = rs.getString("WRITESORT1");
 					writesort2 = rs.getString("WRITESORT2");
 					if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
 					if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
 					if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
+					listday = rs.getString("listday");
 				}
 				
 				sql = "SELECT a.bidx, a.writesort, a.SUBJECT, b.NICKNAME, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday FROM ASSABOARD a, ASSAMEMBER b WHERE lidx = " + lidx + " AND a.midx = b.midx AND a.delyn='Y' ORDER BY writeday DESC";
@@ -292,12 +293,14 @@ public class ListFilter {
 				}
 				
 				
-				sql = "SELECT listtitle, writesort1, writesort2, writesort3, writesort4, writesort5, TO_CHAR(listday, 'YYYY-MM-DD HH24:MI:SS') AS listday, nickname FROM ASSABOARDLIST a, assamember b WHERE a.LISTMASTERMIDX = b.midx AND a.lidx = " + lidx;
+				sql = "SELECT a.delyn, listmastermidx, listtitle, writesort1, writesort2, writesort3, writesort4, writesort5, TO_CHAR(listday, 'YYYY-MM-DD HH24:MI:SS') AS listday, nickname FROM ASSABOARDLIST a, assamember b WHERE a.LISTMASTERMIDX = b.midx AND a.lidx = " + lidx;
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				if(rs.next()){
 					
+					delyn = rs.getString("delyn");
 					listtitle = rs.getString("listtitle");
+					listmastermidx = rs.getInt("listmastermidx");
 					writesort1 = rs.getString("WRITESORT1");
 					writesort2 = rs.getString("WRITESORT2");
 					if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");

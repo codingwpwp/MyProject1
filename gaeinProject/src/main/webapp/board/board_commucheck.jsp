@@ -17,7 +17,7 @@
 		
 		conn = DBManager.getConnection();
 		
-		String sql = "SELECT listtitle FROM assaboard_commuapply WHERE listtitle = '" + commutitle + "'";
+		String sql = "SELECT listtitle FROM ASSABOARDLIST WHERE listtitle = '" + commutitle + "'";
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		if(rs.next()){
