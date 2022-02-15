@@ -9,8 +9,8 @@
 	int midx = -1;
 	if(loginUser != null) midx = loginUser.getMidx();
 	
-	int nologin = 0;
-	if(loginUser == null) nologin = 1;
+	int nologinSw = 0;
+	if(loginUser == null) nologinSw = 1;
 	
 	request.setCharacterEncoding("UTF-8");
 	
@@ -130,7 +130,7 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<script>
-			var nologin = <%=nologin%>;
+			var nologin = <%=nologinSw%>;
 			if(nologin == 1){
 				alert('회원가입이후 이용할 수 있습니다');
 				location.href="/gaeinProject/join/join.jsp";
