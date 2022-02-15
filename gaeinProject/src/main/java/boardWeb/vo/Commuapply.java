@@ -2,39 +2,46 @@ package boardWeb.vo;
 
 public class Commuapply {
 	private int bidx;
-	private String commuTitle;
-	private String listIntroduce;
+	private int midx;
 	private int writesortcnt;
+	private String okyn = "";
+	private String commuTitle;
 	private String writesort1;
 	private String writesort2;
 	private String writesort3;
 	private String writesort4;
 	private String writesort5;
 	private String commuReason;
-	private String okyn = "";
+	private String listIntroduce;
 	public int getBidx() {
 		return bidx;
 	}
 	public void setBidx(int bidx) {
 		this.bidx = bidx;
 	}
-	public String getCommuTitle() {
-		return commuTitle;
+	public int getMidx() {
+		return midx;
 	}
-	public void setCommuTitle(String commuTitle) {
-		this.commuTitle = commuTitle;
-	}
-	public String getListIntroduce() {
-		return listIntroduce;
-	}
-	public void setListIntroduce(String listIntroduce) {
-		this.listIntroduce = listIntroduce;
+	public void setMidx(int midx) {
+		this.midx = midx;
 	}
 	public int getWritesortcnt() {
 		return writesortcnt;
 	}
 	public void setWritesortcnt(int writesortcnt) {
 		this.writesortcnt = writesortcnt;
+	}
+	public String getOkyn() {
+		return okyn;
+	}
+	public void setOkyn(String okyn) {
+		this.okyn = okyn;
+	}
+	public String getCommuTitle() {
+		return commuTitle;
+	}
+	public void setCommuTitle(String commuTitle) {
+		this.commuTitle = commuTitle;
 	}
 	public String getWritesort1() {
 		return writesort1;
@@ -72,10 +79,10 @@ public class Commuapply {
 	public void setCommuReason(String commuReason) {
 		this.commuReason = commuReason;
 	}
-	public String getOkyn() {
-		return okyn;
+	public String getListIntroduce() {
+		return listIntroduce;
 	}
-	public void setOkyn(String okyn) {
-		this.okyn = okyn;
+	public void setListIntroduce(String listIntroduce) {
+		this.listIntroduce = listIntroduce;
 	}
 }

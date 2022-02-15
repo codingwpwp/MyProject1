@@ -8,6 +8,7 @@ public class Gul {
 	private int bidx;
 	private int midx;
 	private int thumb;
+	private int relycnt;
 	private String content;
 	private String subject;
 	private String writeday;
@@ -50,6 +51,12 @@ public class Gul {
 	}
 	public void setThumb(int thumb) {
 		this.thumb = thumb;
+	}
+	public int getRelycnt() {
+		return relycnt;
+	}
+	public void setRelycnt(int relycnt) {
+		this.relycnt = relycnt;
 	}
 	public String getContent() {
 		return content;

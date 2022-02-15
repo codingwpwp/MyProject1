@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import boardWeb.util.*;
 
 public class Members {
-	
-	
-	int membercnt;
+
 	String sql;
+	int membercnt;
+	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
-	
 	public ArrayList<Member> memberList = new ArrayList<>();
 	
 	public Members() {
@@ -26,13 +24,13 @@ public class Members {
 			while(rs.next()){
 				
 				Member m = new Member();
-				
-				m.setMidx(rs.getInt("midx"));
+
 				m.setId(rs.getString("id"));
-				m.setName(rs.getString("membername"));
-				m.setPosition(rs.getString("position"));
-				m.setJoinday(rs.getString("joinday"));
+				m.setMidx(rs.getInt("midx"));
 				m.setDelyn(rs.getString("delyn"));
+				m.setName(rs.getString("membername"));
+				m.setJoinday(rs.getString("joinday"));
+				m.setPosition(rs.getString("position"));
 				
 				memberList.add(m);
 				membercnt++;

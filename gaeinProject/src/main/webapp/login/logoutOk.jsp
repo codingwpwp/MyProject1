@@ -20,6 +20,10 @@
 	<section style="margin-top: 10px;">
 		<%@include file="/section_asideWrap.jsp" %>
 	</section>
+	<script type="text/javascript">
+		alert("로그아웃되었습니다.");
+		location.href='<%=request.getContextPath()%>/index.jsp';
+	</script>
 	<%@include file="/footer.jsp" %>
 </body>
 </html>

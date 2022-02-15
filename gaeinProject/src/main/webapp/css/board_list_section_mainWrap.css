@@ -9,14 +9,14 @@ section{
 	border: 1px solid #FAFAFA;
 	border-radius: 10px;
 	width: 600px;
-	min-height: 550px;
+	min-height: 80vh;
 	display: inline-block;
 }
-#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a){
+#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a, #lista){
 	text-decoration: none;
 	color: black;
 }
-#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a):hover{
+#mainWrap a:not(.admintr .col3 a, .commujangtr .col3 a, #lista):hover{
 	text-decoration: underline;
 }
 #mainWrap h2{
@@ -30,6 +30,14 @@ section{
 	position: relative;
 	top: 15px;
 	font-weight: bold;
+}
+#lista{
+	text-decoration: none;
+	color: black;
+	transition: color 0.3s;
+}
+#lista:hover{
+	color: gray;
 }
 #mainWrap #lidxonespan{
 	color: orangered;
@@ -211,12 +219,13 @@ section{
     color: white;
 }
 #tableBottom #commu button{
-	width: 100%;
+	width: 72px;
     font-size: 10px;
 }
 #tableBottom > #paging{
 	display: inline-block;
 	width: 475px;
+	margin: 0px 40px;
 }
 #tableBottom > #paging div{
 	width: 25px;

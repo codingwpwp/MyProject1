@@ -7,9 +7,8 @@ import boardWeb.util.DBManager;
 
 public class ReplyManager {
 	public Reply reply = new Reply();
+	
 	String sql;
-	
-	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;

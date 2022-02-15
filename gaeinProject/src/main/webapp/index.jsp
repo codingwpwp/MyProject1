@@ -23,7 +23,7 @@
 <body>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
-	<section style="margin-top: 10px;">
+	<section>
 		<div id="mainWrap">
 			<h2>메인페이지</h2><br>
 			<div id="tables">

@@ -51,3 +51,6 @@ header{
 #subtitle{
 	display: inline;
 }
+section{
+	margin-top: 10px;
+}

@@ -9,7 +9,7 @@ section{
 	border: 1px solid whitesmoke;
 	border-radius: 10px;
 	width: 600px;
-	min-height: 550px;
+	min-height: 80vh;
 	display: inline-block;
 	margin-bottom: 10px;
 }

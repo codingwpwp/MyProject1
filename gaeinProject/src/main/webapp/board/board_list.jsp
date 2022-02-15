@@ -39,7 +39,7 @@
 <body>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
-	<section style="margin-top: 10px;">
+	<section>
 	<script>
 		<%if(lidx == 2 && loginUser != null){%>
 			var position = "<%=loginUser.getPosition()%>";
@@ -53,7 +53,7 @@
 		<%}%>
 	</script>
 		<div id="mainWrap">
-			<h2><%=list.listtitle%><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)</span></h2>
+			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=list.listtitle%></a><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)</span></h2>
 			<span><%=list.listintroduce%> <%if(lidx == 1){%><span id="lidxonespan">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
@@ -101,31 +101,29 @@
 							<th>제목</th>
 							<th>닉네임</th>
 							<th>작성일</th>
-							<th>조회</th><%
-if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
+							<th>조회</th>
+		   <%if(lidx > 2){%><th>추천</th><%}%>
 						</tr>
 					</thead>
 					<tbody>
 					<%for(Gul g : list.gulList){%>
-						<tr <%if(g.getWritesort().equals("공지")){ if(g.getPosition().equals("운영자")){%>class="admintr"<%}else{%>class="commujangtr"<%} }%>>
+						<tr <%if(g.getWritesort().equals("공지") || g.getPosition().equals("운영자")){ if(g.getPosition().equals("운영자")){%>class="admintr"<%}else if(g.getPosition().contains("커뮤장")){%>class="commujangtr"<%} }%>>
 							<td class="col1"><%=g.getNum()%></td>
 							<td class="col2"><%=g.getWritesort()%></td>
 							<td class="col3">
 								<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=g.getBidx()%>&writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
-							<%if(g.getSubject().length() > 17){
-								%><%=g.getSubject().substring(0, 17)%>...<%
-							}else{%><%=g.getSubject()%><%}%>
+							<%if(g.getSubject().length() > 15){
+								%><%=g.getSubject().substring(0, 15)%>...<%
+							}else{%><%=g.getSubject()%><%}%><%if(!(lidx == 1 && g.getWritesort().equals("공지")) && !(lidx == 2 && g.getWritesort().equals("공지"))){%><span style="font-weight: bold;"> [<%=g.getRelycnt()%>]</span><%}%>
 								</a>
 							</td>
-							<td class="col4"<%if(g.getPosition().equals("운영자")){%> class="admintd"<%}%>>
-								<%if(g.getPosition().equals("운영자")){%>
-								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><%}%>
-								<span <%
-								if(g.getPosition().equals("운영자")){%>class="admincol4"<%}
-								else if(g.getPosition().contains("커뮤장")){%>class="commujangspan"<%
-								}%>><%=g.getNickname()%>
-								</span>
-							</td>
+							<td class="col4<%if(g.getPosition().equals("운영자")){out.print(" admintd");}%>"><%
+								if(g.getPosition().equals("운영자")){
+								%><img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;">
+								<%}%><span<%
+									if(g.getPosition().equals("운영자")){%> class="admincol4"<%
+									}else if(g.getPosition().contains("커뮤장")){%> class="commujangspan"<%
+									}%>><%=g.getNickname()%></span></td>
 							<td class="col5"><%=g.getWriteday()%></td>
 							<td class="col6"><%=g.getHit()%></td>
 							<%if(lidx > 2){%>
@@ -143,23 +141,21 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 					</div>
 					<div id="paging">
 						<%if(list.paging.getStartPage() > 1){%>
-							<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getStartPage() - 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+							<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getStartPage()-1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
 								<div>&lt;</div>
 							</a>
 						<%}else{%>
 							<div style="visibility: hidden;"></div>
-						<%}%>
-						
-						<%for(int i = list.paging.getStartPage(); i <= list.paging.getEndPage(); i++){%>
+						<%}
+						for(int i = list.paging.getStartPage(); i <= list.paging.getEndPage(); i++){%>
 							<%if(i == list.paging.getNowPage()){%>
-							<div id="nowPage" style="cursor:default; background-color: deepskyblue;"><%=i %></div>
+							<div id="nowPage" style="cursor:default; background-color: deepskyblue;"><%=i%></div>
 							<%}else{%>
-							<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i %></div></a>
+							<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=i%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>"><div><%=i%></div></a>
 							<%}%>
-				  		<%}%>
-				  		
-				  		<%if(list.paging.getEndPage() != list.paging.getLastPage()){%>
-				  			<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage() + 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+				  		<%}
+						if(list.paging.getEndPage() != list.paging.getLastPage()){%>
+				  			<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage()+1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
 								<div>&gt;</div>
 							</a>
 						<%}else{%>

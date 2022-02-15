@@ -1,8 +1,7 @@
 package boardWeb.vo;
 
-import java.util.*;
 import java.sql.*;
-
+import java.util.*;
 import boardWeb.util.DBManager;
 
 public class ViewFilter {
@@ -20,7 +19,7 @@ public class ViewFilter {
 	public String writesort4;
 	public String writesort5;
 	
-	// 객체들
+	// 객체
 	public Gul gulView = new Gul();
 	public Commuapply commuapply = new Commuapply();
 	public ArrayList<Reply> replyList = new ArrayList<>();
@@ -28,10 +27,11 @@ public class ViewFilter {
 	// 추천여부
 	public int thumbSw;
 	
+	// DB기본세팅
+	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
-	ResultSet rsMidxOrCommuApply = null;
+	ResultSet rsCommuapply = null;
 	
 	public ViewFilter(int lidx, int bidx, int midx) {	// 세번째 매개값은 추천여부를 조회하기 위한 값이다.
 		
@@ -44,119 +44,89 @@ public class ViewFilter {
 			rs = psmt.executeQuery();
 			if(rs.next()){
 				listtitle = rs.getString("listtitle");
+				writesort1 = rs.getString("writesort1");
+				writesort2 = rs.getString("writesort2");
 				listmastermidx = rs.getInt("listmastermidx");
-				writesort1 = rs.getString("WRITESORT1");
-				writesort2 = rs.getString("WRITESORT2");
-				if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
-				if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
-				if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
+				if(rs.getString("writesort3") != null) writesort3 = rs.getString("writesort3");
+				if(rs.getString("writesort4") != null) writesort4 = rs.getString("writesort4");
+				if(rs.getString("writesort5") != null) writesort5 = rs.getString("writesort5");
 			}
-			psmt = null;
-			rs = null;
 			
 			// 글을 호출하는 과정
-			sql = "SELECT midx, subject, content, writesort, hit, thumb, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday FROM assaboard WHERE bidx = " + bidx;
+			sql = "SELECT a.midx, subject, content, writesort, hit, thumb, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday, nickname, position FROM assaboard a, assamember b WHERE a.midx = b.midx AND bidx = " + bidx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
 				
 				gulView.setHit(rs.getInt("hit"));
 				gulView.setMidx(rs.getInt("midx"));
-				gulView.setThumb(rs.getInt("thumb"));
 				gulView.setContent(rs.getString("content"));
 				gulView.setSubject(rs.getString("subject"));
 				gulView.setWriteday(rs.getString("writeday"));
+				gulView.setNickname(rs.getString("nickname"));
+				gulView.setPosition(rs.getString("position"));
 				gulView.setWritesort(rs.getString("writesort"));
+				if(lidx > 2) gulView.setThumb(rs.getInt("thumb"));
 				
-				if(lidx == 1 && gulView.getWritesort().equals("커뮤신청")){
+				
+				if(lidx == 1 && gulView.getWritesort().equals("커뮤신청")){	// 자유게시판안의 카테고리가 커뮤신청인 경우
 					
-					psmt = null;
-					sqlCommuapply = "SELECT * FROM ASSABOARD_COMMUAPPLY WHERE bidx = " + bidx;
+					sqlCommuapply = "SELECT * FROM assaboard_commuapply WHERE bidx = " + bidx;
 					psmt = conn.prepareStatement(sqlCommuapply);
-					rsMidxOrCommuApply = psmt.executeQuery();
+					rsCommuapply = psmt.executeQuery();
 					
-					if(rsMidxOrCommuApply.next()) {
-						
-						commuapply.setCommuTitle(rsMidxOrCommuApply.getString("COMMUTITLE"));
-						commuapply.setListIntroduce(rsMidxOrCommuApply.getString("LISTINTRODUCE"));
-						commuapply.setWritesortcnt(rsMidxOrCommuApply.getInt("WRITESORTCNT"));
-						commuapply.setWritesort1(rsMidxOrCommuApply.getString("WRITESORT1"));
-						commuapply.setWritesort2(rsMidxOrCommuApply.getString("WRITESORT2"));
-						if(rsMidxOrCommuApply.getString("WRITESORT3") != null) {
-							commuapply.setWritesort3(rsMidxOrCommuApply.getString("WRITESORT3"));
-						}
-						if(rsMidxOrCommuApply.getString("WRITESORT4") != null) {
-							commuapply.setWritesort4(rsMidxOrCommuApply.getString("WRITESORT4"));
-						}
-						if(rsMidxOrCommuApply.getString("WRITESORT5") != null) {
-							commuapply.setWritesort5(rsMidxOrCommuApply.getString("WRITESORT5"));
-						}
-						commuapply.setCommuReason(rsMidxOrCommuApply.getString("COMMUREASON"));
-						commuapply.setOkyn(rsMidxOrCommuApply.getString("OKYN"));
+					if(rsCommuapply.next()) {
+
+						commuapply.setOkyn(rsCommuapply.getString("okyn"));
+						commuapply.setCommuTitle(rsCommuapply.getString("commutitle"));
+						commuapply.setWritesort1(rsCommuapply.getString("writesort1"));
+						commuapply.setWritesort2(rsCommuapply.getString("writesort2"));
+						commuapply.setWritesortcnt(rsCommuapply.getInt("writesortcnt"));
+						commuapply.setCommuReason(rsCommuapply.getString("commureason"));
+						commuapply.setListIntroduce(rsCommuapply.getString("listintroduce"));
+						if(rsCommuapply.getString("writesort3") != null) commuapply.setWritesort3(rsCommuapply.getString("writesort3"));
+						if(rsCommuapply.getString("writesort4") != null) commuapply.setWritesort4(rsCommuapply.getString("writesort4"));
+						if(rsCommuapply.getString("writesort5") != null) commuapply.setWritesort5(rsCommuapply.getString("writesort5"));
 					}
 					
-					rsMidxOrCommuApply = null;
-				}else{
-					gulView.setContent(rs.getString("content"));
-				}
+				}else{ gulView.setContent(rs.getString("content")); }		// 아닌경우
 				
-				psmt = null;
-				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
-				psmt = conn.prepareStatement(sql);
-				rsMidxOrCommuApply = psmt.executeQuery();
-				if(rsMidxOrCommuApply.next()) {
-					gulView.setNickname(rsMidxOrCommuApply.getString("nickname"));
-					gulView.setPosition(rsMidxOrCommuApply.getString("position"));
-				}
+				
 			}
-			psmt = null;
-			rs = null;
-			rsMidxOrCommuApply = null;
 			
-			// 해당 글의 댓글들을 호출하는 과정
-			sql = "SELECT ridx, midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate, modifyyn FROM ASSABOARDREPLY WHERE delyn='N' AND lidx = " + lidx + " AND bidx = " + bidx;
+			// 댓글을 호출하는 과정
+			sql = "SELECT ridx, a.midx, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate, rcontent, modifyyn, nickname, position FROM assaboardreply a, assamember b ";
+			sql +="WHERE a.midx = b.midx AND a.delyn='N' AND lidx = " + lidx + " AND bidx = " + bidx + " ORDER BY rdate";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()){
 				Reply reply = new Reply();
-				
+
 				reply.setRidx(rs.getInt("ridx"));
 				reply.setMidx(rs.getInt("midx"));
-				reply.setRcontent(rs.getString("rcontent"));
 				reply.setRdate(rs.getString("rdate"));
+				reply.setRcontent(rs.getString("rcontent"));
 				reply.setModifyyn(rs.getString("modifyyn"));
-				psmt = null;
-				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
-				psmt = conn.prepareStatement(sql);
-				rsMidxOrCommuApply = psmt.executeQuery();
-				if(rsMidxOrCommuApply.next()) {
-					reply.setNickname(rsMidxOrCommuApply.getString("nickname"));
-					reply.setPosition(rsMidxOrCommuApply.getString("position"));
-				}
+				reply.setNickname(rs.getString("nickname"));
+				reply.setPosition(rs.getString("position"));
 				
 				replyList.add(reply);
 				replycnt++;
 			}
 			
-			psmt = null;
-			rs = null;
-			rsMidxOrCommuApply = null;
-			
-			if(lidx != 1 && lidx != 2){
+			if(lidx > 2){	// 유저가 글(커뮤니티)의 추천여부를 호출하는 과정
 				
-				sql = "SELECT * FROM ASSATHUMBLIST WHERE bidx = " + bidx + " AND midx = " + midx;
+				sql = "SELECT * FROM assathumblist WHERE bidx = " + bidx + " AND midx = " + midx;
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				if(rs.next()) thumbSw = 1;
 				
-				psmt = null;
-				rs = null;
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBManager.close(conn, psmt, rs, rsMidxOrCommuApply);
+			DBManager.close(conn, psmt, rs, rsCommuapply);
 		}
 	}
 	

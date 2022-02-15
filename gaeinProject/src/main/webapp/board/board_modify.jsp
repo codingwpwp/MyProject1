@@ -46,7 +46,7 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
-			<h2><%=view.listtitle%> - 수정</h2>
+			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=view.listtitle%></a> - 수정</h2>
 			<form method="post" action="<%=request.getContextPath()%>/board/board_modifyOk.jsp" onsubmit = "return gulModify()">
 				<input type="hidden" name="lidx" value="<%=lidx%>">
 				<input type="hidden" name="bidx" value="<%=bidx%>">

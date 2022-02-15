@@ -2,6 +2,7 @@
 section{
 	width: 900px;
 	margin: 0px auto;
+	min-height: 79vh;
 }
 #joinWrap h2{
 	font-size: 1.7em;

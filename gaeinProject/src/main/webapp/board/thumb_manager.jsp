@@ -23,7 +23,7 @@
 		rs = psmt.executeQuery();
 		
 		if(rs.next()){
-			out.print("이걸 뜯어본 당신은 행운아!");
+			out.print("^^");
 		}else{
 			
 			psmt = null;

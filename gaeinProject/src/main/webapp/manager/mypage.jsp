@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	
-	Member loginUserManager = new Member(loginUser.getMidx());
-	
-	ListFilter list = new ListFilter(loginUser.getMidx());
+	Member loginUserManager = null;
+	ListFilter list = null;
+	if(loginUser != null){
+		loginUserManager = new Member(loginUser.getMidx());
+		list = new ListFilter(loginUser.getMidx());
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +33,7 @@
 			location.href="/gaeinProject/index.jsp";
 		<%}%>
 	</script>
-	<%if(loginUser != null){%>
+	<%if(loginUserManager != null){%>
 		<div id="mainWrap">
 			<h2>마이페이지</h2>
 			<div id="mypage">

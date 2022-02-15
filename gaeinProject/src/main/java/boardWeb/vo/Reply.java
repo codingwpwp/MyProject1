@@ -3,8 +3,8 @@ package boardWeb.vo;
 public class Reply {
 	private int ridx;
 	private int midx;
-	private String rcontent;
 	private String rdate;
+	private String rcontent;
 	private String nickname;
 	private String position;
 	private String modifyyn;

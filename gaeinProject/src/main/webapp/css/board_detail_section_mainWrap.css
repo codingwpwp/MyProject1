@@ -9,15 +9,23 @@ section{
 	border: 1px solid #fafafa;
 	border-radius: 10px;
 	width: 600px;
-	min-height: 550px;
+	min-height: 80vh;
 	display: inline-block;
 }
-#mainWrap a{
+#mainWrap a:not(#lista){
 	text-decoration: none;
 	color: black;
 }
-#mainWrap a:hover{
+#mainWrap a:not(#lista):hover{
 	text-decoration: underline;
+}
+#lista{
+	text-decoration: none;
+	color: black;
+	transition: color 0.3s;
+}
+#lista:hover{
+	color: gray;
 }
 #mainWrap h2{
 	margin-top: 5px;
@@ -153,7 +161,7 @@ section{
 	display: inline-block;
 }
 .replyContent div:nth-of-type(1){
-	width: 65px;
+	width: 70px;
 	height: 27px;
     font-size: 13px;
     margin-left: 10px;

@@ -8,7 +8,7 @@ section{
 	background-color: #FAFAFA;
 	border: 1px solid #FAFAFA;
 	width: 600px;
-	min-height: 550px;
+	min-height: 80vh;
 	display: inline-block;
 }
 #mainWrap h2{

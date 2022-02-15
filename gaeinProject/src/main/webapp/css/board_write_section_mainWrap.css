@@ -9,15 +9,23 @@ section{
 	border: 1px solid #FAFAFA;
 	border-radius: 10px;
 	width: 600px;
-	min-height: 550px;
+	min-height: 80vh;
 	display: inline-block;
 }
-#mainWrap a{
+#mainWrap a:not(#lista){
 	text-decoration: none;
 	color: black;
 }
-#mainWrap a:hover{
+#mainWrap a:not(#lista):hover{
 	text-decoration: underline;
+}
+#lista{
+	text-decoration: none;
+	color: black;
+	transition: color 0.3s;
+}
+#lista:hover{
+	color: gray;
 }
 #mainWrap h2{
 	margin-top: 5px;

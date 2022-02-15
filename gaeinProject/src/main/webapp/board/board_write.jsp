@@ -40,7 +40,7 @@
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">
 		<div id="mainWrap">
-			<h2><%=list.listtitle%> - 등록</h2>
+			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=list.listtitle%></a> - 등록</h2>
 			<form method="post" action="<%=request.getContextPath()%>/board/board_wirteOk.jsp" onsubmit = "return gulWrite()">
 			<%if(loginUser.getMidx() == list.listmastermidx || loginUser.getMidx() == 0){%>
 				<label> <!-- <input> 태그의 name값은 파라미터로 넘어온 WRITESORTNUM값과 전혀 연관이 없다. -->
@@ -101,10 +101,10 @@
 							placeholder="커뮤니티의 소개글입니다. 30자 이내의 한 줄문장으로 입력하세요"></textarea>
 						</div>
 						<div>
-							<div><span>말머리 : </span></div>
+							<div><span>카테고리 : </span></div>
 							<div id="commumalhead">
 								<input type="text" name="commumalhead1" value="공지" readonly>
-								<span style="color: red; font-size: small;">*말머리 2개는 필수</span>
+								<span style="color: red; font-size: small;">*2개는 필수</span>
 								<br>
 								<input type="text" name="commumalhead2" placeholder="4자이내" maxlength="4">
 								<img src="<%=request.getContextPath()%>/image/plus.png" width="10" onclick="commumalPlus()">&nbsp;

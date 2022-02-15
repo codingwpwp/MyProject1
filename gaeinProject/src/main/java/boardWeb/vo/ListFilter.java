@@ -7,7 +7,7 @@ import boardWeb.util.*;
 public class ListFilter {
 	
 	public Member m;
-	public ArrayList<Gul> gulList = new ArrayList<>();
+	
 	public PagingUtil paging;
 	
 	public String delyn;
@@ -26,12 +26,15 @@ public class ListFilter {
 	
 	public int cnt;	// 글 총 갯수
 	public int onePagingcnt;	// 한페이지에 뿌려질 글 번호
-	int end;	// 해당 페이지 마지막 글
+	public int replycnt; 		// 해당 글의 댓글 갯수
+	
+	public ArrayList<Gul> gulList = new ArrayList<>();
 	
 	String sql;
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	ResultSet rsreply = null;
 	
 	public ListFilter(int lidx, int writesortnum, int nowPage, String searchType, String searchValue){
 		
@@ -44,15 +47,15 @@ public class ListFilter {
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				
-				listtitle = rs.getString("LISTTITLE");
-				writesort1 = rs.getString("WRITESORT1");
-				writesort2 = rs.getString("WRITESORT2");
-				writesortcnt = rs.getInt("WRITESORTCNT");
-				listmastermidx = rs.getInt("LISTMASTERMIDX");
-				listintroduce = rs.getString("LISTINTRODUCE");
-				if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
-				if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
-				if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
+				listtitle = rs.getString("listtitle");
+				writesort1 = rs.getString("writesort1");
+				writesort2 = rs.getString("writesort2");
+				writesortcnt = rs.getInt("writesortcnt");
+				listmastermidx = rs.getInt("listmastermidx");
+				listintroduce = rs.getString("listintroduce");
+				if(rs.getString("writesort3") != null) writesort3 = rs.getString("writesort3");
+				if(rs.getString("writesort4") != null) writesort4 = rs.getString("writesort4");
+				if(rs.getString("writesort5") != null) writesort5 = rs.getString("writesort5");
 				
 			}
 			
@@ -86,11 +89,9 @@ public class ListFilter {
 			}
 			
 			// 게시판의 페이징처리
-			paging = new PagingUtil(cnt, nowPage, 6);
+			paging = new PagingUtil(cnt, nowPage, 10);
 			onePagingcnt = cnt - (paging.getPerPage() * (nowPage - 1));
 			
-			// 해당 페이지의 마지막 글
-			end = paging.getEnd();
 			
 			// 글을 출력하는 과정 ( (카테고리) || (검색종류 && 검색값) )
 			sql = "SELECT d.* FROM ";
@@ -116,15 +117,15 @@ public class ListFilter {
 			}
 			sql += "ORDER BY bidx DESC)c ";
 			sql += ")d WHERE r BETWEEN " + paging.getStart() + " AND " + paging.getEnd();
-			sql = "SELECT d.* FROM (SELECT ROWNUM r, c.* FROM (SELECT hit, bidx, thumb, subject, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday, nickname, position, writesort FROM assaboard a, assamember b WHERE a.midx = b.midx AND lidx = 1 AND a.delyn = 'N' ORDER BY bidx DESC)c )d WHERE r BETWEEN 1 AND 4";
+			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			//System.out.println(sql);
+			
 			while(rs.next()) {
-				Gul jauList = new Gul();
 				
+				Gul jauList = new Gul();
+
 				jauList.setNum(onePagingcnt);
-				 
-				jauList.setHit(rs.getInt("d.hit"));
+				jauList.setHit(rs.getInt("hit"));
 				jauList.setBidx(rs.getInt("bidx"));
 				jauList.setSubject(rs.getString("subject"));
 				jauList.setWriteday(rs.getString("writeday"));
@@ -132,15 +133,22 @@ public class ListFilter {
 				jauList.setPosition(rs.getString("position"));
 				jauList.setWritesort(rs.getString("writesort"));
 				if(lidx > 2) jauList.setThumb(rs.getInt("thumb"));
-				System.out.println(onePagingcnt);
+				
+				sql = "SELECT COUNT(*) AS count FROM assaboardreply WHERE lidx = " + lidx + " AND bidx = " + jauList.getBidx() + " AND delyn='N'";
+				psmt = conn.prepareStatement(sql);
+				rsreply = psmt.executeQuery();
+				if(rsreply.next()) replycnt = rsreply.getInt("count");
+				jauList.setRelycnt(replycnt);
+				
 				gulList.add(jauList);
 				onePagingcnt--;
+				
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBManager.close(conn, psmt, rs);
+			DBManager.close(conn, psmt, rs, rsreply);
 		}
 		
 	}
@@ -249,14 +257,14 @@ public class ListFilter {
 				if(rs.next()){
 					
 					delyn = rs.getString("delyn");
+					listday = rs.getString("listday");
 					listtitle = rs.getString("listtitle");
-					listmastermidx = rs.getInt("listmastermidx");
 					writesort1 = rs.getString("WRITESORT1");
 					writesort2 = rs.getString("WRITESORT2");
+					listmastermidx = rs.getInt("listmastermidx");
 					if(rs.getString("WRITESORT3") != null) writesort3 = rs.getString("WRITESORT3");
 					if(rs.getString("WRITESORT4") != null) writesort4 = rs.getString("WRITESORT4");
 					if(rs.getString("WRITESORT5") != null) writesort5 = rs.getString("WRITESORT5");
-					listday = rs.getString("listday");
 					
 					m = new Member();
 					m.setNickname(rs.getString("nickname"));

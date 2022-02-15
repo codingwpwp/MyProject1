@@ -5,7 +5,7 @@ var checkednickname = "";
 
 function idcheckFn(){
 	var span = $("input:eq(0)").parent().children("span.checkspan");
-	var idreg = /^[a-z0-9]{8,20}$/g;
+	var idreg = /^[a-zA-Z0-9]{8,20}$/g;
 	
 	if($("input[name='id']").val() == ""){
 		span.text(" *필수");
@@ -86,7 +86,7 @@ function joincheck() {
 		var check;
 
 		if(id == "id"){
-			check = /^[a-z0-9]{8,20}$/g;
+			check = /^[a-zA-Z0-9]{8,20}$/g;
 		}else if(id == 'pw' || id == 'pwre'){
 			check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
 		}else if(id == 'name'){

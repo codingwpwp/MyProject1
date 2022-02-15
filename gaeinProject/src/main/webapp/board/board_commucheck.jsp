@@ -12,7 +12,6 @@
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
-	
 	try{
 		
 		conn = DBManager.getConnection();
@@ -21,7 +20,7 @@
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		if(rs.next()){
-			out.print("존재한다");
+			out.print("exist");
 		}else{
 			out.print("이걸 본 당신은 올 한해 복으로 가득찰 것입니다^^");
 		}

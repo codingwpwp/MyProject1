@@ -78,6 +78,39 @@
 	
 	// 게시글 상세조회 + 댓글조회
 	ViewFilter view = new ViewFilter(lidx, bidx, midx);
+	
+	// 삭제버튼이 나오는 경우
+	int deleteSw = 0;
+	if(loginUser != null){	// 로그인을 했을때
+		if(view.gulView.getMidx() != 0){	// 운영자가 작성한 글이 아닐 때
+			if(loginUser.getMidx() == 0 && !view.commuapply.getOkyn().equals("Y")){	// 운영자가 로그인하고 특정글(커뮤신청)이 허가가 난 경우를 제외한 경우
+				deleteSw = 1;
+			}else{	// 운영자가 아닌 사람이 로그인을 했을 경우
+				if(lidx == 1){	// 자유게시판인 경우
+					if(!view.commuapply.getOkyn().equals("Y")){	// 카테고리가 커뮤신청에서 허가가 나지않았을때
+						if(loginUser.getMidx() == view.gulView.getMidx()){	// 본인이 작성한 글인 경우
+							deleteSw = 1;
+						}
+					}
+				}else if(lidx == 2){	// 커뮤장전용게시판일때 
+					if(loginUser.getMidx() == 0){	// 운영자인 경우
+						deleteSw = 1;
+					}
+				}else{
+					if(loginUser.getMidx() == view.listmastermidx){	// 커뮤장인 경우
+						deleteSw = 1;
+					}else if(loginUser.getMidx() == view.gulView.getMidx()){	// 본인이 작성한 경우
+						deleteSw = 1;
+					}
+				}
+			}
+		}else{	// 운영자가 작성한 글일 때
+			if(loginUser.getMidx() == 0){
+				deleteSw = 1;
+			}
+		}
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -104,14 +137,14 @@
 			}
 		</script>
 		<div id="mainWrap">
-			<h2><%=view.listtitle%><span style="font-size: 17px; color: gray;">(<%=view.gulView.getWritesort()%>)</span></h2>
+			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=view.listtitle%></a><span style="font-size: 17px; color: gray;">(<%=view.gulView.getWritesort()%>)</span></h2>
 			<span></span>
 			<div id="submenu">
 				<button onclick="location.href='<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">목록</button>
 				<%if(loginUser != null && loginUser.getMidx() == view.gulView.getMidx()){ if(!view.commuapply.getOkyn().equals("Y")){
 				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_modify.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&writesort=<%=view.gulView.getWritesort()%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">수정</button><%}}%>
-				<%if(loginUser != null && (loginUser.getMidx() == view.gulView.getMidx() || loginUser.getMidx() == view.listmastermidx) && (view.gulView.getMidx() != 0)){ if(!view.commuapply.getOkyn().equals("Y")){
-				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}}%>
+				<%if(deleteSw == 1){
+				%><button onclick="location.href='<%=request.getContextPath()%>/board/board_delete.jsp?lidx=<%=lidx%>&bidx=<%=bidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=nowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>'">삭제</button><%}%>
 				<%if(loginUser != null && lidx == 1 && view.gulView.getWritesort().equals("커뮤신청") && loginUser.getMidx() == 0 && view.commuapply.getOkyn() != null && view.commuapply.getOkyn().equals("N")){
 				%><button onclick= "commuapplyFn()">허가</button><%}%>
 			</div>
@@ -131,7 +164,7 @@
 				<div><h3> 소개글 : <%=view.commuapply.getListIntroduce()%></h3></div>	
 				<div>
 					<div id="commuhead">
-						말머리 :
+						카테고리 :
 					</div>
 					<div>
 						<span><%=view.commuapply.getWritesort1()%></span><br><br>
@@ -159,16 +192,33 @@
 				<h3>댓글(<span id="replycnt"><%=view.replycnt %></span>)</h3>
 				<div id="replylist">
 				<%for(Reply r : view.replyList){%>
-					<div class="reply">
+					<div class="reply">				
 						<input type="hidden" name="ridx" value="<%=r.getRidx()%>">
 						<input type="hidden" name="midx" value="<%=r.getMidx()%>">
 						<div class="replyEdit">
 							<%if(loginUser.getMidx() == r.getMidx()){%>
-							<img src="<%=request.getContextPath()%>/image/pencil.png" onclick="modifyReply(this)">
-							<%}if((loginUser.getMidx() == r.getMidx()) || loginUser.getPosition().equals("운영자")){%>
-							<img src="<%=request.getContextPath()%>/image/x.png" onclick="deleteReply(this)">
-							<%}%>
-						</div>
+							<img src="<%=request.getContextPath()%>/image/pencil.png" onclick="modifyReply(this)"><%
+							}
+							int replydeleteSw = 0;
+							if(r.getMidx() == 0){
+								if(loginUser.getMidx() == 0){
+									replydeleteSw = 1;
+								}
+							}else{
+								if(loginUser.getPosition().equals("운영자")){
+									replydeleteSw = 1;
+								}else if(loginUser.getPosition().contains("커뮤장")){
+									if(loginUser.getMidx() == view.listmastermidx){
+										replydeleteSw = 1;
+									}
+								}else if(loginUser.getPosition().equals("일반")){
+									if(loginUser.getMidx() == r.getMidx()){
+										replydeleteSw = 1;
+									}
+								}
+							}
+							if(replydeleteSw == 1){%><img src="<%=request.getContextPath()%>/image/x.png" onclick="deleteReply(this)"><%}%>
+						</div><!-- (loginUser.getMidx() == r.getMidx() || loginUser.getPosition().equals("운영자") || loginUser.getMidx() == view.listmastermidx) && !(r.getNickname().equals("운영자") && loginUser.getMidx() == 0) -->
 						<div class="replyContent">
 							<div<%if(r.getPosition().equals("운영자")){%> id="admintd"<%}%>>
 							<%if(r.getPosition().equals("운영자")){%>
@@ -186,6 +236,7 @@
 				</div>
 				<div id="replyWrite">
 					<form name="replyWrite">
+						<input type="hidden" name="lidx" value="<%=lidx%>">	
 						<input type="hidden" name="midx" value="<%=loginUser.getMidx()%>">
 						<input type="hidden" name="bidx" value="<%=bidx%>">
 						<textarea name="rcontent" placeholder="댓글을 입력하세요" maxlength="110"></textarea><br>
@@ -204,16 +255,17 @@
 		function commuapplyFn(){
 			if(confirm("커뮤니티 개설을 허가하시겠습니까?")){
 				
+				
 				$.ajax({
 					url : "<%=request.getContextPath()%>/board/board_commucheck.jsp",
 					type : "post",
 					data : "commutitle=" + "<%=view.commuapply.getCommuTitle()%>",
 					success : function(data){
+						
 						var result = data.trim();
-						if(result == "존재한다"){
+						if(result == "exist"){
 							alert('이미 존재하는 커뮤니티 입니다');
 						}else{
-							
 							$.ajax({
 								url : "<%=request.getContextPath()%>/board/board_commuapply.jsp",
 								type : "post",
@@ -223,12 +275,11 @@
 									location.href= "<%=request.getContextPath()%>/board/board_list.jsp?&lidx=1&writesortnum=0";
 								}
 							});
-							
 						}
-						
 						
 					}
 				});
+				
 				
 			}
 		}

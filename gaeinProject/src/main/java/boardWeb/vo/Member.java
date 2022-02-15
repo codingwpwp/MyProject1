@@ -6,7 +6,15 @@ import java.sql.*;
 import boardWeb.util.DBManager;
 
 public class Member {
+	
 	private int midx;
+	private String id;
+	private String pw;
+	private String name;
+	private String email;
+	private String delyn;
+	private String gender;
+	private String joinday;
 	private String nickname;
 	private String position;
 	
@@ -16,33 +24,6 @@ public class Member {
 	public void setMidx(int midx) {
 		this.midx = midx;
 	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}
-	
-	public Member(){
-		
-	}
-	
-	
-	
-	
-	private String id;
-	private String pw;
-	private String name;
-	private String email;
-	private String gender;
-	private String joinday;
-	
 	public String getId() {
 		return id;
 	}
@@ -67,6 +48,12 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getDelyn() {
+		return delyn;
+	}
+	public void setDelyn(String delyn) {
+		this.delyn = delyn;
+	}
 	public String getGender() {
 		return gender;
 	}
@@ -79,15 +66,25 @@ public class Member {
 	public void setJoinday(String joinday) {
 		this.joinday = joinday;
 	}
-
-
-
-
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	
 	String sql;
+	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
 	
+	public Member() {}
 	public Member(int midx){
 		
 		try {
@@ -120,16 +117,6 @@ public class Member {
 			DBManager.close(conn, psmt, rs);
 		}
 		
-	}
-	
-	
-	private String delyn;
-
-	public String getDelyn() {
-		return delyn;
-	}
-	public void setDelyn(String delyn) {
-		this.delyn = delyn;
 	}
 	
 }
