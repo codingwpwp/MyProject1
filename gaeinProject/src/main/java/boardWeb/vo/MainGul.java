@@ -1,25 +1,23 @@
 package boardWeb.vo;
 
-import java.util.*;
 import java.sql.*;
-
+import java.util.*;
 import boardWeb.util.DBManager;
 
 public class MainGul {
 
-	int maxbidx;
 	int rsSw;
+	int maxbidx;
 	
 	String sql;
+	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rscommu = null;
-	ResultSet rs = null;
-	
-	public ArrayList<IndexNotice> noticeList = new ArrayList<>();
-	public ArrayList<IndexGul> jauList = new ArrayList<>();
-	public ArrayList<IndexGul> commuhitList = new ArrayList<>();
-	public ArrayList<IndexGul> commuthumbList = new ArrayList<>();
+
+	public ArrayList<Gul> jauList = new ArrayList<>();
+	public ArrayList<Gul> noticeList = new ArrayList<>();
+	public ArrayList<Gul> commuhitList = new ArrayList<>();
+	public ArrayList<Gul> commuthumbList = new ArrayList<>();
 	
 	public MainGul() {
 		
@@ -40,11 +38,11 @@ public class MainGul {
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()){
-					IndexNotice notice = new IndexNotice();
-					
+					Gul notice = new Gul();
+
+					notice.setBidx(rs.getInt("bidx"));
 					notice.setSubject(rs.getString("subject"));
 					notice.setWriteday(rs.getString("writeday"));
-					notice.setBidx(rs.getInt("bidx"));
 					
 					noticeList.add(notice);
 				}
@@ -56,7 +54,7 @@ public class MainGul {
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
-					IndexGul gul = new IndexGul();
+					Gul gul = new Gul();
 					
 					
 					gul.setHit(rs.getInt("hit"));
@@ -70,8 +68,12 @@ public class MainGul {
 			// 커뮤니티 글 있나 없나
 			sql = "SELECT count(*) FROM assaboard WHERE lidx > 2";
 			psmt = conn.prepareStatement(sql);
-			rscommu = psmt.executeQuery();
-			if(rscommu != null) {	// 커뮤니티 글 있으면 조회수 글, 추천수 글을 호출(각각 최대 5개)
+			rs = psmt.executeQuery();
+			if(rs != null) {	// 커뮤니티 글 있으면 조회수 글, 추천수 글을 호출하는 스위치 온
+				rsSw = 1;
+			}
+			
+			if(rsSw == 1) {
 				
 				// 조회수 TOP5
 				psmt = null;
@@ -79,13 +81,13 @@ public class MainGul {
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
-					IndexGul gul = new IndexGul();
+					Gul gul = new Gul();
 					
 					gul.setHit(rs.getInt("hit"));
 					gul.setLidx(rs.getInt("lidx"));
 					gul.setBidx(rs.getInt("bidx"));
 					gul.setSubject(rs.getString("subject"));
-					gul.setCommutitle(rs.getString("commutitle"));
+					gul.setListtitle(rs.getString("commutitle"));
 					
 					commuhitList.add(gul);
 				}
@@ -96,23 +98,23 @@ public class MainGul {
 				psmt = conn.prepareStatement(sql);
 				rs = psmt.executeQuery();
 				while(rs.next()) {
-					IndexGul gul = new IndexGul();
+					Gul gul = new Gul();
 					
 					gul.setLidx(rs.getInt("lidx"));
 					gul.setBidx(rs.getInt("bidx"));
 					gul.setThumb(rs.getInt("thumb"));
 					gul.setSubject(rs.getString("subject"));
-					gul.setCommutitle(rs.getString("commutitle"));
+					gul.setListtitle(rs.getString("commutitle"));
 					
 					commuthumbList.add(gul);
 				}
 				
 			}
-			
+				
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			DBManager.close(conn, psmt, rs, rscommu);
+			DBManager.close(conn, psmt, rs);
 		}
 	}
 }

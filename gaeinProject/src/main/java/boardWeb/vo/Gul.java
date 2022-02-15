@@ -1,25 +1,31 @@
 package boardWeb.vo;
 
 public class Gul {
+	
 	private int num;
+	private int hit;
 	private int lidx;
 	private int bidx;
 	private int midx;
-	private String listtitle;
-	private String writesort;
-	private String subject;
+	private int thumb;
 	private String content;
+	private String subject;
+	private String writeday;
 	private String nickname;
 	private String position;
-	private String writeday;
-	private int hit;
-	private int thumb;
-	
+	private String writesort;
+	private String listtitle;
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	public int getLidx() {
 		return lidx;
@@ -39,17 +45,17 @@ public class Gul {
 	public void setMidx(int midx) {
 		this.midx = midx;
 	}
-	public String getListtitle() {
-		return listtitle;
+	public int getThumb() {
+		return thumb;
 	}
-	public void setListtitle(String listtitle) {
-		this.listtitle = listtitle;
+	public void setThumb(int thumb) {
+		this.thumb = thumb;
 	}
-	public String getWritesort() {
-		return writesort;
+	public String getContent() {
+		return content;
 	}
-	public void setWritesort(String writesort) {
-		this.writesort = writesort;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getSubject() {
 		return subject;
@@ -57,11 +63,11 @@ public class Gul {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getContent() {
-		return content;
+	public String getWriteday() {
+		return writeday;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setWriteday(String writeday) {
+		this.writeday = writeday;
 	}
 	public String getNickname() {
 		return nickname;
@@ -75,23 +81,17 @@ public class Gul {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public String getWriteday() {
-		return writeday;
+	public String getWritesort() {
+		return writesort;
 	}
-	public void setWriteday(String writeday) {
-		this.writeday = writeday;
+	public void setWritesort(String writesort) {
+		this.writesort = writesort;
 	}
-	public int getHit() {
-		return hit;
+	public String getListtitle() {
+		return listtitle;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
-	public int getThumb() {
-		return thumb;
-	}
-	public void setThumb(int thumb) {
-		this.thumb = thumb;
+	public void setListtitle(String listtitle) {
+		this.listtitle = listtitle;
 	}
 	
 }

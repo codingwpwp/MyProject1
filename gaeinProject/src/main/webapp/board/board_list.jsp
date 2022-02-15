@@ -54,7 +54,7 @@
 	</script>
 		<div id="mainWrap">
 			<h2><%=list.listtitle%><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)</span></h2>
-			<span><%=list.listintroduce%> <%if(lidx == 1){%><span style="color: orangered;">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
+			<span><%=list.listintroduce%> <%if(lidx == 1){%><span id="lidxonespan">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
 				%><span>전체</span>|<%
@@ -93,7 +93,7 @@
 				<input type="submit" value="검색">
 			</form>
 			<div class="board">
-				<table id="jauboard" class="boardlist">
+				<table id="boardtable" class="boardlist">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -117,7 +117,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 							}else{%><%=g.getSubject()%><%}%>
 								</a>
 							</td>
-							<td class="col4"<%if(g.getPosition().equals("운영자")){%> id="admintd"<%}%>>
+							<td class="col4"<%if(g.getPosition().equals("운영자")){%> class="admintd"<%}%>>
 								<%if(g.getPosition().equals("운영자")){%>
 								<img alt="웃는개구리" src="<%=request.getContextPath()%>/image/smilefrog.jpg" width="28" style="position: relative; top: 1px;"><%}%>
 								<span <%
@@ -128,7 +128,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 							</td>
 							<td class="col5"><%=g.getWriteday()%></td>
 							<td class="col6"><%=g.getHit()%></td>
-							<%if(lidx != 1 && lidx != 2){%>
+							<%if(lidx > 2){%>
 							<td class="col7"><%=g.getThumb()%></td>
 							<%}%>
 						</tr>
@@ -159,7 +159,7 @@ if(lidx != 1 && lidx != 2){%><th>추천</th><%}%>
 				  		<%}%>
 				  		
 				  		<%if(list.paging.getEndPage() != list.paging.getLastPage()){%>
-				  			<a href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage() + 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
+				  			<a style="text-decoration: none;" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=<%=writesortnum%>&nowPage=<%=list.paging.getEndPage() + 1%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
 								<div>&gt;</div>
 							</a>
 						<%}else{%>

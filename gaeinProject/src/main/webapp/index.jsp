@@ -37,12 +37,18 @@
 							</tr>
 						</thead>
 						<tbody>
-						<%if(maingul.noticeList != null){for(IndexNotice i : maingul.noticeList){%>
+						<%if(maingul.noticeList != null){for(Gul g : maingul.noticeList){%>
 							<tr>
 								<td class="col1">
-									<a class="admina" href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=i.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(i.getSubject().length() > 9){%><%=i.getSubject().substring(0, 9)%>...<%}else{%><%=i.getSubject()%><%}%></a>
+									<a class="admina" href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
+									<%if(g.getSubject().length() > 9){%>
+										<%=g.getSubject().substring(0, 9)%>...
+									<%}else{%>
+										<%=g.getSubject()%>
+									<%}%>
+									</a>
 								</td>
-								<td class="col2" style="color: red; font-weight: bold;"><%=i.getWriteday()%></td>
+								<td class="col2" style="color: red; font-weight: bold;"><%=g.getWriteday()%></td>
 							</tr>
 						<%}}%>
 						</tbody>
@@ -58,10 +64,18 @@
 							</tr>
 						</thead>
 						<tbody>
-						<%if(maingul.jauList != null){for(IndexGul ij : maingul.jauList){%>
+						<%if(maingul.jauList != null){for(Gul g : maingul.jauList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=ij.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ij.getSubject().length() > 9){%><%=ij.getSubject().substring(0, 9)%>...<%}else{%><%=ij.getSubject()%><%}%></a></td>
-								<td class="col2"><%=ij.getHit()%></td>
+								<td class="col1">
+									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
+									<%if(g.getSubject().length() > 9){%>
+										<%=g.getSubject().substring(0, 9)%>...
+									<%}else{%>
+										<%=g.getSubject()%>
+									<%}%>
+									</a>
+								</td>
+								<td class="col2"><%=g.getHit()%></td>
 							</tr>
 						<%}}%>
 						</tbody>
@@ -78,11 +92,19 @@
 							</tr>
 						</thead>
 						<tbody>
-						<%if(maingul.commuhitList != null){for(IndexGul ch : maingul.commuhitList){%>
+						<%if(maingul.commuhitList != null){for(Gul g : maingul.commuhitList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ch.getLidx()%>&bidx=<%=ch.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ch.getSubject().length() > 9){%><%=ch.getSubject().substring(0, 9)%>...<%}else{%><%=ch.getSubject()%><%}%></a></td>
-								<td class="col2"><%=ch.getCommutitle()%></td>
-								<td class="col3"><%=ch.getHit()%></td>
+								<td class="col1">
+									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=g.getLidx()%>&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
+									<%if(g.getSubject().length() > 9){%>
+										<%=g.getSubject().substring(0, 9)%>...
+									<%}else{%>
+										<%=g.getSubject()%>
+									<%}%>
+									</a>
+								</td>
+								<td class="col2"><%=g.getListtitle()%></td>
+								<td class="col3"><%=g.getHit()%></td>
 							</tr>
 						<%}}%>
 						</tbody>
@@ -99,11 +121,18 @@
 							</tr>
 						</thead>
 						<tbody>
-						<%if(maingul.commuthumbList != null){for(IndexGul ct : maingul.commuthumbList){%>
+						<%if(maingul.commuthumbList != null){for(Gul g : maingul.commuthumbList){%>
 							<tr>
-								<td class="col1"><a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=ct.getLidx()%>&bidx=<%=ct.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue="><%if(ct.getSubject().length() > 9){%><%=ct.getSubject().substring(0, 9)%>...<%}else{%><%=ct.getSubject()%><%}%></a></td>
-								<td class="col2"><%=ct.getCommutitle()%></td>
-								<td class="col3"><%=ct.getThumb()%></td>
+								<td class="col1">
+									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=g.getLidx()%>&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
+									<%if(g.getSubject().length() > 9){%>
+										<%=g.getSubject().substring(0, 9)%>...
+									<%}else{%>
+										<%=g.getSubject()%><%}%>
+									</a>
+								</td>
+								<td class="col2"><%=g.getListtitle()%></td>
+								<td class="col3"><%=g.getThumb()%></td>
 							</tr>
 						<%}}%>
 						</tbody>

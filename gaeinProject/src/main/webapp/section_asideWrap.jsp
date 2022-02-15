@@ -20,7 +20,9 @@
 			&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage2.jsp">전체커뮤니티 관리</a></div>
 		<button id="masterlogout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}else{%>
-		<div id="memberNickname"><%if(!loginUserAside.getPosition().equals("일반")){%><span id="commujang"><%}%><%=loginUserAside.getNickname()%><%if(!loginUserAside.getPosition().equals("일반")){%></span><%}%></div>
+		<div id="memberNickname">
+			<span <%if(loginUserAside.getPosition().contains("커뮤장")){%>id="commujang"<%}%>><%=loginUserAside.getNickname()%></span>
+		</div>
 		<div id="memberPosition"><%=loginUserAside.getPosition()%></div>
 		<button class="button mypage" onclick="location.href='<%=request.getContextPath()%>/manager/mypage.jsp'">마이페이지</button>
 		<button class="button logout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>

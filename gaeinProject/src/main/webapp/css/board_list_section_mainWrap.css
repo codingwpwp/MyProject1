@@ -31,6 +31,9 @@ section{
 	top: 15px;
 	font-weight: bold;
 }
+#mainWrap #lidxonespan{
+	color: orangered;
+}
 #malhead{
 	display: inline-block;
 	margin-left: 10px;
@@ -72,45 +75,45 @@ section{
 .board{
 	margin: 27px 0px;
 }
-#jauboard{
+#boardtable{
 	border-collapse: collapse;
 	margin: 10px auto;
 	width: 98%;
 }
-#jauboard thead tr{
+#boardtable thead tr{
 	background-color: lightgray;
 }
-#jauboard thead tr th{
+#boardtable thead tr th{
 	padding: 5px 0px;
 	font-size: 15px;
 }
-#jauboard tbody tr{
+#boardtable tbody tr{
 	border-bottom: 1px solid lightgray;
 }
-#jauboard .col1{
+#boardtable .col1{
 	width: 6%;
 	text-align: center;
 	padding: 8px 0px;
 	font-size: small;
 	font-weight: bold;
 }
-#jauboard .col2{
+#boardtable .col2{
 	width: 12%;
 	text-align: center;
 	font-size: 15px;
 }
-#jauboard .col3{
+#boardtable .col3{
 	width: 40%;
 	text-align: left;
 	padding-left: 10px;
 	font-size: 14px;
 }
-#jauboard .col4{
+#boardtable .col4{
 	width: 13%;
 	text-align: center;
 	font-size: 11px;
 }
-#jauboard #admintd{
+#boardtable .admintd{
     border-radius: 5px;
 	animation-name: adminAni;
 	animation-duration: 0.33s;
@@ -139,29 +142,29 @@ section{
 	95%{background-image: linear-gradient(342deg, #58cb58, #c56363);}
 	100%{background-image: linear-gradient(360deg, #58cb58, #c56363);}
 }
-#jauboard .commujangspan{
+#boardtable .commujangspan{
 	background: #cbe792;
 	border-radius: 3px;
 }
-#jauboard .col4 span{
+#boardtable .col4 span{
 	font-weight: bold;
 }
-#jauboard .col5{
+#boardtable .col5{
 	width: 16%;
 	text-align: center;
 	font-size: 10px;
 }
-#jauboard .col6{
+#boardtable .col6{
 	width: 8%;
 	text-align: center;
 	font-size: 10px;
 }
-#jauboard .col7{
+#boardtable .col7{
 	width: 5%;
 	text-align: center;
 	font-size: 11px;
 }
-#jauboard .col4 .admincol4{
+#boardtable .col4 .admincol4{
 	 position: relative;
 	 bottom: 8px;
 	 font-size: 12px;
