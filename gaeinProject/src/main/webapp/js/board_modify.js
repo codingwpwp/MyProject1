@@ -1,8 +1,9 @@
 var commumalheadSwitch;
 $(document).ready(function(){
 	if($("input[name='writesort']:checked").val() != "커뮤신청"){
-		var content = $("summernote").val();
-		$("summernote").val("");
+		var content = $("#summernote").val();
+		console.log(content);
+		$("#summernote").val("");
 		$('#summernote').summernote({
 			toolbar: [
 				['fontname', ['fontname']],
@@ -17,8 +18,9 @@ $(document).ready(function(){
 			maxHeight: 800,
 			lang: 'ko-KR'
 		});
-		$('#commuform').hide();
 		$('#summernote').summernote('pasteHTML', content);
+		$('#commuform').hide();
+		
 	}
 	commumalheadSwitch = $("input[name='commumalheadCnt']").val();
 });

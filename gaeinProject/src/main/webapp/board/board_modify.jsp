@@ -34,10 +34,10 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/section_asideWrap.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/footer.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/summernote/summernote-lite.css">
-	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
-	<script src ="<%=request.getContextPath()%>/js/board_modify.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-lite.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-ko-KR.js"></script>
+	<script src ="<%=request.getContextPath()%>/js/board_modify.js"></script>
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 	<script type="text/javascript">

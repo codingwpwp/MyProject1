@@ -101,6 +101,7 @@
 					</div>
 				</div>
 				<button onclick="deleteInfo()">탈퇴하기</button>
+				<button onclick="location.href='<%=request.getContextPath()%>/manager/mypage_ad.jsp'">광고관리</button>
 			</div>
 		</div>
 	<%}%>

@@ -29,14 +29,17 @@ section{
 	margin-bottom: 20px;
 }
 #mypage button{
-	background:#ff7979;
-	border:0px;
+	background: linear-gradient(180deg, #79cf9f, #009688);
+	border: 1px solid black;
 	border-radius: 3px;
-	padding: 2px 5px;
+	cursor: pointer;
 	font-weight:bold;
 	font-size: small;
-	color:white;
+	color:#343030;
 	cursor:pointer;
+}
+#mypage button:active{
+	background: linear-gradient(0deg, #79cf9f, #009688);
 }
 #information{
 	border-radius: 3px;
@@ -166,4 +169,68 @@ section{
 #gulgul table tbody .col4{
 	font-size: 11px;
 	text-align:center;
+}
+
+/* 광고 관리 */
+#admanager1 #adinsertspan{
+	color: orangered;
+	font-size:12px;
+}
+#admanager1 #adper{
+	display:inline-block;
+	margin: 5px 0px;
+}
+#adper span{
+	color: red;
+	font-weight: bold;
+	font-size: 13px;
+}
+#admanager1 input{
+	margin: 7px 0px;
+}
+#admanager1 #point{
+	width: 80px;
+	height: 17px;
+	margin-right:4px;
+	background:aliceblue;
+	border:1px solid black;
+}
+#admanager1 #link{
+	width: 300px;
+	height: 17px;
+	background:aliceblue;
+	border:1px solid black;
+	font-size: 12px;
+}
+#admanager1 #adimage{
+	width: 180px;
+	height: 23px;
+	background: linear-gradient(180deg, #79cf9f, #009688);
+	font-weight:bold;
+	cursor:pointer;
+	margin-right: 20px;
+}
+#admanager1 #adimage:active{
+	background: linear-gradient(0deg, #79cf9f, #009688);
+}
+#admanager1 #imagediv{
+	position: relative;
+}
+#imagediv img{
+	border: 1px solid;
+}
+#admanager1 #adsize{
+	position: absolute;
+	font-size: 11px;
+}
+#admanager1 input[type='submit']{
+	background: linear-gradient(180deg, #79cf9f, #009688);
+	border: 1px solid black;
+	border-radius: 3px;
+	cursor:pointer;
+	width: 110px;
+	height: 25px;
+}
+#admanager1 input[type='submit']:active{
+	background: linear-gradient(0deg, #79cf9f, #009688);
 }
