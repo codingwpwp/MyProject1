@@ -20,7 +20,11 @@
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/section_mainWrap.js"></script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+	<script type="text/javascript">
+		 window.history.forward();
+		 function noBack(){window.history.forward();}
+	</script>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section>
@@ -41,8 +45,8 @@
 							<tr>
 								<td class="col1">
 									<a class="admina" href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
-									<%if(g.getSubject().length() > 9){%>
-										<%=g.getSubject().substring(0, 9)%>...
+									<%if(g.getSubject().length() > 11){%>
+										<%=g.getSubject().substring(0, 11)%>...
 									<%}else{%>
 										<%=g.getSubject()%>
 									<%}%>
@@ -68,8 +72,8 @@
 							<tr>
 								<td class="col1">
 									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=1&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
-									<%if(g.getSubject().length() > 9){%>
-										<%=g.getSubject().substring(0, 9)%>...
+									<%if(g.getSubject().length() > 10){%>
+										<%=g.getSubject().substring(0, 10)%>...
 									<%}else{%>
 										<%=g.getSubject()%>
 									<%}%>
@@ -96,8 +100,8 @@
 							<tr>
 								<td class="col1">
 									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=g.getLidx()%>&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
-									<%if(g.getSubject().length() > 9){%>
-										<%=g.getSubject().substring(0, 9)%>...
+									<%if(g.getSubject().length() > 10){%>
+										<%=g.getSubject().substring(0, 10)%>...
 									<%}else{%>
 										<%=g.getSubject()%>
 									<%}%>
@@ -125,8 +129,8 @@
 							<tr>
 								<td class="col1">
 									<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=g.getLidx()%>&bidx=<%=g.getBidx()%>&writesortnum=0&nowPage=1&searchType=&searchValue=">
-									<%if(g.getSubject().length() > 9){%>
-										<%=g.getSubject().substring(0, 9)%>...
+									<%if(g.getSubject().length() > 10){%>
+										<%=g.getSubject().substring(0, 10)%>...
 									<%}else{%>
 										<%=g.getSubject()%><%}%>
 									</a>

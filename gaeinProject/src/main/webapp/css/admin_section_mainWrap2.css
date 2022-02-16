@@ -6,7 +6,7 @@ section{
 }
 #mainWrap{
 	background-color: inherit;
-	border: 1px solid whitesmoke;
+	border: 1px solid #fafafa;
 	border-radius: 10px;
 	width: 600px;
 	min-height: 80vh;
@@ -79,6 +79,9 @@ section{
 	width: 160px;
 	background: white;
 	text-align: center;
+}
+#commutable table thead tr .col1{
+	width: 60%;
 }
 #commutable table td{
 	padding-top: 5px;

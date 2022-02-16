@@ -35,7 +35,11 @@
 	<script src="<%=request.getContextPath()%>/summernote/summernote-lite.js"></script>
 	<script src="<%=request.getContextPath()%>/summernote/summernote-ko-KR.js"></script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+	<script type="text/javascript">
+		 window.history.forward();
+		 function noBack(){window.history.forward();}
+	</script>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">

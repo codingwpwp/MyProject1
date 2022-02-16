@@ -20,6 +20,7 @@ public class ListFilter {
 	public String writesort4;
 	public String writesort5;
 	public String listintroduce;
+	public String masternickname;
 	
 	public int writesortcnt;
 	public int listmastermidx;
@@ -42,7 +43,7 @@ public class ListFilter {
 			conn = DBManager.getConnection();
 			
 			// LIDX로 게시판의 기본 정보를 호출하는 과정
-			sql = "SELECT * FROM assaboardlist WHERE lidx = " + lidx;
+			sql = "SELECT a.*, b.nickname FROM assaboardlist a, assamember b WHERE a.listmastermidx = b.midx AND lidx = " + lidx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
@@ -53,6 +54,7 @@ public class ListFilter {
 				writesortcnt = rs.getInt("writesortcnt");
 				listmastermidx = rs.getInt("listmastermidx");
 				listintroduce = rs.getString("listintroduce");
+				masternickname = rs.getString("nickname");
 				if(rs.getString("writesort3") != null) writesort3 = rs.getString("writesort3");
 				if(rs.getString("writesort4") != null) writesort4 = rs.getString("writesort4");
 				if(rs.getString("writesort5") != null) writesort5 = rs.getString("writesort5");
@@ -160,8 +162,8 @@ public class ListFilter {
 			
 			conn = DBManager.getConnection();
 			
-			sql = "SELECT a.lidx, RTRIM(b.listtitle, '게시판' || '커뮤') AS listtitle, a.bidx, a.writesort, a.subject, TO_CHAR(a.WRITEDAY, 'YYYY-MM-DD') AS writeday ";
-			sql +="FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.midx = " + midx + " AND a.delyn='N'";
+			sql = "SELECT a.lidx, RTRIM(b.listtitle, '게시판' || '커뮤') AS listtitle, a.bidx, a.writesort, a.subject, TO_CHAR(writeday, 'YYYY-MM-DD') AS writeday ";
+			sql +="FROM assaboard a, assaboardlist b WHERE a.lidx = b.lidx AND a.midx = " + midx + " AND a.delyn='N' ORDER BY writeday DESC";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()){

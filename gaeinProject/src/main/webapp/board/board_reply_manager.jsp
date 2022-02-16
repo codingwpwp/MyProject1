@@ -11,7 +11,7 @@
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 
-		String rcontent = request.getParameter("rcontent");
+		String rcontent = request.getParameter("rcontent").replace("<","&lt;");
 		int lidx = Integer.parseInt(request.getParameter("lidx"));
 		int bidx = Integer.parseInt(request.getParameter("bidx"));
 		int midx = loginUser.getMidx();

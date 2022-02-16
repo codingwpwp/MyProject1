@@ -23,7 +23,11 @@
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/mypage.js"></script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+	<script type="text/javascript">
+		 window.history.forward();
+		 function noBack(){window.history.forward();}
+	</script>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section style="margin-top: 10px;">

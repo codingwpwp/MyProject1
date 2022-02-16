@@ -36,7 +36,11 @@
 	<script src ="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/section_mainWrap.js"></script>
 </head>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+	<script type="text/javascript">
+		 window.history.forward();
+		 function noBack(){window.history.forward();}
+	</script>
 	<%@include file="/header.jsp" %>
 	<%@include file="/nav.jsp" %>
 	<section>
@@ -53,7 +57,7 @@
 		<%}%>
 	</script>
 		<div id="mainWrap">
-			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=list.listtitle%></a><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)</span></h2>
+			<h2><a id="lista" href="<%=request.getContextPath()%>/board/board_list.jsp?lidx=<%=lidx%>&writesortnum=0"><%=list.listtitle%></a><span style="font-size: 14px; color: gray">(<%=list.cnt%>개)<%if(lidx > 2){%><span style="color: black;"> -커뮤장 : <%=list.masternickname%>-</span><%}%></span></h2>
 			<span><%=list.listintroduce%> <%if(lidx == 1){%><span id="lidxonespan">공지를 꼭 읽어주시길 바랍니다.</span><%}%></span><br>
 			<div id="malhead">
 			<%if(writesortnum == 0){
@@ -112,8 +116,8 @@
 							<td class="col2"><%=g.getWritesort()%></td>
 							<td class="col3">
 								<a href="<%=request.getContextPath()%>/board/board_view.jsp?lidx=<%=lidx%>&bidx=<%=g.getBidx()%>&writesortnum=<%=writesortnum%>&nowPage=<%=realnowPage%>&searchType=<%=searchType%>&searchValue=<%=searchValue%>">
-							<%if(g.getSubject().length() > 15){
-								%><%=g.getSubject().substring(0, 15)%>...<%
+							<%if(g.getSubject().length() > 17){
+								%><%=g.getSubject().substring(0, 17)%>...<%
 							}else{%><%=g.getSubject()%><%}%><%if(!(lidx == 1 && g.getWritesort().equals("공지")) && !(lidx == 2 && g.getWritesort().equals("공지"))){%><span style="font-weight: bold;"> [<%=g.getRelycnt()%>]</span><%}%>
 								</a>
 							</td>

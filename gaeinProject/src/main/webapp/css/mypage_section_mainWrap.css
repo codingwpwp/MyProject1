@@ -6,7 +6,7 @@ section{
 }
 #mainWrap{
 	background-color: inherit;
-	border: 1px solid whitesmoke;
+	border: 1px solid #fafafa;
 	border-radius: 10px;
 	width: 600px;
 	min-height: 80vh;

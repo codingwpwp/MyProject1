@@ -22,7 +22,7 @@
 	
 	String nowPage = request.getParameter("nowPage");			// 페이지
 	
-	String subject = request.getParameter("subject");
+	String subject = request.getParameter("subject").replace("<","&lt;");
 	
 	String nickname = loginUser.getNickname();
 	

@@ -13,7 +13,7 @@
 	int midx = loginUser.getMidx();
 	String writesort = request.getParameter("writesort");
 	
-	String subject = request.getParameter("subject");
+	String subject = request.getParameter("subject").replace("<","&lt;");
 	String nickname = loginUser.getNickname();
 	String content = "";
 	
