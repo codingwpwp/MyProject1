@@ -7,6 +7,11 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
+	String sql = "";
+	Connection conn = null;
+	PreparedStatement psmt = null;
+	ResultSet rs = null;
+	
 	if(request.getParameter("ridx") == null){	// 댓글을 등록
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -27,6 +32,33 @@
 		obj.put("nickname", rwrite.reply.getNickname());
 		obj.put("position", rwrite.reply.getPosition());
 		list.add(obj);
+		
+		try{
+			conn = DBManager.getConnection();
+			
+			sql = "SELECT * FROM assamember WHERE midx = " + loginUser.getMidx();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()){
+				Member member = new Member();
+				
+				member.setMidx(rs.getInt("midx"));
+				member.setPoint(rs.getInt("point"));
+				member.setNickname(rs.getString("nickname"));
+				member.setPosition(rs.getString("position"));
+				
+				session.setAttribute("loginUser", member);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBManager.close(conn, psmt, rs);
+		}
+		
+		
+		
+		
 		out.print(list.toJSONString());
 		
 	}else{

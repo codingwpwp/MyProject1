@@ -26,6 +26,7 @@
 			member = new Member();
 			
 			member.setMidx(rs.getInt("midx"));
+			member.setPoint(rs.getInt("point"));
 			member.setNickname(rs.getString("nickname"));
 			member.setPosition(rs.getString("position"));
 			

@@ -153,7 +153,7 @@
 			}else{
 				
 				
-				if(confirm("복구 하시겠습니까?")){
+				if(confirm("위임 하시겠습니까?")){
 					
 					
 					var commujang = prompt("커뮤장으로 임명할 아이디를 정확히 입력하세요");

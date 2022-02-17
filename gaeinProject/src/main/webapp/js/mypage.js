@@ -66,7 +66,7 @@ function changeInfo(){
 
 
 function deleteInfo(){
-	var flag = confirm("삭제하시겠습니까?");
+	var flag = confirm("삭제하시겠습니까?\n(삭제시 등록한 광고는 내려집니다)");
 	if(flag){
 		if($("div[id='memberPosition']").text().includes("커뮤장")){
 			alert('커뮤장은 탈퇴할 수 없습니다');

@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="boardWeb.vo.*" %>
+<%@ page import="boardWeb.util.*" %>
 <% Member loginUserAside = (Member)session.getAttribute("loginUser"); %>
+<%
+	AdManager ad = new AdManager();
+%>
 <div id="asideWrap">
 	<div id="memberdiv">
 	<%if(loginUserAside == null){%>
@@ -17,16 +21,17 @@
 		</div>
 		<div id="memberPosition">
 			&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage.jsp">회원정보 관리</a>
-			&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage2.jsp">전체커뮤니티 관리</a></div>
+			&nbsp;&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/manager/adminpage2.jsp">통합커뮤&광고관리</a></div>
 		<button id="masterlogout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}else{%>
 		<div id="memberNickname">
 			<span <%if(loginUserAside.getPosition().contains("커뮤장")){%>id="commujang"<%}%>><%=loginUserAside.getNickname()%></span>
+			<span id="point" style="font-size: 13px;"><%=loginUserAside.getPoint()%>pt</span>
 		</div>
 		<div id="memberPosition"><%=loginUserAside.getPosition()%></div>
 		<button class="button mypage" onclick="location.href='<%=request.getContextPath()%>/manager/mypage.jsp'">마이페이지</button>
 		<button class="button logout" onclick="location.href='<%=request.getContextPath()%>/login/logout.jsp'">로그아웃</button>
 	<%}%>
 	</div>
-	<div id="ad"><span id="adspan">AD</span><a id="ada" href="https://codingwpwp.tistory.com/" target="_blank"><img src="<%=request.getContextPath()%>/image/adminad.jpg"></a></div>
+	<div id="ad"><span id="adspan">AD</span><a id="ada" href="<%=ad.link%>" target="_blank"><img src="<%=request.getContextPath()%>/upload/<%=ad.filename%>"></a></div>
 </div>

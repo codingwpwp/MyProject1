@@ -68,6 +68,12 @@
 		psmt = conn.prepareStatement(sql);
 		rs = psmt.executeQuery();
 		
+		// 포인트 +30
+		sql = "UPDATE assamember SET point = point + 30 WHERE midx = " + commuapply.getMidx();
+		psmt = conn.prepareStatement(sql);
+		psmt.executeUpdate();
+		
+		
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{

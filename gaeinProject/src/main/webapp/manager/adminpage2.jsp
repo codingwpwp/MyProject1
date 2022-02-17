@@ -77,6 +77,9 @@
 						}
 					%>
 					</div>
+				</div><br>
+				<div id="adminadad">
+					<a href="<%=request.getContextPath()%>/manager/adminpage2_ad.jsp"><h3>광고 관리</h3></a>
 				</div>
 			</div>
 		</div>

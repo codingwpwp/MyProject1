@@ -1,4 +1,6 @@
 function insertReply(){
+	var point = parseInt($("#point").html());
+	console.log(point);
 	if($("textarea[name='rcontent']").val() != ""){
 		$.ajax({
 			url : "board_reply_manager.jsp",
@@ -53,6 +55,7 @@ function insertReply(){
 				
 				$("#replycnt").html(Number($("#replycnt").html()) + 1);
 				$("textarea[name='rcontent']").val("");
+				$("#point").html(point + 1 + "pt");
 			}
 		});
 	}else{

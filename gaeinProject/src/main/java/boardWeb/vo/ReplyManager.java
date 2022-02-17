@@ -27,6 +27,11 @@ public class ReplyManager {
 			psmt.setString(4, rcontent);
 			psmt.executeUpdate();
 			
+			// 댓글 등록시 포인트 1점
+			sql = "UPDATE assamember SET point = point + 1 WHERE midx = " + midx;
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
 			// DB에 추가한 RIDX를 불러오는 과정
 			psmt = null;
 			sql = "SELECT max(ridx) AS ridx FROM ASSABOARDREPLY";

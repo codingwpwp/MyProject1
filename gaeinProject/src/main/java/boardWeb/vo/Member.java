@@ -8,6 +8,7 @@ import boardWeb.util.DBManager;
 public class Member {
 	
 	private int midx;
+	private int point;
 	private String id;
 	private String pw;
 	private String name;
@@ -23,6 +24,12 @@ public class Member {
 	}
 	public void setMidx(int midx) {
 		this.midx = midx;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	public String getId() {
 		return id;
@@ -90,7 +97,7 @@ public class Member {
 		try {
 			conn = DBManager.getConnection();
 			
-			sql = "SELECT position,midx,id,pw,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday, delyn FROM assamember WHERE midx = " + midx;
+			sql = "SELECT position,midx,id,pw,membername,nickname,gender,email,TO_CHAR(joinday, 'YYYY-MM-DD') AS joinday, delyn, point FROM assamember WHERE midx = " + midx;
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
@@ -98,6 +105,7 @@ public class Member {
 				this.setMidx(rs.getInt("midx"));
 				this.setId(rs.getString("id"));
 				this.setPw(rs.getString("pw"));
+				this.setPoint(rs.getInt("point"));
 				this.setName(rs.getString("membername"));
 				this.setNickname(rs.getString("nickname"));
 				if(rs.getString("gender") != null) {

@@ -185,6 +185,15 @@ section{
 	font-weight: bold;
 	font-size: 13px;
 }
+#persent{
+	color: red;
+	font-weight: bold;
+	font-size: 13px;
+}
+#currpersent{
+	font-weight: bold;
+	font-size: 13px;
+}
 #admanager1 input{
 	margin: 7px 0px;
 }
@@ -209,6 +218,7 @@ section{
 	font-weight:bold;
 	cursor:pointer;
 	margin-right: 20px;
+	border: 1px solid;
 }
 #admanager1 #adimage:active{
 	background: linear-gradient(0deg, #79cf9f, #009688);
@@ -233,4 +243,28 @@ section{
 }
 #admanager1 input[type='submit']:active{
 	background: linear-gradient(0deg, #79cf9f, #009688);
+}
+#backback{
+	width: 75px;
+	height: 30px;
+}
+#admanager2 #adlink{
+	width: 300px;
+	height: 20px;
+}
+#admanager2 #morepoint{
+	width:60px;
+}
+#admanager2 #morebutton{
+	height: 27px;
+	width:50px;
+	margin-left: 10px;
+}
+#admanager2 #addelete{
+	height: 30px;
+	background: #607D8B;
+	color: black;
+}
+#admanager2 #addelete:active{
+	background: #b62c2c;
 }

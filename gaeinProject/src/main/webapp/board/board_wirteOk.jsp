@@ -93,6 +93,26 @@
 			psmt.executeUpdate();
 		}
 		
+		
+		sql = "UPDATE assamember SET point = point + 5 WHERE midx = " + midx;
+		psmt = conn.prepareStatement(sql);
+		psmt.executeUpdate();
+		
+		sql = "SELECT * FROM assamember WHERE midx = " + midx;
+		psmt = conn.prepareStatement(sql);
+		rs = psmt.executeQuery();
+		if(rs.next()){
+			Member member = new Member();
+			
+			member.setMidx(rs.getInt("midx"));
+			member.setPoint(rs.getInt("point"));
+			member.setNickname(rs.getString("nickname"));
+			member.setPosition(rs.getString("position"));
+			
+			session.setAttribute("loginUser", member);
+		}
+		
+		
 		response.sendRedirect(request.getContextPath() + "/board/board_list.jsp?lidx=" + lidx + "&writesortnum=0");
 	}catch(Exception e){
 		e.printStackTrace();

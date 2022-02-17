@@ -9,18 +9,8 @@
 <%@	page import="com.oreilly.servlet.multipart.*"%>
 <%	
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	String directory = request.getRealPath("/upload/");	
-	//String directory = "C:\\Users\\MYCOM\\git\\MyProject1\\gaeinProject\\src\\main\\webapp\\ad";
-	int maxSize = 1024 * 1024 * 100;	
-	String encoding = "UTF-8";			
-	MultipartRequest multipartRequest = new MultipartRequest(request, directory, maxSize, encoding, new DefaultFileRenamePolicy());
-	
-	String fileName = multipartRequest.getOriginalFileName("adimage");
-	String fileRealName = multipartRequest.getFilesystemName("adimage");
-	
-	int point = Integer.parseInt(multipartRequest.getParameter("point"));
-	String links = multipartRequest.getParameter("link");
-	
+	int point = Integer.parseInt(request.getParameter("point"));
+
 	String sql = "";
 	Connection conn = null;
 	PreparedStatement psmt = null;
@@ -30,16 +20,11 @@
 		
 		conn = DBManager.getConnection();
 		
-		sql = "INSERT INTO assaad(midx, point, links, filerealname) ";
-		sql +="VALUES (?,?,?,?)";
+		sql = "UPDATE assaad SET point = point + " + point + " WHERE midx = " + loginUser.getMidx();
 		psmt = conn.prepareStatement(sql);
-		psmt.setInt(1, loginUser.getMidx());
-		psmt.setInt(2, point);
-		psmt.setString(3, links);
-		psmt.setString(4, fileRealName);
 		psmt.executeUpdate();
 		
-		sql = "UPDATE assamember SET point = point - " + point +  " WHERE midx = " + loginUser.getMidx();
+		sql = "UPDATE assamember SET point = point - " + point + " WHERE midx = " + loginUser.getMidx();
 		psmt = conn.prepareStatement(sql);
 		psmt.executeUpdate();
 		
@@ -56,8 +41,6 @@
 			
 			session.setAttribute("loginUser", member);
 		}
-		
-		response.sendRedirect(request.getContextPath() + "/manager/mypage.jsp");
 		
 	}catch(Exception e){
 		e.printStackTrace();

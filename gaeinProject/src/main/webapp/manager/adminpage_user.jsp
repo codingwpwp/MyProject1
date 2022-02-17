@@ -137,8 +137,13 @@
 									</label>
 								</td>
 							</tr>
+							<tr>
+								<td style="color: #ff0057; font-weight: bold;">포인트</td>
+								<td style="font-weight: bold;"><%=m.getPoint()%>pt</td>
+							</tr>
 						</tbody>
 					</table>
+					
 				</div>
 				</div>
 			</div>
