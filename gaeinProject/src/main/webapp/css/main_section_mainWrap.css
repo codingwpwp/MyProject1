@@ -20,6 +20,7 @@ section{
 
 /*메인페이지의 각 <table>*/
 #mainWrap .table{
+	background: aliceblue;
 	display: inline-block;
 	border: 5px solid #79cf9f;
 	border-radius: 5px;
@@ -27,6 +28,14 @@ section{
 	width: 235px;
 	text-align: center;
 	transition: all 0.5s;
+}
+#mainWrap .table:hover{
+	background-color: #eaffbf;
+	border: 5px solid orangered;
+}
+#mainWrap .table:hover span{
+	background-color: orangered;
+	color: white;
 }
 #tables{
 	display: flex;
@@ -41,6 +50,7 @@ section{
 	background-color: #79cf9f;
 	font-weight: bold;
 	color: #282525;
+	transition: all 0.5s;
 }
 .table table{
 	border-collapse: collapse;

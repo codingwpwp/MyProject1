@@ -71,6 +71,7 @@ section{
 	display: inline;
 	animation-name: adminAni;
 	animation-duration: 0.33s;
+	border-radius: 5px;
 	animation-iteration-count: infinite;
 }
 @keyframes adminAni{

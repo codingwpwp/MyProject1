@@ -6,13 +6,12 @@ import java.sql.ResultSet;
 import boardWeb.util.DBManager;
 
 public class ReplyManager {
-	public Reply reply = new Reply();
 	
 	String sql;
+	ResultSet rs = null;
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
-	ResultSet rsMidx = null;
+	public Reply reply = new Reply();
 	
 	public ReplyManager(int lidx, int bidx, int midx, String rcontent) {	// 댓글 작성
 		try {
@@ -43,29 +42,23 @@ public class ReplyManager {
 			rs = null;
 			
 			// 올린 댓글을 조회하는 과정
-			sql = "SELECT midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate FROM ASSABOARDREPLY WHERE ridx = " + reply.getRidx();
+			sql = "SELECT a.midx, rcontent, TO_CHAR(rdate, 'YYYY-MM-DD HH24:MI:SS') as rdate, nickname, position FROM assaboardreply a, assamember b WHERE a.midx = b.midx AND ridx = " + reply.getRidx();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()){
-				reply.setMidx(rs.getInt("midx"));
-				reply.setRcontent(rs.getString("rcontent"));
-				reply.setRdate(rs.getString("rdate"));
 				
-				psmt = null;
-				sql = "SELECT nickname, position FROM assamember WHERE midx = " + rs.getInt("midx");
-				psmt = conn.prepareStatement(sql);
-				rsMidx = psmt.executeQuery();
-				if(rsMidx.next()) {
-					reply.setNickname(rsMidx.getString("nickname"));
-					reply.setPosition(rsMidx.getString("position"));
-				}
+				reply.setMidx(rs.getInt("midx"));
+				reply.setRdate(rs.getString("rdate"));
+				reply.setRcontent(rs.getString("rcontent"));
+				reply.setNickname(rs.getString("nickname"));
+				reply.setPosition(rs.getString("position"));
 				
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
-			DBManager.close(conn, psmt, rs, rsMidx);
+			DBManager.close(conn, psmt, rs);
 		}
 	}
 	
