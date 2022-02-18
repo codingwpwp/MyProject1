@@ -59,7 +59,7 @@
 				<%for(int i = 0; i < ads.adMembers.size(); i++){%>
 						<tr>
 							<td class="col1"><%=ads.adMembers.get(i).getMidx()%></td>
-							<td class="col2"><a href="<%=request.getContextPath()%>/manager/adminpage_user.jsp?midx=<%=ads.adMembers.get(i).getMidx()%>" onmouseover="backgroundChFn(this)" onmouseout="backgroundChFn2(this)"><%=ads.adMembers.get(i).getNickname()%></a></td>
+							<td class="col2"><%if(i == 0){%><span style="color:black; cursor: default;"><%=ads.adMembers.get(i).getNickname()%></span><%}else{%><a href="<%=request.getContextPath()%>/manager/adminpage_user.jsp?midx=<%=ads.adMembers.get(i).getMidx()%>" onmouseover="backgroundChFn(this)" onmouseout="backgroundChFn2(this)"><%=ads.adMembers.get(i).getNickname()%></a><%}%></td>
 							<td class="col3"><span id="col3span"><%=ads.adMembers.get(i).getPoint()%></span></td>
 							<td class="col4"><%=ads.adMembers.get(i).getLinks()%></td>
 							<td class="col5">
