@@ -117,8 +117,7 @@
 						<div>
 							<span>커뮤이름 : </span>
 							<input type="text" id="cTitle" name="commuTitle" maxlength="6" placeholder="2 ~ 4자리의 한글 + 커뮤"
-							onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');" value="<%=view.commuapply.getCommuTitle()%>">&nbsp;
-							ex) ○○커뮤
+							onkeyup="this.value=this.value.replace(/[^ㄱ-ㅎ가-힇]/g,'');" value="<%=view.commuapply.getCommuTitle()%>">&nbsp; ex) ○○커뮤
 						</div>
 						<div>
 							<span>소개글 : </span>

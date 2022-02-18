@@ -15,6 +15,7 @@ $(document).ready(function(){
 	});
 	$('#summernote').summernote('reset');
 	$('#commuform').hide();
+	$(".note-editable").html(" ");
 });
 
 var commumalheadSwitch = 2;
@@ -22,7 +23,6 @@ var commuSwitch = 0;
 var html = "";
 
 function changeGul(obj) {
-	console.log(5);
 	if($(obj).val() == "커뮤신청"){
 		
 		$('#summernote').summernote('reset');
@@ -59,6 +59,7 @@ function changeGul(obj) {
 		commumalheadSwitch = 2;
 		$("input[name='commumalheadCnt']").val(commumalheadSwitch);
 		commuSwitch = 0;
+		$(".note-editable").html(" ");
 		
 	}
 }

@@ -1,8 +1,8 @@
 var commumalheadSwitch;
+var content;
 $(document).ready(function(){
 	if($("input[name='writesort']:checked").val() != "커뮤신청"){
-		var content = $("#summernote").val();
-		console.log(content);
+		content = $("#summernote").val();
 		$("#summernote").val("");
 		$('#summernote').summernote({
 			toolbar: [
@@ -20,7 +20,7 @@ $(document).ready(function(){
 		});
 		$('#summernote').summernote('pasteHTML', content);
 		$('#commuform').hide();
-		
+		$(".note-editable").html(content);
 	}
 	commumalheadSwitch = $("input[name='commumalheadCnt']").val();
 });
@@ -68,6 +68,10 @@ function gulModify() {
 			}else{	// 글이 안 비어있을 때
 				flag = true;
 			}
+			if($(".note-editable").html() == content){
+				alert('내용을 변경하고 완료하세요');
+				flag = false;
+			}
 		}else{	// 커뮤신청인 경우
 			var reg2 = /^[가-힣]{2,4}(커뮤)$/;
 
@@ -90,6 +94,5 @@ function gulModify() {
 		}
 		
 	}
-	
 	return flag;
 }
